@@ -1,7 +1,6 @@
 window.onload = function()
 {
 	var scene, renderer, container, camera;
-	var intersects, projector, raycaster, vector;
 	var line, test, geometry;
 	var mouseXOnMouseDown = mouseYOnMouseDown = 0;
 	var	targetXRotationOnMouseDown = targetXRotationOnMouseDown = 0;
@@ -20,22 +19,50 @@ window.onload = function()
 		document.body.appendChild(container);
 		
 		camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-		camera.position.set(0, 1000, 1000);
+		camera.position.set(0, 1250, 1000);
 		
 		scene = new THREE.Scene();
 		
 		var geometry = new THREE.Geometry();
 		
 		var size = 600,
-			step = 150;
-		for (var i = -size; i <= size; i += step)
-		{
-			geometry.vertices.push(new THREE.Vector3(-size, 0, i));
-			geometry.vertices.push(new THREE.Vector3(size, 0, i));
+			step = 200;
+		// for (var i = -size; i <= -400; i += step)
+		// {
+			// geometry.vertices.push(new THREE.Vector3(-size, 0, i));
+			// geometry.vertices.push(new THREE.Vector3(size, 0, i));
 			
-			geometry.vertices.push(new THREE.Vector3(i, 0, -size));
-			geometry.vertices.push(new THREE.Vector3(i, 0, size));
+			// geometry.vertices.push(new THREE.Vector3(i, 0, -size));
+			// geometry.vertices.push(new THREE.Vector3(i, 0, size));
+		// }
+		
+		for (var i = 0; i < 2; i++)
+		{
+			geometry.vertices.push(new THREE.Vector3(-size + step*i, 0, -size  + step*i));
+			geometry.vertices.push(new THREE.Vector3(-size  + step*i, 0, size  - step*i));
+			geometry.vertices.push(new THREE.Vector3(size  - step*i, 0, size  - step*i));
+			geometry.vertices.push(new THREE.Vector3(size  - step*i, 0, -size  + step*i));
+			geometry.vertices.push(new THREE.Vector3(size  - step*i, 0, -size  + step*i));
+			geometry.vertices.push(new THREE.Vector3(-size  + step*i, 0, -size  + step*i));
+			geometry.vertices.push(new THREE.Vector3(size  - step*i, 0, size  - step*i));
+			geometry.vertices.push(new THREE.Vector3(-size  + step*i, 0, size  - step*i));
 		}
+		
+		for (var i = 0; i < 10; i++)
+		{
+			geometry.vertices.push(new THREE.Vector3(-size + step + (i * ((2*size - 2*step) / 9)), 0, -size));
+			geometry.vertices.push(new THREE.Vector3(-size + step + (i * ((2*size - 2*step) / 9)), 0, -size + step));
+			
+			geometry.vertices.push(new THREE.Vector3(size - step - (i * ((2*size - 2*step) / 9)), 0, size));
+			geometry.vertices.push(new THREE.Vector3(size - step - (i * ((2*size - 2*step) / 9)), 0, size - step));
+			
+			geometry.vertices.push(new THREE.Vector3(-size, 0, -size + step + (i * ((2*size - 2*step) / 9))));
+			geometry.vertices.push(new THREE.Vector3(-size + step, 0, -size + step + (i * ((2*size - 2*step) / 9))));
+			
+			geometry.vertices.push(new THREE.Vector3(size, 0, -size + step + (i * ((2*size - 2*step) / 9))));
+			geometry.vertices.push(new THREE.Vector3(size - step, 0, -size + step + (i * ((2*size - 2*step) / 9))));
+		}
+
 		
 		var material = new THREE.LineBasicMaterial({color: 0x000000, opacity: 0.5});
 		line = new THREE.Line(geometry, material);
@@ -48,12 +75,7 @@ window.onload = function()
 		var directionalLight = new THREE.DirectionalLight(0xffffff);
 		directionalLight.position.set(0, 1, 0);
 		scene.add(directionalLight);
-
-		//var pointLight = new THREE.PointLight(0xff0000, 1, 500);
-		//scene.add(pointLight);
 		
-		projector = new THREE.Projector();
-
 		renderer = new THREE.WebGLRenderer();
 		renderer.setSize(this.currentWindowX, this.currentWindowY);
 		renderer.setFaceCulling( THREE.CullFaceNone );
