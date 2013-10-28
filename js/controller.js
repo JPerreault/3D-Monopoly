@@ -1,8 +1,7 @@
-var test, scene;
 window.onload = function()
 {
-	var renderer, container, camera;
-	var line, geometry;
+	var renderer, container, camera, scene;
+	var line, test, geometry;
 	var mouseXOnMouseDown = mouseYOnMouseDown = 0;
 	var	targetXRotationOnMouseDown = targetXRotationOnMouseDown = 0;
 	var	mouseX = mouseY = targetX = targetY = 0;
@@ -88,6 +87,40 @@ window.onload = function()
 		window.addEventListener( 'DOMMouseScroll', onMouseWheel, false);
 		document.addEventListener( 'mousedown', onMouseDown, false );
 	}
+	
+	function move(currentSpace, spaces)
+	{
+		var material = new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), shininess: 200, reflectivity: .85});
+		var geometry = new THREE.SphereGeometry(30, 20, 18);
+		var subt = 87.5;
+		var destSquare = (currentSpace + spaces) % 40;
+		
+		if (destSquare === 0)
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500, 30 - 2, 500));
+		else if (destSquare < 10)
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(350-(currentSpace+spaces-1)*subt, 30 - 2, 500));
+		else if (destSquare === 10)
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-500, 30 - 2, 500));
+		else if (destSquare < 20)
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-500, 30 - 2, 350-(((currentSpace+spaces)%10)-1)*subt));
+		else if (destSquare === 20)
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-500, 30 - 2, -500));
+		else if (destSquare < 30)
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-350+(((currentSpace+spaces)%10)-1)*subt, 30 - 2, -500));
+		else if (destSquare === 30)
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500, 30 - 2, -500));
+		else if (destSquare < 40)
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500, 30 - 2, -350+(((currentSpace+spaces)%10)-1)*subt));
+			
+		var xrot = test.rotation.x;
+		var yrot = test.rotation.y;
+		scene.remove(test);
+		
+		test = new THREE.Mesh(geometry, material);
+		test.rotation.x = xrot;
+		test.rotation.y = yrot
+		scene.add(test);
+	}
 
 	function onWindowResize() 
 	{
@@ -162,37 +195,3 @@ window.onload = function()
 		renderer.render(scene, camera);
 	}	
 }
-	function move(currentSpace, spaces)
-	{
-		var material = new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), shininess: 200, reflectivity: .85});
-		var geometry = new THREE.SphereGeometry(30, 20, 18);
-		var subt = 87.5;
-		var destSquare = (currentSpace + spaces) % 40;
-		//geometry.applyMatrix(new THREE.Matrix4().makeTranslation(350-8*subt-150, 30 - 2, 500));
-		
-		if (destSquare === 0)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500, 30 - 2, 500));
-		else if (destSquare < 10)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(350-(currentSpace+spaces-1)*subt, 30 - 2, 500));
-		else if (destSquare === 10)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-500, 30 - 2, 500));
-		else if (destSquare < 20)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-500, 30 - 2, 350-(((currentSpace+spaces)%10)-1)*subt));
-		else if (destSquare === 20)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-500, 30 - 2, -500));
-		else if (destSquare < 30)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-350+(((currentSpace+spaces)%10)-1)*subt, 30 - 2, -500));
-		else if (destSquare === 30)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500, 30 - 2, -500));
-		else if (destSquare < 40)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500, 30 - 2, -350+(((currentSpace+spaces)%10)-1)*subt));
-			
-		var xrot = test.rotation.x;
-		var yrot = test.rotation.y;
-		scene.remove(test);
-		
-		test = new THREE.Mesh(geometry, material);
-		test.rotation.x = xrot;
-		test.rotation.y = yrot
-		scene.add(test);
-	}
