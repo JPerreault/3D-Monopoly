@@ -8,10 +8,50 @@ window.onload = function()
 	this.currentWindowX = window.innerWidth ;
 	this.currentWindowY = window.innerHeight;
 	var that = this;
+    
+    var main;
+    var playerPosition = board = turnCount = reRollCount = 0;
+    var gameOver = reRoll = false;
+    var firstDie, color;
+    var tileBoard = new Array();
+    var players = new Array();
+    var amountOfPlayers = 1; //TODO enable more players
+    var testCount = 12; //4 full turns
+
 	
 	init();
 	animate();
 	
+    initializePlayers();
+
+    //alert("no errors");
+    while(testCount>0)
+    {
+        rollDice()
+        if(reRoll)
+        {
+            while(reRoll)
+            {
+                //alert("ReRoll");
+                if(reRollCount>2){
+                    console.log("go to jail"); //go straight to jail TODO
+                    reRollCount = 0;
+                }
+                else
+                {
+                    
+                    updatePiecePosition();
+                    rollDice(); //reRoll
+                }
+            }
+        }
+        else
+            updatePiecePosition();
+        
+        turnCount++;
+        testCount--;
+    }
+    
 	function init()
 	{
 		container = document.createElement('div');
@@ -85,18 +125,51 @@ window.onload = function()
 		window.addEventListener( 'DOMMouseScroll', onMouseWheel, false);
 		document.addEventListener( 'mousedown', onMouseDown, false );
 	}
+    
+    function updatePiecePosition()
+    {
+        move(players[turnCount%amountOfPlayers].playerPosition, (firstDie+secondDie))
+        
+        players[turnCount%amountOfPlayers].playerPosition =
+        (players[turnCount%amountOfPlayers].playerPosition +(firstDie + secondDie))%40;
+        
+    }
 	
+    function initializePlayers()
+    {
+        var player1 = new player(0,"blue"); 
+        players[0] = player1;
+    }
+    
+    function rollDice()
+    {
+        firstDie = Math.floor((Math.random()*6)+1);
+        secondDie = Math.floor((Math.random()*6)+1);
+        
+        if(firstDie === secondDie)
+        {
+            reRoll = true;
+            reRollCount++;
+        }
+        else
+        {
+            reRoll = false;
+            reRollCount = 0;
+        }
+        
+    }
+    
 	function move(currentSpace, spaces)
 	{
 		var material = new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), shininess: 200, reflectivity: .85});
 		var geometry = new THREE.SphereGeometry(30, 20, 18);
 		var subt = 87.5;
 		var destSquare = (currentSpace + spaces) % 40;
-		
+
 		if (destSquare === 0)
 			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500, 30 - 2, 500));
 		else if (destSquare < 10)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(350-(currentSpace+spaces-1)*subt, 30 - 2, 500));
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(350-(((currentSpace+spaces)%10)-1)*subt, 30 - 2, 500));
 		else if (destSquare === 10)
 			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-500, 30 - 2, 500));
 		else if (destSquare < 20)
