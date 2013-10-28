@@ -10,10 +10,56 @@ window.onload = function()
 	var that = this;
 	var tileid = 0;
 	var pieces = [];
+    
+    var main;
+    var playerPosition = 0;
+    var gameOver = false;
+    var board = 0;
+    var firstDie;
+    var secondDie;
+    var turnCount = 0;
+    var reRoll = false;
+    var reRollCount = 0;
+    var tileBoard = new Array();
+    var players = new Array();
+    var amountOfPlayers = 1; //TODO enable more players
+    var color;
+    var testCount = 12; //4 full turns
+
 	
 	init();
 	animate();
 	
+    initializePlayers();
+
+    //alert("no errors");
+    while(testCount>0)
+    {
+        rollDice()
+        if(reRoll)
+        {
+            while(reRoll)
+            {
+                //alert("ReRoll");
+                if(reRollCount>2){
+                    console.log("go to jail"); //go straight to jail TODO
+                    reRollCount = 0;
+                }
+                else
+                {
+                    
+                    updatePiecePosition();
+                    rollDice(); //reRoll
+                }
+            }
+        }
+        else
+            updatePiecePosition();
+        
+        turnCount++;
+        testCount--;
+    }
+    
 	function init()
 	{
 		container = document.createElement('div');
@@ -87,7 +133,49 @@ window.onload = function()
 		window.addEventListener( 'DOMMouseScroll', onMouseWheel, false);
 		document.addEventListener( 'mousedown', onMouseDown, false );
 	}
+    
+    function updatePiecePosition()
+    {
+        move(players[turnCount%amountOfPlayers].playerPosition, (firstDie+secondDie))
+        
+        players[turnCount%amountOfPlayers].playerPosition =
+        (players[turnCount%amountOfPlayers].playerPosition +(firstDie + secondDie))%40;
+        
+    }
 	
+    function initializePlayers()
+    {
+        
+        var player1 = new player(0,"blue");
+        //var player2 = new player(0,"pink");
+        //var player3 = new player(0,"red");
+        //var player4 = new player(0,"green");
+        
+        players[0] = player1;
+//        players[1] = player2;
+//        players[2] = player3;
+//        players[3] = player4;
+        
+    }
+    
+    function rollDice()
+    {
+        firstDie = Math.floor((Math.random()*6)+1);
+        secondDie = Math.floor((Math.random()*6)+1);
+        
+        if(firstDie === secondDie)
+        {
+            reRoll = true;
+            reRollCount++;
+        }
+        else
+        {
+            reRoll = false;
+            reRollCount = 0;
+        }
+        
+    }
+    
 	function move(currentSpace, spaces)
 	{
 		var material = new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), shininess: 200, reflectivity: .85});
