@@ -8,24 +8,27 @@ window.onload = function()
 	this.currentWindowX = window.innerWidth ;
 	this.currentWindowY = window.innerHeight;
 	var that = this;
+	var material = new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), shininess: 200, reflectivity: .85});
     
     var main;
     var playerPosition = board = turnCount = reRollCount = 0;
     var gameOver = reRoll = false;
-    var firstDie, color;
+    var firstDie;
     var tileBoard = new Array();
     var players = new Array();
-    var amountOfPlayers = 1; //TODO enable more players
-    var testCount = 12; //4 full turns
+    var numberOfPlayers = 4; //TODO enable more players
+    var testCount = 1; //4 full turns
+	var playersAtBoard = new Array();
+	for (var i = 0; i <40; i++)
+		playersAtBoard[i] = 0;
+	playersAtBoard[0] = 4;
 
-	
 	init();
 	animate();
-	
-    initializePlayers();
-
+move(players[2].piece,0,5);
+move(players[3].piece,0,5);
     //alert("no errors");
-    while(testCount>0)
+    /*while(testCount>0)
     {
         rollDice()
         if(reRoll)
@@ -50,7 +53,7 @@ window.onload = function()
         
         turnCount++;
         testCount--;
-    }
+    }*/
     
 	function init()
 	{
@@ -95,16 +98,10 @@ window.onload = function()
 		}
 
 		
-		var material = new THREE.LineBasicMaterial({color: 0x000000, opacity: 0.5});
-		line = new THREE.Line(geometry, material);
+		var linematerial = new THREE.LineBasicMaterial({color: 0x000000, opacity: 0.5});
+		line = new THREE.Line(geometry, linematerial);
 		line.type = THREE.LinePieces;
 		scene.add(line);
-		
-		var material = new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), shininess: 200, reflectivity: .85});
-		var geometry = new THREE.SphereGeometry(30, 20, 18);
-		geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500, 30 - 2, 400 + step/2));
-		test = new THREE.Mesh(geometry, material);
-		scene.add(test);
 		
 		var ambientLight = new THREE.AmbientLight(0x202020);
 		scene.add( ambientLight );
@@ -119,26 +116,47 @@ window.onload = function()
 		renderer.autoClear = false;	
 		container.appendChild(renderer.domElement);
 		
-		
 		window.addEventListener('resize', onWindowResize, false);
 		window.addEventListener( 'mousewheel', onMouseWheel, false);
 		window.addEventListener( 'DOMMouseScroll', onMouseWheel, false);
 		document.addEventListener( 'mousedown', onMouseDown, false );
+		
+		initializePlayers();
+		initializePieces(step);
 	}
     
     function updatePiecePosition()
     {
-        move(players[turnCount%amountOfPlayers].playerPosition, (firstDie+secondDie))
+        move(players[turnCount%numberOfPlayers].playerPosition, (firstDie+secondDie))
         
-        players[turnCount%amountOfPlayers].playerPosition =
-        (players[turnCount%amountOfPlayers].playerPosition +(firstDie + secondDie))%40;
+        players[turnCount%numberOfPlayers].playerPosition =
+        (players[turnCount%numberOfPlayers].playerPosition +(firstDie + secondDie))%40;
         
     }
 	
+	function initializePieces(step)
+	{
+		for (var i = 0; i < numberOfPlayers; i++)
+		{
+			if (i === 0)
+				var geometry = new THREE.SphereGeometry(30, 20, 18);
+			else if (i === 1)
+				var geometry = new THREE.CubeGeometry(40, 40, 40);
+			else if (i === 2)
+				var geometry = new THREE.IcosahedronGeometry(30);
+			else if (i === 3)
+				var geometry = new THREE.TorusGeometry(30, 10, 100, 100)
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(450 + (100*(i%2)), 30 - 2, 400 + step/2 + 70 * (Math.floor((i)/2))));
+			test = new THREE.Mesh(geometry, material);
+			scene.add(test);
+			players[i].piece = test;
+		}
+	}
+	
     function initializePlayers()
     {
-        var player1 = new player(0,"blue"); 
-        players[0] = player1;
+		for (var i = 0; i < numberOfPlayers; i++)
+			players.push(new Player(0, test));
     }
     
     function rollDice()
@@ -159,9 +177,8 @@ window.onload = function()
         
     }
     
-	function move(currentSpace, spaces)
+	function move(piece, currentSpace, spaces)
 	{
-		var material = new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), shininess: 200, reflectivity: .85});
 		var geometry = new THREE.SphereGeometry(30, 20, 18);
 		var subt = 87.5;
 		var destSquare = (currentSpace + spaces) % 40;
@@ -183,14 +200,14 @@ window.onload = function()
 		else if (destSquare < 40)
 			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500, 30 - 2, -350+(((currentSpace+spaces)%10)-1)*subt));
 			
-		var xrot = test.rotation.x;
-		var yrot = test.rotation.y;
-		scene.remove(test);
+		var xrot = piece.rotation.x;
+		var yrot = piece.rotation.y;
+		scene.remove(piece);
 		
-		test = new THREE.Mesh(geometry, material);
-		test.rotation.x = xrot;
-		test.rotation.y = yrot
-		scene.add(test);
+		piece = new THREE.Mesh(geometry, material);
+		piece.rotation.x = xrot;
+		piece.rotation.y = yrot
+		scene.add(piece);
 	}
 
 	function onWindowResize() 
@@ -252,16 +269,13 @@ window.onload = function()
 		line.rotation.x += ( targetX - line.rotation.x ) * 0.05;
 		line.rotation.y += ( targetY - line.rotation.y ) * 0.05;
 		
-		test.rotation.x += ( targetX - test.rotation.x ) * 0.05;
-		test.rotation.y += ( targetY - test.rotation.y ) * 0.05;
-		
-		if (typeof test2 !== 'undefined')
+		for (var i = 0; i < numberOfPlayers; i++)
 		{
-			test2.rotation.x += ( targetX - test2.rotation.x ) * 0.05;
-			test2.rotation.y += ( targetY - test2.rotation.y ) * 0.05;
+			var piece = players[i].piece;
+			piece.rotation.x += ( targetX - piece.rotation.x ) * 0.05;
+			piece.rotation.y += ( targetY - piece.rotation.y ) * 0.05;
 		}
-		
-		
+			
 		camera.lookAt(scene.position);
 		renderer.render(scene, camera);
 	}	

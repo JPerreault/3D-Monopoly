@@ -1,6 +1,5 @@
-var player = function(playerPosition, color)
+var Player = function(playerPosition, piece)
 {
     this.playerPosition = playerPosition;
-    this.color = color;
-    
+    this.piece = piece;
 }
