@@ -23,6 +23,7 @@ window.onload = function()
 	animate();
 	
     initializePlayers();
+    expandMoneys();
 
     //alert("no errors");
     while(testCount>0)

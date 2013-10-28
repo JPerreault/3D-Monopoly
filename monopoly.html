@@ -5,34 +5,72 @@
 		<title>3D Monopoly</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<style>
-			body {
-				background:#000;
-				color:#fff;
-				padding:0;
-				margin:0;
-				overflow:hidden;
-				font-family:georgia;
-				text-align:center;
-				background-color: #f0f0f0;
-			}
-			h1 { }
-			a { color:skyblue; text-decoration:none }
-			canvas { pointer-events:none; z-index:10; position:relative; }
-
-			#d { position:absolute; width: 100%; text-align:center; margin:1em 0 -4.5em 0; z-index:1000; }
-
-		</style>
+		<link rel="stylesheet" href="css/style.css" />
 	</head>
 
 	<body>		
 		<script src="js/lib/three.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="js/controller.js"></script>
         <script src="js/player.js"></script>
+        <script src="js/sidebar.js"></script>
 
 
 
 		<div id = "container"></div>
+        
+        <div id = "sidebar">
+            <div id = "cash" class="hudset">
+                <div class = "bill_box">
+                    <img class="money" src="img/money/monopoly_money_500.jpg" />
+                    <img class="money indent" src="img/money/monopoly_money_500.jpg" />
+                </div><br><br><br><br><br>
+                <div class = "bill_box">
+                    <img class="money" src="img/money/monopoly_money_100.jpg" />
+                    <img class="money indent" src="img/money/monopoly_money_100.jpg" />
+                </div>
+            </div>
+        </div>
+        
+        <div id="debug">
+            <br><br>
+            <b>Debug Controls</b><br>
+            <table><tr>
+                <td>
+            Money: <a href="javascript:document.getElementById('money').focus()">$<input id='money' value='703'></input></a> <button onclick='moneys=document.getElementById("money").value; expandMoneys();'>go</button>
+                    </td>
+                <td><button onclick='moneys+=200; document.getElementById("money").value=parseInt(document.getElementById("money").value)+200;expandMoneys();'>Pass "Go"</button>
+                </td>
+                <td>
+                    Move: <a href="javascript:document.getElementById('move').focus()"><input id='money' value='2'></input></a> <button onclick='moneys=document.getElementById("move").value; movePiece();'>go</button>
+                </td>
+                <td>
+                   <button onclick=' movePiece();'>Roll Dice</button>
+                </td>
+
+
+                <td><button onclick='$("#debug").animate({top: "-100px"}, 900);$("#showdebug").fadeIn(500);'>Hide Debug Controls</button></td>
+                </tr><tr>
+                    <td>
+                       <button onclick='switchPlayer();'>Switch Player</button>
+                    </td>
+                    <td><button onclick='MoveGo();'>Move to "Go"</button>
+                    </td>
+                    <td>
+                        <button onclick='doubles();'>Roll Doubles</button>
+                    </td>
+                    <td>
+                        <button onclick=' movePiece();'>Go to Jail</button>
+                    </td>
+                    
+                    
+                    <td></td>
+                    
+                    </tr>
+                    
+                </table>
+            <button id='showdebug' onclick='$("#debug").animate({top: "0px"}, 900);$("#showdebug").fadeOut(500);'>Show Debug Controls</button>
+        </div>
 
 	</body>
 </html>

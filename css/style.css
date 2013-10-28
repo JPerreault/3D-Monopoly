@@ -1,0 +1,99 @@
+body
+{
+    background:#000;
+    color:#fff;
+    padding:0;
+    margin:0;
+    overflow:hidden;
+    font-family:Helvetica, Arial, sans-serif;
+    text-align:center;
+    background-color: #f0f0f0;
+}
+
+a
+{
+    color:skyblue;
+    text-decoration:none
+}
+
+input
+{
+    width: 50px;
+}
+
+table
+{
+    width: 100%;
+}
+
+canvas
+{
+    pointer-events:none;
+    z-index:10;
+    position:relative;
+}
+
+#sidebar
+{
+    width: 200px;
+    height: 150px;
+    position: absolute;
+    right:0;
+    left: 50px;
+    bottom: 50px;
+    text-align: center;
+    z-index: 1000;
+}
+
+#debug
+{
+    width: 100%;
+    background-color: black;
+    height: 125px;
+    opacity:0.6;
+    border-radius:25px;
+    z-index: 10000;
+    position: absolute;
+    top:0;
+    margin-top: -25px;
+}
+
+#showdebug
+{
+    position: absolute;
+    top: 127px;
+    right: 80px;
+    display: none;
+}
+
+.hudset
+{
+
+
+}
+
+#cash
+{
+    position: absolute;
+    bottom: 0;
+}
+
+.bill_box
+{
+    position: absolute;
+}
+
+.money
+{
+    box-shadow: 5px 5px 5px #888888;
+    border: 1px solid black;
+    opacity:1.0;
+    width: 150px;
+    bottom: 0;
+    position: absolute;
+}
+
+.indent
+{
+    margin-left: -10px;
+}
