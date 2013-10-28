@@ -8,8 +8,6 @@ window.onload = function()
 	this.currentWindowX = window.innerWidth ;
 	this.currentWindowY = window.innerHeight;
 	var that = this;
-	var tileid = 0;
-	var pieces = [];
 	
 	init();
 	animate();
