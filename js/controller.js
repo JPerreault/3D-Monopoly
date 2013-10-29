@@ -10,7 +10,8 @@ window.onload = function()
 	var that = this;
 	var material = new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), shininess: 200, reflectivity: .85});
 	var selMaterial = new THREE.MeshLambertMaterial( { color: 0x666666, emissive: 0x000000, ambient: 0x000000, shading: THREE.SmoothShading } );
-    
+    var rectmesh, underMesh;
+	
     var main;
     var playerPosition = board = turnCount = reRollCount = 0;
     var gameOver = reRoll = false;
@@ -77,7 +78,8 @@ window.onload = function()
 		var linematerial = new THREE.LineBasicMaterial({color: 0x000000, opacity: 0.5});
 		line = new THREE.Line(geometry, linematerial);
 		line.type = THREE.LinePieces;
-		scene.add(line);
+		line.position.z -= 10;
+		//scene.add(line);
 		
 		var ambientLight = new THREE.AmbientLight(0x202020);
 		scene.add( ambientLight );
@@ -99,6 +101,24 @@ window.onload = function()
 		
 		initializePlayers();
 		initializePieces(step);
+		
+		var recttest = new THREE.CubeGeometry(1200, 1, 1200);
+		angelTexture = THREE.ImageUtils.loadTexture("textures/board.jpg");
+		var rm = new THREE.MeshBasicMaterial( { map: angelTexture, wireframe: false } )
+		rectmesh = new THREE.Mesh(recttest, rm);
+		scene.add(rectmesh);
+
+		
+		var newgeo = new THREE.Geometry();
+		newgeo.vertices.push((new THREE.Vector3(600, 1, 600)));
+		newgeo.vertices.push((new THREE.Vector3(600, 1, -600)));
+		newgeo.vertices.push((new THREE.Vector3(-600, 1, -600)));
+		newgeo.vertices.push((new THREE.Vector3(-600, 1, 600)));
+		newgeo.faces.push( new THREE.Face4( 0, 1, 2, 3));
+		newgeo.applyMatrix(new THREE.Matrix4().makeTranslation(0, -2, 0));
+		newgeo.applyMatrix(new THREE.Matrix4().makeScale( -1, 1, 1 ) );
+		underMesh = new THREE.Mesh(newgeo, selMaterial);
+		scene.add(underMesh);
 	}
 	
 	function initializePieces(step)
@@ -321,6 +341,12 @@ window.onload = function()
 			piece.rotation.x += ( targetX - piece.rotation.x ) * 0.05;
 			piece.rotation.y += ( targetY - piece.rotation.y ) * 0.05;
 		}
+		
+		rectmesh.rotation.x += ( targetX - rectmesh.rotation.x ) * 0.05;
+		rectmesh.rotation.y += ( targetY - rectmesh.rotation.y ) * 0.05;
+		
+		underMesh.rotation.x += ( targetX - underMesh.rotation.x ) * 0.05;
+		underMesh.rotation.y += ( targetY - underMesh.rotation.y ) * 0.05;
 			
 		camera.lookAt(scene.position);
 		renderer.render(scene, camera);
