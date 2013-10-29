@@ -66,6 +66,14 @@ canvas
     display: none;
 }
 
+#cards{
+    position: absolute;
+	top: 200px;
+    right: 50px;
+    color: black;
+    z-index: 1000000;
+}
+
 .hudset
 {
 
