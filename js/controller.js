@@ -9,6 +9,7 @@ window.onload = function()
 	this.currentWindowY = window.innerHeight;
 	var that = this;
 	var material = new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), shininess: 200, reflectivity: .85});
+	var selMaterial = new THREE.MeshLambertMaterial( { color: 0x666666, emissive: 0x000000, ambient: 0x000000, shading: THREE.SmoothShading } );
     
     var main;
     var playerPosition = board = turnCount = reRollCount = 0;
@@ -22,38 +23,13 @@ window.onload = function()
 	for (var i = 0; i <40; i++)
 		playersAtBoard[i] = 0;
 	playersAtBoard[0] = 4;
+	var currentPlayer = 0;
 
 	init();
 	animate();
-move(players[2].piece,0,5);
-move(players[3].piece,0,5);
-    //alert("no errors");
-    /*while(testCount>0)
-    {
-        rollDice()
-        if(reRoll)
-        {
-            while(reRoll)
-            {
-                //alert("ReRoll");
-                if(reRollCount>2){
-                    console.log("go to jail"); //go straight to jail TODO
-                    reRollCount = 0;
-                }
-                else
-                {
-                    
-                    updatePiecePosition();
-                    rollDice(); //reRoll
-                }
-            }
-        }
-        else
-            updatePiecePosition();
-        
-        turnCount++;
-        testCount--;
-    }*/
+	
+    expandMoneys(1500);
+
     
 	function init()
 	{
@@ -124,81 +100,91 @@ move(players[3].piece,0,5);
 		initializePlayers();
 		initializePieces(step);
 	}
-    
-    function updatePiecePosition()
-    {
-        move(players[turnCount%numberOfPlayers].playerPosition, (firstDie+secondDie))
-        
-        players[turnCount%numberOfPlayers].playerPosition =
-        (players[turnCount%numberOfPlayers].playerPosition +(firstDie + secondDie))%40;
-        
-    }
 	
 	function initializePieces(step)
 	{
 		for (var i = 0; i < numberOfPlayers; i++)
 		{
-			if (i === 0)
-				var geometry = new THREE.SphereGeometry(30, 20, 18);
-			else if (i === 1)
-				var geometry = new THREE.CubeGeometry(40, 40, 40);
-			else if (i === 2)
-				var geometry = new THREE.IcosahedronGeometry(30);
-			else if (i === 3)
-				var geometry = new THREE.TorusGeometry(30, 10, 100, 100)
+			var geometry = getPiece(i);
 			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(450 + (100*(i%2)), 30 - 2, 400 + step/2 + 70 * (Math.floor((i)/2))));
+			test = new THREE.Mesh(geometry, selMaterial);
 			test = new THREE.Mesh(geometry, material);
+
+			test.id = i;
 			scene.add(test);
 			players[i].piece = test;
 		}
 	}
 	
+	function getPiece(playerNumber)
+	{
+		if (playerNumber === 0)
+			var geometry = new THREE.SphereGeometry(30, 20, 18);
+		else if (playerNumber === 1)
+			var geometry = new THREE.CubeGeometry(40, 40, 40);
+		else if (playerNumber === 2)
+			var geometry = new THREE.IcosahedronGeometry(30);
+		else if (playerNumber === 3)
+			var geometry = new THREE.TorusGeometry(30, 10, 100, 100)
+		return geometry;
+	}
+	
     function initializePlayers()
     {
 		for (var i = 0; i < numberOfPlayers; i++)
-			players.push(new Player(0, test));
+			players.push(new Player(0, test, 1500));
     }
     
-    function rollDice()
+    function rollDice(twodice)
     {
+		var piece = players[currentPlayer].piece;
+		var pos = players[currentPlayer].playerPosition;
+		
         firstDie = Math.floor((Math.random()*6)+1);
-        secondDie = Math.floor((Math.random()*6)+1);
+		if (twodice)
+			secondDie = firstDie;
+		else
+			secondDie = Math.floor((Math.random()*6)+1);
+		var roll = firstDie + secondDie;
         
-        if(firstDie === secondDie)
-        {
-            reRoll = true;
-            reRollCount++;
-        }
-        else
-        {
-            reRoll = false;
-            reRollCount = 0;
-        }
-        
+		document.getElementById('move').value = roll;
+		move(piece, pos, roll);
     }
     
 	function move(piece, currentSpace, spaces)
 	{
-		var geometry = new THREE.SphereGeometry(30, 20, 18);
+		var id = piece.id;
+		var geometry = getPiece(id);
 		var subt = 87.5;
+		var offset = 0;
 		var destSquare = (currentSpace + spaces) % 40;
+		
+		if (currentSpace + spaces >= 40)
+		{
+			passedGo();
+		}
+		
+		playersAtBoard[destSquare] += 1;
+		playersAtBoard[currentSpace] -= 1;
+		if (playersAtBoard[destSquare] > 1)
+			offset = 70;
 
 		if (destSquare === 0)
 			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500, 30 - 2, 500));
 		else if (destSquare < 10)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(350-(((currentSpace+spaces)%10)-1)*subt, 30 - 2, 500));
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(350-(((currentSpace+spaces)%10)-1)*subt, 30 - 2, 500 + offset));
 		else if (destSquare === 10)
 			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-500, 30 - 2, 500));
 		else if (destSquare < 20)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-500, 30 - 2, 350-(((currentSpace+spaces)%10)-1)*subt));
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-500 - offset, 30 - 2, 350-(((currentSpace+spaces)%10)-1)*subt));
 		else if (destSquare === 20)
 			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-500, 30 - 2, -500));
 		else if (destSquare < 30)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-350+(((currentSpace+spaces)%10)-1)*subt, 30 - 2, -500));
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-350+(((currentSpace+spaces)%10)-1)*subt, 30 - 2, -500 - offset));
 		else if (destSquare === 30)
 			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500, 30 - 2, -500));
 		else if (destSquare < 40)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500, 30 - 2, -350+(((currentSpace+spaces)%10)-1)*subt));
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500 + offset, 30 - 2, -350+(((currentSpace+spaces)%10)-1)*subt));
 			
 		var xrot = piece.rotation.x;
 		var yrot = piece.rotation.y;
@@ -206,8 +192,68 @@ move(players[3].piece,0,5);
 		
 		piece = new THREE.Mesh(geometry, material);
 		piece.rotation.x = xrot;
-		piece.rotation.y = yrot
+		piece.rotation.y = yrot;
+		
+		players[id].piece = piece;
+		players[id].playerPosition = destSquare;
+		players[id].piece.id = id;
 		scene.add(piece);
+	}
+	
+	function moveToGo()
+	{
+		move(players[currentPlayer].piece, 0, 0);
+	}
+	
+	function passedGo()
+	{
+		players[currentPlayer].money += 200;
+		expandMoneys(players[currentPlayer].money);
+		document.getElementById("money").value = parseInt(document.getElementById("money").value) + 200;
+	}
+	
+	document.getElementById('rolldice').onclick = function()
+	{
+		rollDice();
+	}
+	
+	document.getElementById('doubles').onclick = function()
+	{
+		rollDice(true);
+	}
+	
+	document.getElementById('switchplayer').onclick = function()
+	{
+		currentPlayer = (currentPlayer + 1) % numberOfPlayers;
+		$('#money')[0].value = players[currentPlayer].money;
+		expandMoneys(players[currentPlayer].money);
+	}
+	
+	document.getElementById('realmove').onclick = function()
+	{
+		move(players[currentPlayer].piece, players[currentPlayer].playerPosition, parseInt(document.getElementById('move').value));
+	}
+	
+	document.getElementById('go').onclick = function()
+	{
+		expandMoneys(parseInt(document.getElementById("money").value));
+		players[currentPlayer].money = document.getElementById("money").value;
+	}
+	
+	document.getElementById('jail').onclick = function()
+	{
+		move(players[currentPlayer].piece, 0, 10);
+	}
+	
+	document.getElementById('moveToGo').onclick = function()
+	{
+		moveToGo();
+	}
+	
+	document.getElementById('passgo').onclick = function()
+	{
+		moveToGo();
+		passedGo();
 	}
 
 	function onWindowResize() 
