@@ -30,6 +30,7 @@ window.onload = function()
 	animate();
 	
     expandMoneys(1500);
+    populateListing();
 
     
 	function init()
@@ -227,7 +228,7 @@ window.onload = function()
 	
 	function passedGo()
 	{
-		players[currentPlayer].money += 200;
+		players[currentPlayer].money = parseInt(players[currentPlayer].money)+200;
 		expandMoneys(players[currentPlayer].money);
 		document.getElementById("money").value = parseInt(document.getElementById("money").value) + 200;
 	}
@@ -247,6 +248,7 @@ window.onload = function()
 		currentPlayer = (currentPlayer + 1) % numberOfPlayers;
 		$('#money')[0].value = players[currentPlayer].money;
 		expandMoneys(players[currentPlayer].money);
+        updateDeedCards(players[currentPlayer].properties);
 	}
 	
 	document.getElementById('realmove').onclick = function()
@@ -258,6 +260,21 @@ window.onload = function()
 	{
 		expandMoneys(parseInt(document.getElementById("money").value));
 		players[currentPlayer].money = document.getElementById("money").value;
+	}
+    
+    document.getElementById('addDeed').onclick = function()
+	{
+        players[currentPlayer].addPropertyIndex(parseInt(document.getElementById("deedValue").value));
+        console.log(players[currentPlayer]);
+
+        updateDeedCards(players[currentPlayer].properties);
+	}
+    
+    document.getElementById('addCurrentDeed').onclick = function()
+	{
+    players[currentPlayer].addPropertyIndex(parseInt(document.getElementById("deedValue").value));
+        
+        updateDeedCards(players[currentPlayer].properties);
 	}
 	
 	document.getElementById('jail').onclick = function()
@@ -296,7 +313,9 @@ window.onload = function()
 	
 	function onMouseDown(event)
 	{
-		event.preventDefault();
+
+        if ( event.target.tagName == 'DIV')
+            event.preventDefault();
 
 		document.addEventListener( 'mousemove', onMouseMoveCam, false );
 		document.addEventListener( 'mouseup', onMouseUpCam, false );
