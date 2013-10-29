@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<title><% title%></title>
+<link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+</head>
+<body>
+
+<div id="main_container">
+<div class="top_illustration"><img src="/images/monopoly_logo.png" alt="" title=""  width="156" height="143"/></div>
+	<div id="header">
+    <div class="logo">
+    <a href="index.html"><img src="/images/monopoly_logo.png" alt="" title="" border="0" /></a>
+    </div>
+    
+    </div>
+    
+            <div id="menu_tab">                                     
+                    <ul class="menu">                                                                               
+                         <li><a href="index.html" class="nav_selected"> Home </a></li>
+                         <li class="divider"></li>
+                         <li><a href="register.html" class="nav"> Register</a></li>
+                         <li class="divider"></li>
+                         <li><a href="screenshots.html" class="nav"> Screenshots</a></li>
+                         <li class="divider"></li>
+                         <li><a href="contact.html" class="nav"> Contact </a></li>
+
+                    </ul>
+            </div> 
+            
+            
+    <div id="main_content">
+    
+    	<div id="middle_banner">
+        	<div class="middle_banner_content">
+       			 <img src="/images/monopoly_logo.png" alt="" title="" width="417" height="142" />
+            </div>
+        </div>
+        
+        
+        <div id="left_content">
+        <h1>Monopoly</h1>
+        <p>
+        Compete against your friends in the fast-dealing property trading game of Monopoly! Buy properties, charge rent, and build your own person empire. Don't go to jail and don't go broke! Hours and hours of fun! Register for free now and start playing right away!
+        </p>
+        
+        
+        <h1>Our Services</h1>
+        <p class="clear">
+        <img src="images/icon1.png" alt="" title="" class="left_img" width="48" height="48" />
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
+        </p>
+        
+        <p class="clear">
+        <img src="images/icon2.png" alt="" title="" class="left_img" width="48" height="48" />
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
+        </p>        
+        
+        
+        <p class="clear">
+        <img src="images/icon3.png" alt="" title="" class="left_img" width="48" height="48" />
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
+        </p>        
+        
+        </div>
+    
+        <div id="right_content"> 
+        	<div class="members_login">
+            <h1>Login</h1>
+            
+            <div class="login_row">
+            <label class="login">Account:</label>
+            <input type="text" class="login_input" />
+            </div>
+             <div class="login_row">
+            <label class="login">Password:</label>
+            <input type="password" class="login_input" />
+            </div>           
+              <div class="login_row">
+			<a href="#" class="login_submit">login</a>
+            </div>              
+            </div>
+            
+         <h1>Latest News</h1>   
+         <p class="news">
+        <img src="images/calendar.gif" alt="" title="" class="left_img" />
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+        </p>            
+            
+          <p class="news">
+        <img src="images/calendar.gif" alt="" title="" class="left_img" />
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+        </p>  
+        
+          <p class="news">
+        <img src="images/calendar.gif" alt="" title="" class="left_img" />
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+        </p>         
+                   
+        
+        </div>

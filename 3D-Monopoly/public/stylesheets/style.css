@@ -1,0 +1,227 @@
+body
+{
+background:url(../images/monopoly_skyline_green.jpg) repeat-x top #fff;
+padding:0;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:10px;
+margin:0px auto auto auto;
+color:#514c48;
+}
+
+a{
+text-decoration:underline;
+color:#D86200;
+}
+
+p{
+text-align:justify;
+line-height:15px;
+padding:5px 0 5px 0;
+font-size:11px;
+margin:0px;
+}
+
+span{
+color:#FF9900;
+}
+
+h1{
+font-size:18px;
+color:#514c48;
+font-family:Arial, Helvetica, sans-serif;
+font-weight:bold;
+padding:5px 0 5px 0;
+margin:0px;
+}
+
+#main_container{
+width:677px;
+height:auto;
+margin:auto;
+padding:0px;
+position:relative;
+}
+
+#header{
+width:677px;
+height:62px;
+margin:auto;
+}
+
+#menu_tab{
+width:670px;
+height:52px;
+font-family:Arial, Helvetica, sans-serif;
+padding:0px;
+background:url(../images/gradient_grey.png) no-repeat center;
+background-color: #FFFFFF;
+z-index:1;
+}
+
+ul.menu {
+list-style-type:none; display:block; width:410px; 
+ margin: auto; padding:0px; background:none;}
+
+ul.menu li {
+display:inline;
+font-size:13px;
+font-weight:bold;
+line-height:52px;
+}
+
+
+a.nav:link, a.nav:visited {
+display:block; float:left; padding:0px; margin:0;width: auto; margin:0px 14px 0px 14px; text-align:center;
+text-decoration:none; background:none; color:#534848;}
+
+a.nav_selected:link, a.nav_selected:visited {
+display:block; float:left; padding:0px; margin:0;width: auto;margin:0px 14px 0px 14px;text-align:center;
+text-decoration:none; color: #FF6600;}
+
+a.nav:hover {
+color: #FF6600; text-decoration:none;}
+
+
+#main_content{
+width:670px;
+clear:both;
+background-color:#FFFFFF;
+height:auto;
+}
+
+#middle_banner{
+width:100%;
+display:block;
+margin:auto;
+height:142px;
+padding:20px 0 0 0;
+background:url(../images/Monopoly_pack_logo.png) no-repeat center;
+}
+
+#left_content{
+width:405px;
+background-color: #FFFFFF;
+float:left;
+height:auto;
+padding:10px 0 0 20px;
+}
+
+#right_content{
+width:225px;
+background-color: #FFFFFF;
+float:left;
+height:auto;
+padding:10px 0 0 20px;
+}
+
+.login_form{
+width:210px;
+height:138px;
+padding:10px 0 0 10px;
+background:url(../images/gradient_grey.png) no-repeat center;
+}
+
+.registration_form{
+width:250px;
+height: 300px;
+margin: 0 auto;
+padding:10px 10px 0 30px;
+color:#666666;
+background:url(../images/gradient_grey.png) no-repeat center;
+}
+
+.login_row{
+width:200px;
+float:left;
+padding:4px 0 4px 0;
+}
+label.login{
+width:60px;
+float:left;
+text-align:right;
+padding:4px 8px 0 0;
+}
+input.login_input{
+width:120px;
+height:16px;
+background-color:#FFFFFF;
+border:1px #CCCCCC solid;
+float:left;
+}
+
+.submission {
+width:70px;
+height:25px;
+float: right;
+background:url(../images/button_green.png) no-repeat center;
+color:#FFFFFF;
+cursor: pointer;
+text-align: center;
+}
+
+#buttoncontainer{
+	text-align: center;
+}
+
+.frontpagebigbutton{
+width:200px;
+height:50px;
+position: relative;
+font-size:20px;
+background:url(../images/button_green.png) no-repeat center;
+color:#FFFFFF;
+cursor: pointer;
+text-align: center;
+}
+
+
+#contact_form{
+width:300px;
+margin: 0 auto;
+padding:10px 10px 0 30px;
+color:#666666;
+}
+
+
+.contact_input{
+float: center;
+width:290px;
+height:17px;
+font-size:10px;
+background-color:#fff8dc;
+border:1px #f0e9cf solid;
+}
+label.contact_form{
+float:center;
+width:200px;
+padding:0 0 5px 0;
+font-size:12px;
+}
+.contact_textarea{
+width:290px;
+height:80px;
+font-size:10px;
+float:left;
+background-color:#fff8dc;
+border:1px #f0e9cf solid;
+}
+input.contact_submit{
+float:right;
+padding:10px;
+width:66px;
+height:22px;
+}
+.cleardiv {
+clear:both;
+overflow:hidden;
+height:4px;
+}
+
+#footer{
+width:auto;
+clear:both;
+background-color: #FFFFFF;
+padding:15px 0 10px 0;
+text-align:center;
+color:#999999;
+}
