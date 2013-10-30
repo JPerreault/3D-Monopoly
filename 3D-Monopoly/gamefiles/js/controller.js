@@ -80,7 +80,7 @@ window.onload = function()
 		line = new THREE.Line(geometry, linematerial);
 		line.type = THREE.LinePieces;
 		line.position.z -= 10;
-		scene.add(line);
+		//scene.add(line);
 		
 		var ambientLight = new THREE.AmbientLight(0x202020);
 		scene.add( ambientLight );
