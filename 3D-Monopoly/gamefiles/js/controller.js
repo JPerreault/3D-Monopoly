@@ -1,7 +1,7 @@
 window.onload = function()
 {
 	var renderer, container, camera, scene;
-	var line, test, geometry;
+	var line, test, geometry, chancecards, comcards, comtop, chancetop;
 	var mouseXOnMouseDown = mouseYOnMouseDown = 0;
 	var	targetXRotationOnMouseDown = targetXRotationOnMouseDown = 0;
 	var	mouseX = mouseY = targetX = targetY = 0;
@@ -14,6 +14,22 @@ window.onload = function()
 	var size = 600;
 	var step = 150;
 	var objHeight = 15;
+	
+	var loader = new THREE.STLLoader();
+	loader.addEventListener( 'load', function ( event ) {
+
+		var geometry = event.content;
+		var material = new THREE.MeshPhongMaterial( { ambient: 0xff5533, color: 0xff5533, specular: 0x111111, shininess: 200 } );
+		var mesh = new THREE.Mesh( geometry, material );
+
+		mesh.position.set( 0, - 0.25, 0.6 );
+		mesh.rotation.set( 0, - Math.PI / 2, 0 );
+		mesh.scale.set( 0.5, 0.5, 0.5 );
+
+		scene.add( mesh );
+	} );
+	//loader.load( 'textures/hotel.stl' );
+	
 	
     var main;
     var playerPosition = board = turnCount = reRollCount = 0;
@@ -78,6 +94,38 @@ window.onload = function()
 		newgeo.applyMatrix(new THREE.Matrix4().makeTranslation(0, -5.5, 0));
 		underMesh = new THREE.Mesh(newgeo, selMaterial);
 		scene.add(underMesh);
+		
+		var comcard = new THREE.CubeGeometry(140, 40, 210);
+		comcard.applyMatrix(new THREE.Matrix4().makeRotationY(2.355));
+		comcard.applyMatrix(new THREE.Matrix4().makeTranslation(270, 20, 270));
+		var cardTexture = THREE.ImageUtils.loadTexture("textures/cards2.png");
+		var rm = new THREE.MeshBasicMaterial( { map: cardTexture, wireframe: false } );
+		comcards = new THREE.Mesh(comcard, rm);
+		scene.add(comcards);
+		
+		var comtopgeo = new THREE.CubeGeometry(140, 2, 210);
+		comtopgeo.applyMatrix(new THREE.Matrix4().makeRotationY(2.355));
+		comtopgeo.applyMatrix(new THREE.Matrix4().makeTranslation(270, 42, 270));
+		var comtext = THREE.ImageUtils.loadTexture("textures/chance2.png");
+		var rm = new THREE.MeshBasicMaterial( { map: comtext, wireframe: false } );
+		comtop = new THREE.Mesh(comtopgeo, rm);
+		scene.add(comtop);
+		
+		var comtopgeo = new THREE.CubeGeometry(140, 2, 210);
+		comtopgeo.applyMatrix(new THREE.Matrix4().makeRotationY(2.355));
+		comtopgeo.applyMatrix(new THREE.Matrix4().makeTranslation(-270, 42, -270));
+		var comtext = THREE.ImageUtils.loadTexture("textures/comchest2.png");
+		var rm = new THREE.MeshBasicMaterial( { map: comtext, wireframe: false } );
+		chancetop = new THREE.Mesh(comtopgeo, rm);
+		scene.add(chancetop);
+		
+		var comcard = new THREE.CubeGeometry(140, 40, 210);
+		comcard.applyMatrix(new THREE.Matrix4().makeRotationY(2.355));
+		comcard.applyMatrix(new THREE.Matrix4().makeTranslation(-270, 20, -270));
+		var cardTexture = THREE.ImageUtils.loadTexture("textures/cards2.png");
+		var rm = new THREE.MeshBasicMaterial( { map: cardTexture, wireframe: false } );
+		chancecards = new THREE.Mesh(comcard, rm);
+		scene.add(chancecards);
 	}
 	
 	function initializePieces(step)
@@ -355,9 +403,6 @@ window.onload = function()
 	
 	function render()
 	{
-		// line.rotation.x += ( targetX - line.rotation.x ) * 0.05;
-		// line.rotation.y += ( targetY - line.rotation.y ) * 0.05;
-		
 		for (var i = 0; i < numberOfPlayers; i++)
 		{
 			var piece = players[i].piece;
@@ -370,6 +415,18 @@ window.onload = function()
 		
 		underMesh.rotation.x += ( targetX - underMesh.rotation.x ) * 0.05;
 		underMesh.rotation.y += ( targetY - underMesh.rotation.y ) * 0.05;
+		
+		chancecards.rotation.x += ( targetX - chancecards.rotation.x ) * 0.05;
+		chancecards.rotation.y += ( targetY - chancecards.rotation.y ) * 0.05;
+		
+		comcards.rotation.x += ( targetX - comcards.rotation.x ) * 0.05;
+		comcards.rotation.y += ( targetY - comcards.rotation.y ) * 0.05;
+		
+		comtop.rotation.x += ( targetX - comtop.rotation.x ) * 0.05;
+		comtop.rotation.y += ( targetY - comtop.rotation.y ) * 0.05;
+		
+		chancetop.rotation.x += ( targetX - chancetop.rotation.x ) * 0.05;
+		chancetop.rotation.y += ( targetY - chancetop.rotation.y ) * 0.05;
 			
 		camera.lookAt(scene.position);
 		renderer.render(scene, camera);
