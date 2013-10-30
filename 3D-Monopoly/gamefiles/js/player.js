@@ -4,6 +4,8 @@ var Player = function(playerPosition, piece, money)
     this.piece = piece;
 	this.money = money;
     this.properties = [];
+	this.jailed = false;
+	this.doublesRolled = 0;
     
     this.addPropertyIndex = addPropertyIndex;
 }

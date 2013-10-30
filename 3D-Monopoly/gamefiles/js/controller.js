@@ -9,8 +9,11 @@ window.onload = function()
 	this.currentWindowY = window.innerHeight;
 	var that = this;
 	var material = new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), shininess: 200, reflectivity: .85});
-	var selMaterial = new THREE.MeshLambertMaterial( { color: 0x666666, emissive: 0x000000, ambient: 0x000000, shading: THREE.SmoothShading } );
+	var selMaterial = new THREE.MeshLambertMaterial( { color: 0x000000, emissive: 0x000000, ambient: 0x000000, shading: THREE.SmoothShading } );
     var rectmesh, underMesh;
+	var size = 600;
+	var step = 150;
+	var objHeight = 15;
 	
     var main;
     var playerPosition = board = turnCount = reRollCount = 0;
@@ -43,45 +46,6 @@ window.onload = function()
 		
 		scene = new THREE.Scene();
 		
-		var geometry = new THREE.Geometry();
-		
-		var size = 600,
-			step = 200;
-		
-		for (var i = 0; i < 2; i++)
-		{
-			geometry.vertices.push(new THREE.Vector3(-size + step*i, 0, -size  + step*i));
-			geometry.vertices.push(new THREE.Vector3(-size  + step*i, 0, size  - step*i));
-			geometry.vertices.push(new THREE.Vector3(size  - step*i, 0, size  - step*i));
-			geometry.vertices.push(new THREE.Vector3(size  - step*i, 0, -size  + step*i));
-			geometry.vertices.push(new THREE.Vector3(size  - step*i, 0, -size  + step*i));
-			geometry.vertices.push(new THREE.Vector3(-size  + step*i, 0, -size  + step*i));
-			geometry.vertices.push(new THREE.Vector3(size  - step*i, 0, size  - step*i));
-			geometry.vertices.push(new THREE.Vector3(-size  + step*i, 0, size  - step*i));
-		}
-		
-		for (var i = 0; i < 10; i++)
-		{
-			geometry.vertices.push(new THREE.Vector3(-size + step + (i * ((2*size - 2*step) / 9)), 0, -size));
-			geometry.vertices.push(new THREE.Vector3(-size + step + (i * ((2*size - 2*step) / 9)), 0, -size + step));
-			
-			geometry.vertices.push(new THREE.Vector3(size - step - (i * ((2*size - 2*step) / 9)), 0, size));
-			geometry.vertices.push(new THREE.Vector3(size - step - (i * ((2*size - 2*step) / 9)), 0, size - step));
-			
-			geometry.vertices.push(new THREE.Vector3(-size, 0, -size + step + (i * ((2*size - 2*step) / 9))));
-			geometry.vertices.push(new THREE.Vector3(-size + step, 0, -size + step + (i * ((2*size - 2*step) / 9))));
-			
-			geometry.vertices.push(new THREE.Vector3(size, 0, -size + step + (i * ((2*size - 2*step) / 9))));
-			geometry.vertices.push(new THREE.Vector3(size - step, 0, -size + step + (i * ((2*size - 2*step) / 9))));
-		}
-
-		
-		var linematerial = new THREE.LineBasicMaterial({color: 0x000000, opacity: 0.5});
-		line = new THREE.Line(geometry, linematerial);
-		line.type = THREE.LinePieces;
-		line.position.z -= 10;
-		//scene.add(line);
-		
 		var ambientLight = new THREE.AmbientLight(0x202020);
 		scene.add( ambientLight );
 
@@ -103,21 +67,15 @@ window.onload = function()
 		initializePlayers();
 		initializePieces(step);
 		
-		var recttest = new THREE.CubeGeometry(1200, 1, 1200);
+		var recttest = new THREE.CubeGeometry(1200, .0001, 1200);
 		angelTexture = THREE.ImageUtils.loadTexture("textures/board.jpg");
 		var rm = new THREE.MeshBasicMaterial( { map: angelTexture, wireframe: false } )
 		rectmesh = new THREE.Mesh(recttest, rm);
 		scene.add(rectmesh);
 
 		
-		var newgeo = new THREE.Geometry();
-		newgeo.vertices.push((new THREE.Vector3(600, 1, 600)));
-		newgeo.vertices.push((new THREE.Vector3(600, 1, -600)));
-		newgeo.vertices.push((new THREE.Vector3(-600, 1, -600)));
-		newgeo.vertices.push((new THREE.Vector3(-600, 1, 600)));
-		newgeo.faces.push( new THREE.Face4( 0, 1, 2, 3));
-		newgeo.applyMatrix(new THREE.Matrix4().makeTranslation(0, -5, 0));
-		newgeo.applyMatrix(new THREE.Matrix4().makeScale( -1, 1, 1 ) );
+		var newgeo = new THREE.CubeGeometry(1210, 10, 1210);
+		newgeo.applyMatrix(new THREE.Matrix4().makeTranslation(0, -5.5, 0));
 		underMesh = new THREE.Mesh(newgeo, selMaterial);
 		scene.add(underMesh);
 	}
@@ -127,7 +85,7 @@ window.onload = function()
 		for (var i = 0; i < numberOfPlayers; i++)
 		{
 			var geometry = getPiece(i);
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(450 + (100*(i%2)), 30 - 2, 400 + step/2 + 70 * (Math.floor((i)/2))));
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(475 + (75*(i%2)), objHeight, 440 + step/2 + 70 * (Math.floor((i)/2))));
 			test = new THREE.Mesh(geometry, selMaterial);
 			test = new THREE.Mesh(geometry, material);
 
@@ -140,13 +98,13 @@ window.onload = function()
 	function getPiece(playerNumber)
 	{
 		if (playerNumber === 0)
-			var geometry = new THREE.SphereGeometry(30, 20, 18);
+			var geometry = new THREE.SphereGeometry(22.5, 15, 13.5);
 		else if (playerNumber === 1)
-			var geometry = new THREE.CubeGeometry(40, 40, 40);
+			var geometry = new THREE.CubeGeometry(30, 30, 30);
 		else if (playerNumber === 2)
-			var geometry = new THREE.IcosahedronGeometry(30);
+			var geometry = new THREE.IcosahedronGeometry(22.5);
 		else if (playerNumber === 3)
-			var geometry = new THREE.TorusGeometry(30, 10, 100, 100)
+			var geometry = new THREE.TorusGeometry(17.5, 7.5, 100, 100)
 		return geometry;
 	}
 	
@@ -167,17 +125,48 @@ window.onload = function()
 		else
 			secondDie = Math.floor((Math.random()*6)+1);
 		var roll = firstDie + secondDie;
+		
         
 		document.getElementById('move').value = roll;
-		move(piece, pos, roll);
+		
+		if (firstDie === secondDie)
+		{
+			if (players[currentPlayer].jailed === true)
+			{
+				move(piece, pos, roll);
+				players[currentPlayer].jailed = false;
+			}
+			else
+			{
+				players[currentPlayer].doublesRolled += 1;
+				if (players[currentPlayer].doublesRolled === 3)
+					getJailed();
+				else
+					move(piece, pos, roll);
+			}
+		}
+		else if (players[currentPlayer].jailed === false)
+		{
+			move(piece, pos, roll);
+			players[currentPlayer].doublesRolled = 0;
+		}
     }
+	
+	function getJailed()
+	{
+		players[currentPlayer].jailed = true;
+		move(players[currentPlayer].piece, 0, 10);
+	}
     
 	function move(piece, currentSpace, spaces)
 	{
 		var id = piece.id;
 		var geometry = getPiece(id);
-		var subt = 87.5;
+		var subt = 97;
 		var offset = 0;
+		var xoffset = 0;
+		var offSide = 525;
+		var sidePush = 390;
 		var destSquare = (currentSpace + spaces) % 40;
 		
 		if (currentSpace + spaces >= 40)
@@ -187,25 +176,43 @@ window.onload = function()
 		
 		playersAtBoard[destSquare] += 1;
 		playersAtBoard[currentSpace] -= 1;
-		if (playersAtBoard[destSquare] > 1)
-			offset = 70;
+		if (playersAtBoard[destSquare] === 2)
+			offset = 50;
+		else if (playersAtBoard[destSquare] === 3)
+		{
+			//offset = 50;
+			
+		}
+		else if (playersAtBoard[destSquare] === 4)
+		{
+		
+		}
+		
 
 		if (destSquare === 0)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500, 30 - 2, 500));
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(offSide, objHeight, offSide));
 		else if (destSquare < 10)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(350-(((currentSpace+spaces)%10)-1)*subt, 30 - 2, 500 + offset));
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(sidePush-(((currentSpace+spaces)%10)-1)*subt, objHeight, offSide + offset));
 		else if (destSquare === 10)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-500, 30 - 2, 500));
+		{
+			if (players[currentPlayer].jailed === true)
+				geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide + 20, objHeight, offSide - 20));
+			else
+				geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide - 45 + offset, objHeight, offSide + 55));
+		}
 		else if (destSquare < 20)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-500 - offset, 30 - 2, 350-(((currentSpace+spaces)%10)-1)*subt));
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide - offset, objHeight, sidePush-(((currentSpace+spaces)%10)-1)*subt));
 		else if (destSquare === 20)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-500, 30 - 2, -500));
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide, objHeight, -offSide));
 		else if (destSquare < 30)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-350+(((currentSpace+spaces)%10)-1)*subt, 30 - 2, -500 - offset));
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-sidePush+(((currentSpace+spaces)%10)-1)*subt, objHeight, -offSide - offset));
 		else if (destSquare === 30)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500, 30 - 2, -500));
+		{
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide + 20, objHeight, offSide - 20));
+			players[currentPlayer].jailed = true;
+		}
 		else if (destSquare < 40)
-			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(500 + offset, 30 - 2, -350+(((currentSpace+spaces)%10)-1)*subt));
+			geometry.applyMatrix(new THREE.Matrix4().makeTranslation(offSide + offset, objHeight, -sidePush+(((currentSpace+spaces)%10)-1)*subt));
 			
 		var xrot = piece.rotation.x;
 		var yrot = piece.rotation.y;
@@ -265,21 +272,18 @@ window.onload = function()
     document.getElementById('addDeed').onclick = function()
 	{
         players[currentPlayer].addPropertyIndex(parseInt(document.getElementById("deedValue").value));
-        console.log(players[currentPlayer]);
-
         updateDeedCards(players[currentPlayer].properties);
 	}
     
     document.getElementById('addCurrentDeed').onclick = function()
 	{
-    players[currentPlayer].addPropertyIndex(parseInt(document.getElementById("deedValue").value));
-        
+		players[currentPlayer].addPropertyIndex(parseInt(document.getElementById("deedValue").value));
         updateDeedCards(players[currentPlayer].properties);
 	}
 	
 	document.getElementById('jail').onclick = function()
 	{
-		move(players[currentPlayer].piece, 0, 10);
+		getJailed();
 	}
 	
 	document.getElementById('moveToGo').onclick = function()
@@ -351,8 +355,8 @@ window.onload = function()
 	
 	function render()
 	{
-		line.rotation.x += ( targetX - line.rotation.x ) * 0.05;
-		line.rotation.y += ( targetY - line.rotation.y ) * 0.05;
+		// line.rotation.x += ( targetX - line.rotation.x ) * 0.05;
+		// line.rotation.y += ( targetY - line.rotation.y ) * 0.05;
 		
 		for (var i = 0; i < numberOfPlayers; i++)
 		{
