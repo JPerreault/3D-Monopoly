@@ -80,7 +80,7 @@ window.onload = function()
 		line = new THREE.Line(geometry, linematerial);
 		line.type = THREE.LinePieces;
 		line.position.z -= 10;
-		//scene.add(line);
+		scene.add(line);
 		
 		var ambientLight = new THREE.AmbientLight(0x202020);
 		scene.add( ambientLight );
@@ -116,7 +116,7 @@ window.onload = function()
 		newgeo.vertices.push((new THREE.Vector3(-600, 1, -600)));
 		newgeo.vertices.push((new THREE.Vector3(-600, 1, 600)));
 		newgeo.faces.push( new THREE.Face4( 0, 1, 2, 3));
-		newgeo.applyMatrix(new THREE.Matrix4().makeTranslation(0, -2, 0));
+		newgeo.applyMatrix(new THREE.Matrix4().makeTranslation(0, -5, 0));
 		newgeo.applyMatrix(new THREE.Matrix4().makeScale( -1, 1, 1 ) );
 		underMesh = new THREE.Mesh(newgeo, selMaterial);
 		scene.add(underMesh);
