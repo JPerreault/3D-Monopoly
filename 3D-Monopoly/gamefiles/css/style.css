@@ -116,6 +116,7 @@ canvas
     box-shadow: 5px 5px 5px #888888;
     width: 150px;
     bottom: 0;
+    z-index: 10;
     position: absolute;
 }**/
 
@@ -176,6 +177,11 @@ canvas
 .deed_tab > td
 {
     padding: 0px;
+}
+
+.utility
+{
+    
 }
 
 #topbar

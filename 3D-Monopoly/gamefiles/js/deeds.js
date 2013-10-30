@@ -18,6 +18,8 @@ function createDeed(deed_value)
     deed.buy_house = loaded[10];
     deed.buy_hotel = loaded[11];
     
+    deed.index = deed_value;
+    
     deed.getInfo = getInfo;
     deed.getPrettyDeed = getPrettyDeed;
     
@@ -46,20 +48,62 @@ function getInfo()
 
 function getPrettyDeed()
 {
-    var output = "<div class='deed'><div class='inner_deed' style='background-color: "+this.color+"'><span class='titleHead'>TITLE DEED</span><br /><b>"+this.title.toUpperCase().replace("AVENUE", "AVE")+"</b></div>";
+    var output = "<div class='deed'>";
+
+    if (this.index <= 21)
+    {
+        output += "<div class='inner_deed' style='background-color: "+this.color+"'><span class='titleHead'>TITLE DEED</span><br /><b>"+this.title.toUpperCase().replace("AVENUE", "AVE")+"</b></div>";
+        
+        output += "<div class='outer_deed'>RENT $"+this.rent+"<br /><table class='deed_tab' cellpadding='0' border='0' align='center' cellspacing='0'><tr><td>";
+        
+        output += "With 1 House</td><td>$"+this.house1+"</td></tr><tr><td>";
+        output += "With 2 Houses</td><td>$"+this.house2+"</td></tr><tr><td>";
+        output += "With 3 Houses</td><td>$"+this.house3+"</td></tr><tr><td>";
+        output += "With 4 Houses</td><td>$"+this.house4+"</td></tr></table>";
+        
+        output += "With HOTEL $"+this.hotel+"<br />";
+        
+        output += "Mortgage Value $"+this.mortgage+"<br />";
+        output += "Houses cost $"+this.buy_house+" each<br />";
+        output += "Hotels, $"+this.buy_hotel+" plus 4 houses<br />";
+    }
     
-    output += "<div class='outer_deed'>RENT $"+this.rent+"<br /><table class='deed_tab' cellpadding='0' border='0' align='center' cellspacing='0'><tr><td>";
-    
-    output += "With 1 House</td><td>$"+this.house1+"</td></tr><tr><td>";
-    output += "With 2 Houses</td><td>$"+this.house2+"</td></tr><tr><td>";
-    output += "With 3 Houses</td><td>$"+this.house3+"</td></tr><tr><td>";
-    output += "With 4 Houses</td><td>$"+this.house4+"</td></tr></table>";
-    
-    output += "With HOTEL $"+this.hotel+"<br />";
-    
-    output += "Mortgage Value $"+this.mortgage+"<br />";
-    output += "Houses cost $"+this.buy_house+" each<br />";
-    output += "Hotels, $"+this.buy_hotel+" plus 4 houses<br />";
+    else if (this.index <= 25)
+    {
+        output+= "<div class='outer_deed'><img src='img/train.gif' height=50 /><br />";
+        var title = this.title.toUpperCase();
+        
+        if (title.length > 17)
+            title = title.replace("RAILROAD", "R.R.");
+        output += "<div class='inner_deed'><b>"+title+"</b></div><table class='deed_tab' cellpadding='0' border='0' align='center' cellspacing='0' style='margin-top: -20px'><tr><td>";
+        
+        output += "With 1 Railroad</td><td>$"+(this.rent*1)+"</td></tr><tr><td>";
+        output += "With 2 Railroads</td><td>$"+(this.rent*2)+"</td></tr><tr><td>";
+        output += "With 3 Railroads</td><td>$"+(this.rent*4)+"</td></tr><tr><td>";
+        output += "With 4 Railroads</td><td>$"+(this.rent*8)+"</td></tr></table>";
+        
+        output += "Mortgage Value $"+this.mortgage+"<br />";
+
+    }
+    else
+    {
+        var image;
+        if (this.index == 26)
+            image = "img/electric.gif";
+        else
+            image = "img/water.gif";
+        
+        output+= "<div class='outer_deed'><img src='"+image+"' height=50 /><br />";
+        
+        output += "<div class='inner_deed'><b>"+this.title.toUpperCase()+"</b><br /></div>";
+        
+        output += "<table class='deed_tab' cellpadding='0' border='0' align='center' style='margin-top: -20px; padding-right: 20px'><tr><td>"
+        
+        output += "&nbsp;&nbsp;&nbsp;&nbsp;If one \"Utility\" is owned rent is 4x dice roll.</td></tr><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;If both \"Utilities\" are owned rent is 10x dice roll.</td></tr></table>";
+        
+        output += "Mortgage Value $"+this.mortgage+"<br />";
+        
+    }
 
     output += "</div></div>";
     
@@ -78,7 +122,7 @@ function updateDeedCards(deed_list)
     
     deed_list.sort(sortNumber);
 
-    for (var x=0; x<deed_list.length; x++)
+    for (var x=deed_list.length-1; x>=0; x--)
     {
         var d1 = createDeed(deed_list[x]);
         
@@ -101,6 +145,8 @@ function updateDeedCards(deed_list)
     }
     
     document.getElementById('land_box').innerHTML = output;
+    $(".deed").hover(bringToFront, undoBringToFront);
+    $(".deed").mousedown(undoBringToFront);
 }
 
 function populateListing()
@@ -113,4 +159,14 @@ function populateListing()
         output += "<option value="+x+">"+deeds[x][0]+"</option>";
     
     select.innerHTML = output;
+}
+
+function bringToFront()
+{
+    $(".deed").css({'z-index' : '10'});
+    this.style.zIndex = 100000;
+}
+function undoBringToFront()
+{
+    this.style.zIndex = 10;
 }
