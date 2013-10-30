@@ -1,40 +1,31 @@
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
-<title>Screenshots</title>
+<title><%= title %></title>
 <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
 </head>
+
 <body>
 
 <div id="main_container">
-    <div id="header">
-    
+  <div id="header">
+    <div class="logo">
+    </div>
     </div>    
             <div id="menu_tab">                                     
                     <ul class="menu">                                                                               
                          <li><a href="/login/" class="nav"> Login </a></li>
                          <li class="divider"></li>
-                         <li><a href="/staticHTML/register.html" class="nav"> Register</a></li>
+                         <li><a href="/register/" class="nav"> Register</a></li>
                          <li class="divider"></li>
-                         <li><a href="/staticHTML/screenshots.html" class="nav"> Screenshots</a></li>
+                         <li><a href="/screenshots/" class="nav"> Screenshots</a></li>
                          <li class="divider"></li>
-                         <li><a href="/staticHTML/contact.html" class="nav"> Contact </a></li>
+                         <li><a href="/contact/" class="nav"> Contact </a></li>
 
                     </ul>
             </div> 
             
-            
-    <div id="main_content">
-    
-        <div id="middle_banner">
-            <div class="middle_banner_content">
-            </div>
-        </div>
+<%- body %>
 
-        <img src="/images/screenshot_01.png" width="250" height="200" />
-        
-        <div id="footer" />
-        
-        </div>
 </body>
-</html>
+</head>
