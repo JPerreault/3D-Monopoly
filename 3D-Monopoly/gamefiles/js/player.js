@@ -12,6 +12,8 @@ var Player = function(playerPosition, piece, money)
 
 function addPropertyIndex(property)
 {
+    if (isNaN(property))
+        return;
     // need to check if property is currently owned by another player
     this.properties.push(property);
 }

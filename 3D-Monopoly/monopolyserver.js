@@ -40,6 +40,7 @@ app.get('/contact/', mainpage.contact);
 app.get('/register/', mainpage.register);
 app.get('/screenshots/', mainpage.screenshots);
 app.get('/home/', index.home);
+app.get('/', index.home);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
