@@ -1,36 +1,48 @@
  <div id="main_content">
-    
-        <div id="middle_banner">
-            <div class="middle_banner_content">
-            </div>
-        </div>
 
-        <div class="registration_form">
-            <h1>Registration</h1>
-            <div class="login_row">
-            <label class="login">Enter account name:</label>
-            <input type="text" class="login_input" />
-            </div>
-             <div class="login_row">
-            <label class="login">Enter password:</label>
-            <input type="password" class="login_input" />
-            </div>
-            <div class="login_row">
-            <label class="login">Re-enter password:</label>
-            <input type="password" class="login_input" />
-            </div>
-            <div class="login_row">
-            <label class="login">Enter email address:</label>
-            <input class="login_input" />
-            </div>
-            <div class="login_row">
-            <label class="login">Re-enter email address:</label>
-            <input class="login_input" />
-            </div>              
-              <div class="login_row">
-            <button href="#" class="submission">Cancel</button>
-             <button href="#" class="submission">Register</button>
-            </div>
-        </div>
-        <div id="footer" />
-    </div>
+  <div id="middle_banner">
+   <div class="middle_banner_content">
+   </div>
+  </div>
+
+   <div class="registration_form">
+    <h1>Registration</h1>
+    <form id="registration_form" action="/registration" onsubmit="return validateForm();" method="post">
+     <div class="login_row">
+      Username: <input type="text" id="username" name="username" />
+     </div>
+     <div class="login_row">
+      Password: <input type="password" id="password" name="userpass" />
+     </div>
+     <div class="login_row">
+      Repeat Password: <input type="password" id="password_repeat" name="userpass" />
+     </div>
+     <div class="login_row">
+      Email Address:<input type="text" id="useremail" name="useremail" />
+     </div>
+     <div class="login_row">
+      Repeat Email Address:<input type="text" id="useremail_repeat" name="useremail" />
+     </div>
+     <div class="login_row">
+       Select a security question:<select name="securityquestion">
+       <option value="blank"></option>
+       <option value="pet">Name of your first pet?</option>
+       <option value="maiden">Mother's maiden name?</option>
+       <option value="hometown">Name of hometown/city?</option>
+       <option value="school">Name of your high school?</option>
+       </select>
+       </div>
+       <div class="login_row">
+       Answer the security question:<input type="text" id="securityanswer" name="useranswer" />
+       </div>
+     <div class="login_row">
+      <button class="submission" type="submit" value="Register">Register</button>
+     </div>
+     <div class="login_row">
+      <div id="error_registration" style="color: red;">
+      </div>
+ </div>
+ </form>
+ </div>
+ <div id="footer" />
+ </div>

@@ -6,13 +6,16 @@
 var express = require('express');
 var routes = require('./routes');
 var mainpage = require('./routes/mainpage');
+var serverpost = require('./routes/post');
 var user = require('./routes/user');
 var index = require('./routes/home');
 var http = require('http');
 var path = require('path');
 var partials = require('express-partials');
+var mongoose = require('mongoose');
 
-var app = express();
+var app = module.exports = express();
+
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -34,6 +37,11 @@ app.use(express.static(path.join(__dirname, 'gamefiles')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+
+var api = require('./controllers/api.js');
+
+app.post('/registration', api.createUser);
+app.post('/play', serverpost.play);
 
 app.get('/login/', mainpage.login);
 app.get('/contact/', mainpage.contact);
