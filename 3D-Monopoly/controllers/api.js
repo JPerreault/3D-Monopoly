@@ -1,25 +1,36 @@
 var mongoose = require('mongoose');
-var Game = require('../lib/model/Game.js');
-var User = require('../lib/model/User.js');
+var User = require('../model/User.js');
+var Game = require('../model/Game.js');
+exports.authenticate = function(name, pass, fn) {
 
-exports.createUser = function(req, res) {
-	mongoose.connect('mongodb://localhost/test');
-    var db = mongoose.connection;
-    var users = db.collection('users');
+var db = mongoose.connection;
+var users = db.collection('users');
+  users.findOne ({username: name, password : pass }, function(err, user) {
+    if (!user){
+    	return fn(new Error('cannot authenticate user'), null);
+    	}
+    else{
+    	return fn(null, user);
+    	}
+	});
+}
+
+exports.createUser = function(un, pw, useremail, securityquestion, securityans, res) {
+
+	var db = mongoose.connection;
 	var newUser = new User({
-	username: req.body.username, 
-	password: req.body.password, 
-	email: req.body.email, 
-	securityq: 1,
-	securityanswer: req.body.useranswer
+	username: un, 
+	password: pw, 
+	email: useremail, 
+	securityq: securityquestion,
+	securityanswer: securityans
 	});
 
 	newUser.save( function(err){
 		if(err){
-			throw(err);
+			res.send("Duplicate User")
 		}
 	});
-
 	res.redirect('/login/');
 }
 	

@@ -17,19 +17,20 @@
         <div id="right_content"> 
         	<div class="login_form">
             <h1>Login</h1>
-            
+            <form name="login_form" id="login_form" action="/login" method="post">
             <div class="login_row">
             <label class="login">Account:</label>
-            <input type="text" class="login_input" />
+            <input required type="text" class="login_input" name="loginname" />
             </div>
              <div class="login_row">
             <label class="login">Password:</label>
-            <input type="password" class="login_input" />
+            <input required type="password" class="login_input" name="loginpass" />
             </div>           
               <div class="login_row">
             <a href="#">Forgot account/password?</a>
-			<button class="submission">Login</button>
+			<button class="submission" required type="submit" value="Login">Login</button>
             </div>             
             </div>
+            </form>
         </div>
         <div id="footer" />

@@ -7,14 +7,11 @@ var UserSchema = new Schema({
 	email:  String,
 	securityq: Number,
 	securityanswer: String,
-	UserGames: {
-	gid1: Number,
-	gid2: Number,
-	gid3: Number,
-	gid4: Number
-	}},
+	usergames: [{
+		type: Number, ref: 'Game'
+		}]},
 	{ collection: 'users'
 });
 
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports.User = mongoose.model('User', UserSchema);

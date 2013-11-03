@@ -12,10 +12,12 @@ var index = require('./routes/home');
 var http = require('http');
 var path = require('path');
 var partials = require('express-partials');
-var mongoose = require('mongoose');
+
 
 var app = module.exports = express();
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -38,10 +40,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var api = require('./controllers/api.js');
 
-app.post('/registration', api.createUser);
+
+app.post('/register/', serverpost.register);
 app.post('/play', serverpost.play);
+app.post('/login', serverpost.login);
 
 app.get('/login/', mainpage.login);
 app.get('/contact/', mainpage.contact);
