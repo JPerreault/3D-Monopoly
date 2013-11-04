@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var User = require('../model/User.js');
 var Game = require('../model/Game.js');
+
 exports.authenticate = function(name, pass, fn) {
 
 var db = mongoose.connection;

@@ -1,7 +1,5 @@
 
-/*
- * GET home page.
- */
+
 
 exports.login = function(req, res){
 	if(!req.session){

@@ -4,7 +4,7 @@ var api = require('../controllers/api.js');
 exports.login = function(req, res){
 	api.authenticate(req.body.loginname, req.body.loginpass, function(err, user){
     if (user) {
-      res.sendfile('gamefiles/monopoly.html');
+      res.send("Authentication successful");
     } 
     else {
       res.redirect('/login/');
