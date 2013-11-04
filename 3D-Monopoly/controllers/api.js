@@ -14,7 +14,7 @@ var users = db.collection('users');
     	return fn(null, user);
     	}
 	});
-}
+};
 
 exports.createUser = function(un, pw, useremail, securityquestion, securityans, res) {
 
@@ -29,9 +29,9 @@ exports.createUser = function(un, pw, useremail, securityquestion, securityans, 
 
 	newUser.save( function(err){
 		if(err){
-			res.send("Duplicate User")
+			res.send(err);
 		}
 	});
 	res.redirect('/login/');
-}
+};
 	

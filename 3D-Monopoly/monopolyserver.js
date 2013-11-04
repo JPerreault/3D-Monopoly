@@ -44,11 +44,10 @@ if ('development' == app.get('env')) {
 app.get('/login/', mainpage.login);
 app.post('/login/', serverpost.login);
 
-
+app.get('/register/', mainpage.register);
 app.post('/register/', serverpost.register);
-app.post('/play/', serverpost.play);
-app.post('/login/', serverpost.login);
 
+app.post('/play/', serverpost.play);
 
 app.get('/contact/', mainpage.contact);
 app.get('/register/', mainpage.register);

@@ -9,4 +9,4 @@ var GameSchema = new Schema({
 	{ collection: 'games'
 });
 
-module.exports.Game = mongoose.model('Game', GameSchema);
+module.exports = mongoose.model('Game', GameSchema);

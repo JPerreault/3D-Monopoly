@@ -10,7 +10,7 @@ exports.login = function(req, res){
       res.redirect('/login/');
     }
   });
-}
+};
 
 exports.register = function(req, res){
 	var username = req.body.username;
