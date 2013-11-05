@@ -44,12 +44,19 @@ window.onload = function()
 		playersAtBoard[i] = 0;
 	playersAtBoard[0] = 4;
 	var currentPlayer = 0;
+    
+    var community_chest_cards;
+    var chance_cards;
 
 	init();
 	animate();
 	
     expandMoneys(1500);
     populateListing();
+    
+    initialize_community_chest_cards();
+    initialize_chance_cards();
+    
 
     
 	function init()
@@ -344,6 +351,14 @@ window.onload = function()
 		moveToGo();
 		passedGo();
 	}
+    document.getElementById('comchest').onclick = function(){
+    
+        drawCard("comchest");
+    
+    }
+    document.getElementById('chance').onclick = function(){
+        drawCard("chance");
+    }
 
 	function onWindowResize() 
 	{
@@ -353,6 +368,7 @@ window.onload = function()
 		renderer.setSize(window.innerWidth, window.innerHeight);
 	}
 	
+    
 	function onMouseWheel()
 	{
 		var fovMAX = 160;
@@ -430,5 +446,46 @@ window.onload = function()
 			
 		camera.lookAt(scene.position);
 		renderer.render(scene, camera);
-	}	
+	}
+    
+    function initialize_community_chest_cards(){
+     community_chest_cards = new Array();
+     
+     community_chest_cards.push(new Card("comchest",1,
+     "Bank error in your favor. Collect $75.",
+     function(player){
+       player.money = player.money + 75;
+       document.getElementById("money").value = players[currentPlayer].money;
+     }
+     
+     ));
+     
+     
+    }
+    
+    function initialize_chance_cards(){
+     chance_cards = new Array();
+     
+     chance_cards.push(new Card("chance",0,
+      "Advance to Go. Collect $200.",
+      function(player){
+       move(player.piece, 0, 0);
+       player.money = player.money + 200;
+       document.getElementById("money").value = players[currentPlayer].money;
+      }
+     ));
+    
+    }
+    
+    function drawCard(type){
+    if(type === "comchest"){
+     community_chest_cards[0].behavior(players[currentPlayer]);
+    }
+    else if(type === "chance"){
+     chance_cards[0].behavior(players[currentPlayer]);
+    }
+    
+    
+     
+    }            	
 }
