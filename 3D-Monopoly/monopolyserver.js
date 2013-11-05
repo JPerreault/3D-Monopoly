@@ -49,6 +49,7 @@ app.post('/register/', serverpost.register);
 
 app.post('/play/', serverpost.play);
 
+app.get('/hub/', mainpage.hub);
 app.get('/contact/', mainpage.contact);
 app.get('/register/', mainpage.register);
 app.get('/screenshots/', mainpage.screenshots);
