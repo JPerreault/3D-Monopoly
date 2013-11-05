@@ -452,7 +452,7 @@ window.onload = function()
      community_chest_cards = new Array();
      
      community_chest_cards.push(new Card("comchest",1,
-     "Bank error in your favor. Collect $75.",
+     "<p>Bank error in your favor. <br>Collect $75.</p>",
      function(player){
        player.money = player.money + 75;
        document.getElementById("money").value = players[currentPlayer].money;
@@ -467,7 +467,7 @@ window.onload = function()
      chance_cards = new Array();
      
      chance_cards.push(new Card("chance",0,
-      "Advance to Go. Collect $200.",
+      "<p> Advance to Go.<br>Collect $200.</p>",
       function(player){
        move(player.piece, 0, 0);
        player.money = player.money + 200;
@@ -480,12 +480,40 @@ window.onload = function()
     function drawCard(type){
     if(type === "comchest"){
      community_chest_cards[0].behavior(players[currentPlayer]);
+	 styleCard(community_chest_cards[0].message,"comchest");
     }
     else if(type === "chance"){
      chance_cards[0].behavior(players[currentPlayer]);
+	 styleCard(chance_cards[0].message,"chance");
     }
+	
+	}
     
+	function styleCard(message,type){
+		if(type === "comchest"){
+		 var output = "<div class='com_chest_display'>";
+		 output = output+message;
+		 output = output+"</div>";
+		 document.getElementById("community_chest_card_display").innerHTML = output;
+		 setTimeout(function(){
+					   $(".com_chest_display").remove();					
+													 },5000);
+		
+		}
+		else if(type === "chance"){
+		 var output = "<div class='chance_display'>";
+		 output = output + message;
+		 output = output+"</div>";
+		 document.getElementById("chance_card_display").innerHTML = output;
+			setTimeout(function(){
+					   $(".chance_display").remove();
+												},5000);
+		
+		}
+		
+		
+	}
     
      
-    }            	
+                	
 }
