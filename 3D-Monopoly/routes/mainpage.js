@@ -41,6 +41,6 @@ exports.hub = function(req, res){
 	res.redirect('/home');
     }
     else{
-	res.render('hub', {title: '3D Monopoly' });
+	res.render('hub', {title: 'Hub' });
     }
 };
