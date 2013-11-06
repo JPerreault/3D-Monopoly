@@ -1,3 +1,6 @@
+var players = new Array();
+var tileBoard = new Array();
+
 window.onload = function()
 {
 	var renderer, container, camera, scene;
@@ -35,8 +38,6 @@ window.onload = function()
     var playerPosition = board = turnCount = reRollCount = 0;
     var gameOver = reRoll = false;
     var firstDie;
-    var tileBoard = new Array();
-    var players = new Array();
     var numberOfPlayers = 4; //TODO enable more players
     var testCount = 1; //4 full turns
 	var playersAtBoard = new Array();
@@ -57,7 +58,16 @@ window.onload = function()
     initialize_community_chest_cards();
     initialize_chance_cards();
     
+    initializeTileBoard();
+    
 
+    function initializeTileBoard()
+    {
+        for(var x=0; x<40; x++)
+        {
+            tileBoard[x] = createTile(x);
+        }
+    }
     
 	function init()
 	{
@@ -276,6 +286,21 @@ window.onload = function()
 		piece = new THREE.Mesh(geometry, material);
 		piece.rotation.x = xrot;
 		piece.rotation.y = yrot;
+        
+        console.log(destSquare);
+        var currentProp = tileBoard[destSquare].activate();
+        if (currentProp != -1)
+        {
+            if (currentProp.cost <= players[id].money)
+            {
+                console.log(currentProp.getInfo());
+                
+                players[currentPlayer].properties.push(currentProp.index);
+                players[currentPlayer].money -= currentProp.cost;
+                expandMoneys(players[currentPlayer].money);
+                updateDeedCards(players[currentPlayer].properties);
+            }
+        }
 		
 		players[id].piece = piece;
 		players[id].playerPosition = destSquare;

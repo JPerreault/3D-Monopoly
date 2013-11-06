@@ -2,6 +2,9 @@ var deeds = [["Mediterranean Avenue","#700000",60,30,2,10,30,90,160,250,50,50],[
 
 function createDeed(deed_value)
 {
+    if (deed_value == -1)
+        return deed_value;
+    
     var loaded = deeds[deed_value];
     var deed = {};
     
@@ -156,7 +159,7 @@ function populateListing()
     var output = "<option>-- select property --</option>";
     
     for (var x=0; x<deeds.length; x++)
-        output += "<option value="+x+">"+deeds[x][0]+"</option>";
+        output += "<option value="+x+">"+x+" "+deeds[x][0]+"</option>";
     
     select.innerHTML = output;
 }
