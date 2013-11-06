@@ -129,7 +129,7 @@ window.onload = function()
 		var comcard = new THREE.CubeGeometry(140, 40, 210);
 		comcard.applyMatrix(new THREE.Matrix4().makeRotationY(2.355));
 		comcard.applyMatrix(new THREE.Matrix4().makeTranslation(-270, 20, -270));
-		var cardTexture = THREE.ImageUtils.loadTexture("textures/cards2.png");
+		var cardTexture = THREE.ImageUtils.loadTexture("textures/cards3.png");
 		var rm = new THREE.MeshBasicMaterial( { map: cardTexture, wireframe: false } );
 		chancecards = new THREE.Mesh(comcard, rm);
 		scene.add(chancecards);
