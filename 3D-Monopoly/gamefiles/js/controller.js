@@ -52,7 +52,7 @@ window.onload = function()
 	init();
 	animate();
 	
-    expandMoneys(1500);
+    updateDisplay();
     populateListing();
     
     initialize_community_chest_cards();
@@ -297,8 +297,7 @@ window.onload = function()
                 
                 players[currentPlayer].properties.push(currentProp.index);
                 players[currentPlayer].money -= currentProp.cost;
-                expandMoneys(players[currentPlayer].money);
-                updateDeedCards(players[currentPlayer].properties);
+                updateDisplay();
             }
         }
 		
@@ -316,8 +315,7 @@ window.onload = function()
 	function passedGo()
 	{
 		players[currentPlayer].money = parseInt(players[currentPlayer].money)+200;
-		expandMoneys(players[currentPlayer].money);
-		document.getElementById("money").value = parseInt(document.getElementById("money").value) + 200;
+		updateDisplay();
 	}
 	
 	document.getElementById('rolldice').onclick = function()
@@ -334,8 +332,7 @@ window.onload = function()
 	{
 		currentPlayer = (currentPlayer + 1) % numberOfPlayers;
 		$('#money')[0].value = players[currentPlayer].money;
-		expandMoneys(players[currentPlayer].money);
-        updateDeedCards(players[currentPlayer].properties);
+		updateDisplay();
 	}
 	
 	document.getElementById('realmove').onclick = function()
@@ -345,20 +342,14 @@ window.onload = function()
 	
 	document.getElementById('go').onclick = function()
 	{
-		expandMoneys(parseInt(document.getElementById("money").value));
 		players[currentPlayer].money = document.getElementById("money").value;
+        updateDisplay();
 	}
     
     document.getElementById('addDeed').onclick = function()
 	{
         players[currentPlayer].addPropertyIndex(parseInt(document.getElementById("deedValue").value));
-        updateDeedCards(players[currentPlayer].properties);
-	}
-    
-    document.getElementById('addCurrentDeed').onclick = function()
-	{
-		players[currentPlayer].addPropertyIndex(parseInt(document.getElementById("deedValue").value));
-        updateDeedCards(players[currentPlayer].properties);
+        updateDisplay();
 	}
 	
 	document.getElementById('jail').onclick = function()
@@ -511,6 +502,8 @@ window.onload = function()
      chance_cards[0].behavior(players[currentPlayer]);
 	 styleCard(chance_cards[0].message,"chance");
     }
+        
+        updateDisplay();
 	
 	}
     
@@ -538,6 +531,15 @@ window.onload = function()
 		
 		
 	}
+    
+    function updateDisplay()
+    {
+        expandMoneys(players[currentPlayer].money);
+        updateDeedCards(players[currentPlayer].properties);
+        
+        // update debug stuff
+        document.getElementById("money").value = players[currentPlayer].money;
+    }
     
      
                 	
