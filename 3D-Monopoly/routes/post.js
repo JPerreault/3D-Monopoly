@@ -1,15 +1,19 @@
-var api = require('../controllers/api.js');
+ var passport = require('passport')
+   , api = require('../controllers/api.js')
 
-
-exports.login = function(req, res){
-	api.authenticate(req.body.loginname, req.body.loginpass, function(err, user){
-    if (user) {
-      res.send("Authentication successful");
-    } 
-    else {
-      res.redirect('/login/');
+exports.login = function(req, res, next){
+	passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err) }
+    if (!user) {
+      req.session.messages =  [info.message];
+      console.log(info.message);
+      return res.redirect('/login')
     }
-  });
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.redirect('/hub');
+    });
+  })(req, res, next);
 };
 
 exports.register = function(req, res){
