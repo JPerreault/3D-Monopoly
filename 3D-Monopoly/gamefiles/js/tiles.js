@@ -1,13 +1,25 @@
-var lookUps = [-1, 0, -1, 1, -1, 22, 2, -1, 3, 4, -1, 5, 26, 6, 7, 23, 8, -1, 9, 10, -1, 11, -1, 12, 13, 24, 14, 15, 27, 16, -1, 17, 18, -1, 19, 25, -1, 20, -1, 21];
+var lookUps = [-1, 0, -2, 1, -4, 22, 2, -3, 3, 4, -1, 5, 26, 6, 7, 23, 8, -2, 9, 10, -1, 11, -3, 12, 13, 24, 14, 15, 27, 16, -1, 17, 18, -2, 19, 25, -3, 20, -4, 21];
 
 function createTile(x)
 {
     var tile = {};
     
-    tile.activate = getProperty;
-    tile.index = x;
+    if(lookUps[x] == -2)//comunity chest
+        tile.activate = communityChest;
     
+    else if(lookUps[x] == -3) //chance
+        tile.activate = chance;
+    
+    else if(lookUps[x] == -4) //income tax
+       tile.activate = incomeTax
+    
+    else
+        tile.activate = getProperty;
+    
+    tile.index = x;
     return tile;
+
+
 }
 
 function getProperty()
@@ -16,4 +28,18 @@ function getProperty()
     
 }
 
+function communityChest()
+{
+    return "Call comunity chest function";
+}
 
+function chance()
+{
+    return "Call chance function";
+    
+}
+
+function incomeTax()
+{
+    return "Call imcome tax function";
+}

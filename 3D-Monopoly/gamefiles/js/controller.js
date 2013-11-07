@@ -289,11 +289,11 @@ window.onload = function()
         
         console.log(destSquare);
         var currentProp = tileBoard[destSquare].activate();
-        if (currentProp != -1)
+        if (currentProp.cost && !alreadyOwned(destSquare))
         {
             if (currentProp.cost <= players[id].money)
             {
-                console.log(currentProp.getInfo());
+                //console.log(currentProp.getInfo());
                 
                 players[currentPlayer].properties.push(currentProp.index);
                 players[currentPlayer].money -= currentProp.cost;
@@ -301,6 +301,8 @@ window.onload = function()
                 updateDeedCards(players[currentPlayer].properties);
             }
         }
+        else
+            console.log(currentProp);
 		
 		players[id].piece = piece;
 		players[id].playerPosition = destSquare;
@@ -320,6 +322,23 @@ window.onload = function()
 		document.getElementById("money").value = parseInt(document.getElementById("money").value) + 200;
 	}
 	
+    function alreadyOwned(destSquare)
+    {
+        var alreadyOwned = false;
+        
+        for(var x=0; x<players.length; x++)
+        {
+            for(var y=0; y<players[x].properties.length; y++){
+                
+                console.log("this: "+players[x].properties[y]);
+                if(players[x].properties[y] == lookUps[destSquare])
+                    alreadyOwned = true;
+            }
+        }
+        
+        return alreadyOwned;
+    }
+    
 	document.getElementById('rolldice').onclick = function()
 	{
 		rollDice();
