@@ -53,7 +53,6 @@ window.onload = function()
 	animate();
 	
     updateDisplay();
-    populateListing();
     
     initialize_community_chest_cards();
     initialize_chance_cards();
@@ -295,7 +294,7 @@ window.onload = function()
             {
                 //console.log(currentProp.getInfo());
                 
-                players[currentPlayer].properties.push(currentProp.index);
+                players[currentPlayer].addPropertyIndex(currentProp.index);
                 players[currentPlayer].money -= currentProp.cost;
                 updateDisplay();
             }
@@ -559,6 +558,6 @@ window.onload = function()
         document.getElementById("money").value = players[currentPlayer].money;
     }
     
-     
+    populateListing();
                 	
 }

@@ -16,5 +16,8 @@ function addPropertyIndex(property)
         return;
     // need to check if property is currently owned by another player
     this.properties.push(property);
+    
+    // for debug controls
+    populateListing();
 }
 

@@ -159,9 +159,31 @@ function populateListing()
     var output = "<option>-- select property --</option>";
     
     for (var x=0; x<deeds.length; x++)
-        output += "<option value="+x+">"+x+" "+deeds[x][0]+"</option>";
+    {
+        var alreadyOwned = false;
+
+        for(var i=0; i<players.length; i++)
+        {
+            for(var y=0; y<players[i].properties.length; y++)
+            {
+                if(players[i].properties[y] == x)
+                {
+                    alreadyOwned = true;
+                }
+            }
+        }
+        
+        if (!alreadyOwned)
+            output += "<option value="+x+">"+x+" "+deeds[x][0]+"</option>";
+    }
     
     select.innerHTML = output;
+    
+    if (output == "<option>-- select property --</option>")
+    {
+        select.innerHTML = "<option>no more properties</option>";
+        //select.disabled = true;
+    }
 }
 
 function bringToFront()
@@ -169,6 +191,7 @@ function bringToFront()
     $(".deed").css({'z-index' : '10'});
     this.style.zIndex = 100000;
 }
+
 function undoBringToFront()
 {
     this.style.zIndex = 10;
