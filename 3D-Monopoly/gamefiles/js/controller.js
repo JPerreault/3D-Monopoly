@@ -493,6 +493,14 @@ window.onload = function()
      
      ));
      
+     community_chest_cards.push(new Card("comchest",2,
+     "<p>Doctor's fees.<br>Pay $50</p>",
+     function(player){
+      player.money = player.money - 50;
+     }
+     
+     ));
+     
      
     }
     
@@ -512,8 +520,8 @@ window.onload = function()
     
     function drawCard(type){
     if(type === "comchest"){
-     community_chest_cards[0].behavior(players[currentPlayer]);
-	 styleCard(community_chest_cards[0].message,"comchest");
+     community_chest_cards[1].behavior(players[currentPlayer]);
+	 styleCard(community_chest_cards[1].message,"comchest");
     }
     else if(type === "chance"){
      chance_cards[0].behavior(players[currentPlayer]);
