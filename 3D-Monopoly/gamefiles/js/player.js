@@ -8,6 +8,9 @@ var Player = function(playerPosition, piece, money)
 	this.doublesRolled = 0;
     
     this.addPropertyIndex = addPropertyIndex;
+    
+    //These should only be Get Out Of Jail Free Cards
+    this.cardsHeld = [];
 }
 
 function addPropertyIndex(property)
