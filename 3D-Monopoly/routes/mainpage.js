@@ -11,6 +11,9 @@ exports.login = function(req, res){
 };
 
 exports.contact = function(req, res){
+    if(typeof req.user != undefined || typeof req.user != false){
+        res.redirect('/hub');
+    }
    else{
   res.render('contact.ejs', { layout: 'mainpagelayout', title: 'Contact' });
 }
