@@ -25,12 +25,3 @@ exports.register = function(req, res){
 	api.createUser(username, password, useremail, securityq, securityans, res);
 
 };
-
-exports.play = function(req, res){
-	if(!req.session){
-		res.redirect('/')
-	}
-	else{
-		res.sendfile('gamefiles/monopoly.html');
-	}
-};
