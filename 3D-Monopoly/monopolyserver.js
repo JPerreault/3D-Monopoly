@@ -54,6 +54,7 @@ app.get('/play', game.play);
 app.get('/hub', pass.ensureAuthenticated, mainpage.hub);
 app.get('/contact', mainpage.contact);
 app.get('/register', mainpage.register);
+app.get('/logout', mainpage.logout);
 app.get('/screenshots', mainpage.screenshots);
 app.get('/home', index.home);
 app.get('/', index.home);
