@@ -75,8 +75,7 @@ function initializeTileBoard()
 
 function init()
 {
-    container = document.createElement('div');
-    document.body.appendChild(container);
+    container = document.getElementById("container");
     
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.set(0, 1250, 1000);
@@ -424,7 +423,10 @@ function onMouseWheel()
 {
     var fovMAX = 160;
     var fovMIN = 5;
-
+    
+    if ( event.target.id == 'chatbox')
+        return;
+    
     camera.fov -= event.wheelDeltaY * 0.05;
     camera.fov = Math.max(Math.min(camera.fov, fovMAX), fovMIN);
     camera.projectionMatrix = new THREE.Matrix4().makePerspective(camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far);

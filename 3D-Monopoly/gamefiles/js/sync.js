@@ -8,12 +8,22 @@ function initalConnect()
     socket = io.connect('http://localhost');
     socket.on('init', function (data) {
               var player = data.hello;
-              currentPlayer = parseInt(player)-1;
+              currentPlayer = parseInt(player);
               finalPlayerID = currentPlayer;
+              username = "Player "+currentPlayer;
               
               updateStatus("Connected as Player "+currentPlayer);
+              chatMessage("You have connected", null);
+
              // socket.emit('my other event', { my: 'data' });
               });
+    
+    socket.on('get-message', function(data)
+              {
+              chatMessage(data.message, data.sender);
+              });
+    
+    
     socket.on('update', function(data){
               
               var otherPlayer = parseInt(data.pid);
@@ -34,6 +44,8 @@ function initalConnect()
     socket.on('disconnect', function(data){
               updateStatus("Disconnected");
               });
+    
+    initChat();
 }
 
 function sync()
@@ -46,4 +58,9 @@ function updateStatus(string)
     document.getElementById("status").innerHTML = string;
     document.getElementById("debugstatus").innerHTML = string;
 
+}
+
+function postMessage(string)
+{
+    socket.emit('post-message', {message: string, sender: username});
 }
