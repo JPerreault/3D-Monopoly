@@ -19,11 +19,15 @@
         <script src="js/tiles.js"></script>
 		<script src="js/stlLoader.js"></script>
         <script src="/socket.io/socket.io.js"></script>
+        <script src="js/sync.js"></script>
         
         <div id="topbar">3D Monopoly</div>
 		<div id = "container"></div>
-        
+        <div id = "status">
+            You are offline.
+        </div>
         <div id = "left_sidebar">
+
             <div id = "cash" class="hudset">
                 <div class = "bill_box">
                     <img class="money" src="img/money/monopoly_money_500.jpg" />
@@ -75,18 +79,24 @@
                         <button id = 'jail' >Go to Jail</button>
                     </td>
                     
+                    <td>
+                        <div id="debugstatus">Not online.</div>
+                        </td>
+                    
                     
                     <td></td>
                     
                     </tr>
 					<tr>
-					<td> <button id='comchest'>Community Chest </button></td>
-					<td> <button id='chance'> Chance </button></td>
+					<td> <button id='comchest'>Community Chest</button></td>
+					<td> <button id='chance'> Chance</button></td>
                         
                     <td>
                             <select id='deedValue' value='4'>
                             </select> <button id = 'addDeed'>add</button>
                         </td>
+                    <td> <button id='syncEm' onclick="sync()">Sync</button></td>
+
 					</tr>
                 </table>
             <button id='showdebug' onclick='$("#debug").animate({top: "0px"}, 900);$("#showdebug").fadeOut(500);'>Show Debug Controls</button>
