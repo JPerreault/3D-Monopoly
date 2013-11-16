@@ -23,7 +23,11 @@ function initalConnect()
                 spaces += 40;
     
               move(players[otherPlayer].piece, players[otherPlayer].playerPosition, spaces);
-    
+              
+              players[otherPlayer].properties = data.prop;
+              players[otherPlayer].money = parseInt(data.cash);
+              
+              
               console.log("moved player "+otherPlayer+" a total of "+spaces+" spaces to "+data.pos);
               });
     
@@ -34,7 +38,7 @@ function initalConnect()
 
 function sync()
 {
-    socket.emit('payload', {pid: currentPlayer, pos: players[currentPlayer].playerPosition});
+    socket.emit('payload', {pid: currentPlayer, pos: players[currentPlayer].playerPosition, prop: players[currentPlayer].properties, cash: players[currentPlayer].money});
 }
 
 function updateStatus(string)
