@@ -2,7 +2,7 @@
 
 
 exports.login = function(req, res){
-  if(typeof req.user != undefined || typeof req.user != false){
+  if(req.user != undefined){
 	res.redirect('/hub');
     }
    else{
@@ -11,7 +11,7 @@ exports.login = function(req, res){
 };
 
 exports.contact = function(req, res){
-    if(typeof req.user != undefined || typeof req.user != false){
+    if(req.user != undefined){
         res.redirect('/hub');
     }
    else{
@@ -21,7 +21,7 @@ exports.contact = function(req, res){
 };
 
 exports.register = function(req, res){
-	if(typeof req.user != undefined || typeof req.user != false){
+	if(req.user != undefined){
 	res.redirect('/hub');
     }
   res.render('register.ejs', { layout: 'mainpagelayout', title: 'Register' });
@@ -34,7 +34,7 @@ exports.screenshots = function(req, res){
    
 };
 exports.hub = function(req, res){
-    if(typeof req.user == undefined || typeof req.user == false){
+    if(req.user == undefined){
 	res.redirect('/login');
     }
     else{

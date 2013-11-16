@@ -10,13 +10,13 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  db.userModel.findById(id, function (err, user) {
+  db.findById(id, function (err, user) {
     done(err, user);
   });
 });
 
 passport.use(new LocalStrategy(function(un, pw, done) {
-  db.userModel.findOne({ username: un }, function(err, user) {
+  db.findOne({ username: un }, function(err, user) {
     if (err) { 
       console.log(err);
       return done(err); }
