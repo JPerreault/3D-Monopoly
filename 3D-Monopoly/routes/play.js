@@ -1,8 +1,8 @@
 var pidList = [false, false, false, false];
 
 exports.play = function(req, res){
-	if(!req.session){
-		res.redirect('/')
+	if(req.user == undefined){
+		res.redirect('/login')
 	}
 	else{
         res.render('game.ejs', { });
