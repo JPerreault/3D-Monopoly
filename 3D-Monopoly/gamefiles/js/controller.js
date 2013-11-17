@@ -361,20 +361,25 @@ function move(piece, currentSpace, spaces)
     piece.rotation.y = yrot;
     
     console.log(destSquare);
-    var currentProp = tileBoard[destSquare].activate();
-    if (currentProp.cost && !alreadyOwned(destSquare))
+    
+    if (id == currentPlayer)
     {
-        if (currentProp.cost <= players[id].money)
+    
+        var currentProp = tileBoard[destSquare].activate();
+        if (currentProp.cost && !alreadyOwned(destSquare))
         {
-            //console.log(currentProp.getInfo());
-            
-            players[currentPlayer].addPropertyIndex(currentProp.index);
-            players[currentPlayer].money -= currentProp.cost;
-            updateDisplay();
+            if (currentProp.cost <= players[id].money)
+            {
+                //console.log(currentProp.getInfo());
+                
+                players[currentPlayer].addPropertyIndex(currentProp.index);
+                players[currentPlayer].money -= currentProp.cost;
+                updateDisplay();
+            }
         }
+        else
+            console.log(currentProp);
     }
-    else
-        console.log(currentProp);
     
     players[id].piece = piece;
     players[id].playerPosition = destSquare;

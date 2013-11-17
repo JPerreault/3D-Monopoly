@@ -1,12 +1,13 @@
 var pidList = [false, false, false, false];
 
 exports.play = function(req, res){
-	if(req.user == undefined){
-		res.redirect('/login')
-	}
-	else{
+//	if(req.user == undefined){
+//		res.redirect('/login')
+//	}
+//	else{
         res.render('game.ejs', { });
-	}
+//	}
+    // commented this stuff for now so it's easier to test gameplay
 };
 
 exports.connected = function(socket)
