@@ -23,10 +23,6 @@ var gameOver = reRoll = false;
 var firstDie;
 var numberOfPlayers = 4; //TODO enable more players
 var testCount = 1; //4 full turns
-var playersAtBoard = new Array();
-for (var i = 0; i <40; i++)
-playersAtBoard[i] = 0;
-playersAtBoard[0] = 4;
 
 var community_chest_cards;
 var chance_cards;
@@ -48,10 +44,6 @@ window.onload = function()
 
 		scene.add( mesh );
 	} );
-	//loader.load( 'textures/hotel.stl' );
-	
-	
-
 
 	init();
 	animate();
@@ -171,9 +163,6 @@ function init()
             updateStatus("Pretending to be Player "+currentPlayer);
         else
             updateStatus("Connected as Player "+currentPlayer);
-
-        
-
     }
     
     document.getElementById('realmove').onclick = function()
@@ -224,7 +213,7 @@ function initializePieces(step)
     for (var i = 0; i < numberOfPlayers; i++)
     {
         var geometry = getPiece(i);
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(475 + (75*(i%2)), objHeight, 440 + step/2 + 70 * (Math.floor((i)/2))));
+        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(475 + (75*(i%2)), objHeight, 420 + step/2 + 70 * (Math.floor((i)/2))));
         test = new THREE.Mesh(geometry, selMaterial);
         test = new THREE.Mesh(geometry, material);
 
@@ -306,52 +295,50 @@ function move(piece, currentSpace, spaces)
     var xoffset = 0;
     var offSide = 525;
     var sidePush = 390;
+	var jaily = 0;
     var destSquare = (currentSpace + spaces) % 40;
     
     if (currentSpace + spaces >= 40)
     {
         passedGo();
     }
-    
-    playersAtBoard[destSquare] += 1;
-    playersAtBoard[currentSpace] -= 1;
-    if (playersAtBoard[destSquare] === 2)
-        offset = 50;
-    else if (playersAtBoard[destSquare] === 3)
-    {
-        //offset = 50;
-        
-    }
-    else if (playersAtBoard[destSquare] === 4)
-    {
-    
-    }
+
+	offset = 50 * Math.floor(id/2);
+	xoffset = -20 + (45 * (id%2));
+	
     
 
     if (destSquare === 0)
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(offSide, objHeight, offSide));
+         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(475 + (75*(id%2)), objHeight, 420 + step/2 + 70 * (Math.floor((id)/2))));
     else if (destSquare < 10)
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(sidePush-(((currentSpace+spaces)%10)-1)*subt, objHeight, offSide + offset));
+        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(sidePush-(((currentSpace+spaces)%10)-1)*subt + xoffset, objHeight, offSide + offset));
     else if (destSquare === 10)
     {
         if (players[currentPlayer].jailed === true)
-            geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide + 20, objHeight, offSide - 20));
+            geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide + 60*(id%2), objHeight, offSide - 50 + 60 * (Math.floor((id)/2))));
         else
-            geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide - 45 + offset, objHeight, offSide + 55));
+		{
+			if (id === 0)
+				jaily = -50;
+			if (id === 3)
+				offset += 50;
+		
+            geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide - 45 + offset, objHeight, offSide + 55 + jaily));
+		}
     }
     else if (destSquare < 20)
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide - offset, objHeight, sidePush-(((currentSpace+spaces)%10)-1)*subt));
+        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide - offset, objHeight, sidePush-(((currentSpace+spaces)%10)-1)*subt + xoffset));
     else if (destSquare === 20)
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide, objHeight, -offSide));
+         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-475 - (75*(id%2)), objHeight, -420 - step/2 - 70 * (Math.floor((id)/2))));
     else if (destSquare < 30)
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-sidePush+(((currentSpace+spaces)%10)-1)*subt, objHeight, -offSide - offset));
+        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-sidePush+(((currentSpace+spaces)%10)-1)*subt - xoffset, objHeight, -offSide - offset));
     else if (destSquare === 30)
     {
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide + 20, objHeight, offSide - 20));
+        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide + 60*(id%2), objHeight, offSide - 50 + 60 * (Math.floor((id)/2))));
         players[currentPlayer].jailed = true;
     }
     else if (destSquare < 40)
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(offSide + offset, objHeight, -sidePush+(((currentSpace+spaces)%10)-1)*subt));
+        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(offSide + offset, objHeight, -sidePush+(((currentSpace+spaces)%10)-1)*subt - xoffset));
         
     var xrot = piece.rotation.x;
     var yrot = piece.rotation.y;
