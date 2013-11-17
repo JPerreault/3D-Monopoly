@@ -26,9 +26,7 @@ var Schema = mongoose.Schema,
 var userSchema = new Schema({
   username: String, 
   email:  String, 
-  password:  String, 
-  securityq: Number, 
-  securityanswer: String
+  password:  String,
    }, 
   { collection: 'users'}
 );
@@ -61,5 +59,4 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 
 
 // Export user model
-var userModel = mongoose.model('User', userSchema);
-exports.userModel = userModel;
+module.exports = mongoose.model('User', userSchema);;

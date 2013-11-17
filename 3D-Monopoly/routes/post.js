@@ -20,8 +20,6 @@ exports.register = function(req, res){
 	var username = req.body.username;
 	var password = req.body.userpass;
 	var useremail = req.body.useremail;
-	var securityq = parseInt(req.body.userquestion);
-	var securityans = req.body.useranswer;
-	api.createUser(username, password, useremail, securityq, securityans, res);
+	api.createUser(username, password, useremail, res);
 
 };

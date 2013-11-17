@@ -67,8 +67,7 @@ function initializeTileBoard()
 
 function init()
 {
-    container = document.createElement('div');
-    document.body.appendChild(container);
+    container = document.getElementById("container");
     
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.set(0, 1250, 1000);
@@ -349,20 +348,25 @@ function move(piece, currentSpace, spaces)
     piece.rotation.y = yrot;
     
     console.log(destSquare);
-    var currentProp = tileBoard[destSquare].activate();
-    if (currentProp.cost && !alreadyOwned(destSquare))
+    
+    if (id == currentPlayer)
     {
-        if (currentProp.cost <= players[id].money)
+    
+        var currentProp = tileBoard[destSquare].activate();
+        if (currentProp.cost && !alreadyOwned(destSquare))
         {
-            //console.log(currentProp.getInfo());
-            
-            players[currentPlayer].addPropertyIndex(currentProp.index);
-            players[currentPlayer].money -= currentProp.cost;
-            updateDisplay();
+            if (currentProp.cost <= players[id].money)
+            {
+                //console.log(currentProp.getInfo());
+                
+                players[currentPlayer].addPropertyIndex(currentProp.index);
+                players[currentPlayer].money -= currentProp.cost;
+                updateDisplay();
+            }
         }
+        else
+            console.log(currentProp);
     }
-    else
-        console.log(currentProp);
     
     players[id].piece = piece;
     players[id].playerPosition = destSquare;
@@ -411,7 +415,10 @@ function onMouseWheel()
 {
     var fovMAX = 160;
     var fovMIN = 5;
-
+    
+    if ( event.target.id == 'chatbox')
+        return;
+    
     camera.fov -= event.wheelDeltaY * 0.05;
     camera.fov = Math.max(Math.min(camera.fov, fovMAX), fovMIN);
     camera.projectionMatrix = new THREE.Matrix4().makePerspective(camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far);

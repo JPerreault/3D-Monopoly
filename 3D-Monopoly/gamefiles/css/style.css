@@ -67,6 +67,14 @@ canvas
     margin-top: -25px;
 }
 
+#container
+{
+    top:0;
+    left:0;
+    position: absolute;
+    
+}
+
 #showdebug
 {
     position: absolute;
@@ -85,6 +93,40 @@ canvas
     text-align: center;
     z-index: 1000;
 }
+
+
+#chatdock
+{
+    color: black;
+    width: 250px;
+    height: 200px;
+    position: absolute;
+    right: 0;
+    top: 60px;
+    z-index: 1000;
+    overflow-y: hidden;
+    text-align: left;
+    overflow-x: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#message
+{
+    width: 244px;
+    height: 20px;
+    opacity: .8;
+}
+
+#chatbox
+{
+    color: white;
+    font-size: 12px;
+    height: 174px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+}
+
 
 
 .hudset
