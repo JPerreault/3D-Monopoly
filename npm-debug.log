@@ -1,0 +1,20 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/opt/local/bin/node', '/opt/local/bin/npm', 'install' ]
+2 info using npm@1.2.30
+3 info using node@v0.10.11
+4 verbose read json /Users/Ricky/classes/cs326/3D-Monopoly/package.json
+5 error install Couldn't read dependencies
+6 error Error: ENOENT, open '/Users/Ricky/classes/cs326/3D-Monopoly/package.json'
+7 error If you need help, you may report this log at:
+7 error     <http://github.com/isaacs/npm/issues>
+7 error or email it to:
+7 error     <npm-@googlegroups.com>
+8 error System Darwin 13.0.0
+9 error command "/opt/local/bin/node" "/opt/local/bin/npm" "install"
+10 error cwd /Users/Ricky/classes/cs326/3D-Monopoly
+11 error node -v v0.10.11
+12 error npm -v 1.2.30
+13 error path /Users/Ricky/classes/cs326/3D-Monopoly/package.json
+14 error code ENOENT
+15 error errno 34
+16 verbose exit [ 34, true ]
