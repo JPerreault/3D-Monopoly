@@ -335,6 +335,7 @@ function move(piece, currentSpace, spaces)
     {
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide + 60*(id%2), objHeight, offSide - 50 + 60 * (Math.floor((id)/2))));
         players[currentPlayer].jailed = true;
+        destSquare = 10;
     }
     else if (destSquare < 40)
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(offSide + offset, objHeight, -sidePush+(((currentSpace+spaces)%10)-1)*subt - xoffset));
