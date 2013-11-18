@@ -351,7 +351,6 @@ function move(piece, currentSpace, spaces)
     
     if (id == currentPlayer)
     {
-    
         var currentProp = tileBoard[destSquare].activate();
         
         if (currentProp.cost && !alreadyOwned(destSquare))
@@ -649,7 +648,6 @@ function drawCard(type){
 if(type === "comchest"){
  community_chest_cards[16].behavior(players[currentPlayer]);
  styleCard(community_chest_cards[16].message,"comchest");
-    console.log("HEY YA'LL")
 }
 else if(type === "chance"){
  chance_cards[0].behavior(players[currentPlayer]);

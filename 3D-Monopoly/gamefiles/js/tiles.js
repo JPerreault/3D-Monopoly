@@ -1,4 +1,4 @@
-var lookUps = [-1, 0, -2, 1, -4, 22, 2, -3, 3, 4, -1, 5, 26, 6, 7, 23, 8, -2, 9, 10, -1, 11, -3, 12, 13, 24, 14, 15, 27, 16, -1, 17, 18, -2, 19, 25, -3, 20, -5, 21];
+var lookUps = [-1, 0, -2, 1, -4, 22, 2, -3, 3, 4, -1, 5, 26, 6, 7, 23, 8, -2, 9, 10, -1, 11, -3, 12, 13, 24, 14, 15, 27, 16, -6, 17, 18, -2, 19, 25, -3, 20, -5, 21];
 
 function createTile(x)
 {
@@ -13,8 +13,12 @@ function createTile(x)
     else if(lookUps[x] == -4) //income tax
         tile.activate = incomeTax;
     
-        else if(lookUps[x] == -5) //luxury tax
+    else if(lookUps[x] == -5) //luxury tax
             tile.activate = luxuryTax;
+    
+    else if(lookUps[x] == -6) //go to jail
+            tile.activate = goToJail;
+    
     else
         tile.activate = getProperty;
     
@@ -32,6 +36,8 @@ function getProperty()
 function communityChest()
 {
     drawCard("comchest");
+    updateDisplay();
+
     return "Call comunity chest function";
 }
 
@@ -66,4 +72,14 @@ function luxuryTax()
 
     return "Call luxury tax function";
 }
+
+function goToJail()
+{
+    getJailed();
+    
+    return "Call go-to-jail function";
+    
+}
+
+
 
