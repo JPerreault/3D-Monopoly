@@ -29,7 +29,7 @@ exports.userFriends = function(un, callback){
       callback("Unknown user");
     }
     else{
-      console.log(user);
+      console.log(user + " returned from mongodb");
       var friendlist = user.friends;
       callback(friendlist);
     }

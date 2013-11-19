@@ -10,9 +10,10 @@ $(function(){
 	}
 
 	function loadFriends(){
+		console.log("getting friends list");
 		getFriends(function(data){
-			var friends = data.friends;
-			$.each(friends, function(i, item){
+			console.log(data);
+			$.each(data, function(i, item){
 				var f = new Option();
 				$(f).html(item);
 				$('#friend_list').append(f);

@@ -49,6 +49,7 @@ exports.logout = function(req, res){
 };
 
 exports.friendload = function(req, res){
+  console.log("Loading: " + req.user.username + "'s friends");
   api.userFriends(req.user.username, function(data){
     if(data == "Unknown user"){
       res.send("Unknown user");
