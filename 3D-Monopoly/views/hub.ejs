@@ -1,77 +1,77 @@
 <!DOCTYPE html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
-<title><%= title %></title>
-<link rel="stylesheet" type="text/css" href="/stylesheets/hub.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/hub.css" />
+    <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/hubfunctions.js"></script>
 </head>
 
 <body>
 
-<div id="main_container">
-  <div id="header">
-    <div class="logo">
-    </div>
+    <div id="main_container">
+      <div id="header">
+        <div class="logo">
+        </div>
     </div>    
-            <div id="menu_tab">                                     
-                    <ul class="menu">     
+    <div id="menu_tab">                                     
+        <ul class="menu">     
 
-                         <li><a href="#" class="nav"> Start public game </a></li>
-                         <li class="divider"></li>                                                         
-                         <li><a href="#" class="nav"> Find public game </a></li>
-                         <li class="divider"></li>
-                         <li><a href="#" class="nav"> Account/Profile</a></li>
-                         <li class="divider"></li>
-                         <li><a href="/logout" class="nav"> Logout </a></li>
+         <li><a href="#" class="nav"> Start public game </a></li>
+         <li class="divider"></li>                                                         
+         <li><a href="#" class="nav"> Find public game </a></li>
+         <li class="divider"></li>
+         <li><a href="#" class="nav"> <%= user %>'s Profile</a></li>
+         <li class="divider"></li>
+         <li><a href="/logout" class="nav"> Logout </a></li>
 
-                    </ul>
-            </div> 
-            
-
-    <div id="main_content">
-        <div id="welcome_message">
-            <h1>Welcome to the hub <%= user %>!</h1>
-        </div>
-        <div id="middle_banner">
-
-        </div>
+     </ul>
+ </div> 
 
 
-        
-        <div id="left_content">
+ <div id="main_content">
+    <div id="welcome_message">
+        <h1>Welcome to the hub <%= user %>!</h1>
+    </div>
+    <div id="middle_banner">
+
+    </div>
+
+
+
+    <div id="left_content">
         <h1>Friends</h1>
         <div class="login_form">
-        <SELECT id="friend_list" NAME="friend_list" SIZE="5" MULTIPLE >
-        <OPTION SELECTED> Friend 1
-        <OPTION> Friend 2
-        <OPTION> Friend 3
-        <OPTION> Friend 4
-        <OPTION> Friend 5
-        <OPTION> Friend 6
-        </SELECT>
-        <div class="login_row">
-        <button class="submission" required type="submit" value="Add_Friend">Add Friend</button>
-        <button class="submission" required type="submit" value="game_with_friends">Invite Friends to Game</button>
-        </div>
-</div>
-</div>
-    
-        <div id="right_content"> 
-        <h1>Games you are currently playing:</h1>
-        <div id="games_menu">                                     
-        <ul class="game_list" >
-        <li><a href="#">Game 1: Players - Friend 1, Friend 2, Friend 3, You. Current player turn: Yours!</a></li><br>
-        <li><a href="#">Game 2: Players - Friend 2, Friend 4, Friend 5, You. Current player turn: Friend 2 </a></li><br>
-        <li><a href="#">Game 3: Players - Friend 4, Friend 5, Friend 2, You. Current player turn: Friend 4 </a></li><br>
-        <li><a href="#">Game 4: Players - Friend 1, Friend 2, Friend 3, You. Current player turn: Yours!</a></li><br>
-        <li><a href="#">Game 5: Players - Friend 2, Friend 4, Friend 5, You. Current player turn: Friend 2 </a></li><br>
-        <li><a href="#">Game 6: Players - Friend 4, Friend 5, Friend 2, You. Current player turn: Friend 4 </a></li><br>
-        <li><a href="#">Game 7: Players - Friend 1, Friend 2, Friend 3, You. Current player turn: Yours!</a></li><br>
-        <li><a href="#">Game 8: Players - Friend 2, Friend 4, Friend 5, You. Current player turn: Friend 2 </a></li><br>
-        <li><a href="#">Game 9: Players - Friend 4, Friend 5, Friend 2, You. Current player turn: Friend 4 </a></li><br>
+            <SELECT id="friend_list" NAME="friend_list" SIZE="5" MULTIPLE ></SELECT>
+            <div class="login_row">
+                <form name="friend_entry_form" onsubmit="return false;">
+                <input type="text" placeholder="Enter Friend to Add Here" id="friend_entry" />
+            </form>
+            </div>
+            <div class="login_row">
+                <button id='add_friend' class="submission" required type="submit" value="Add_Friend">Add Friend</button>
+                <button class="submission" required type="submit" value="game_with_friends">Invite Friends to Game</button>
+            </div>
         </div>
     </div>
-    <div id="footer" />
-</div>
+
+    <div id="right_content"> 
+        <h1>Games you are currently playing:</h1>
+        <div id="games_menu">                                     
+            <ul class="game_list" >
+                <li><a href="#">Game 1: Players - Friend 1, Friend 2, Friend 3, You. Current player turn: Yours!</a></li><br>
+                <li><a href="#">Game 2: Players - Friend 2, Friend 4, Friend 5, You. Current player turn: Friend 2 </a></li><br>
+                <li><a href="#">Game 3: Players - Friend 4, Friend 5, Friend 2, You. Current player turn: Friend 4 </a></li><br>
+                <li><a href="#">Game 4: Players - Friend 1, Friend 2, Friend 3, You. Current player turn: Yours!</a></li><br>
+                <li><a href="#">Game 5: Players - Friend 2, Friend 4, Friend 5, You. Current player turn: Friend 2 </a></li><br>
+                <li><a href="#">Game 6: Players - Friend 4, Friend 5, Friend 2, You. Current player turn: Friend 4 </a></li><br>
+                <li><a href="#">Game 7: Players - Friend 1, Friend 2, Friend 3, You. Current player turn: Yours!</a></li><br>
+                <li><a href="#">Game 8: Players - Friend 2, Friend 4, Friend 5, You. Current player turn: Friend 2 </a></li><br>
+                <li><a href="#">Game 9: Players - Friend 4, Friend 5, Friend 2, You. Current player turn: Friend 4 </a></li><br>
+            </div>
+        </div>
+        <div id="footer" />
+    </div>
 
 </body>
 </html>

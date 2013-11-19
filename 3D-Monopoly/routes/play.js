@@ -20,11 +20,7 @@ exports.connected = function(socket)
     socket.broadcast.emit('get-message', {message: "Player "+(pid)+" has connected", sender: "null"});
     
     socket.on('payload', function (data) {
-              
             socket.broadcast.emit('update', data);
-              // data will contain the information that is being pushed in
-              // sync.js, and we can start storing some of it to the database
-              // here
              });
     
     socket.on('disconnect', function (data){

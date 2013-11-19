@@ -1,7 +1,8 @@
 var  bcrypt = require('bcrypt-nodejs'),
-	 mongoose = require('mongoose');
-     SALT_WORK_FACTOR = 10;
-exports.mongoose = mongoose;
+	   mongoose = require('mongoose'),
+     SALT_WORK_FACTOR = 10,
+     Game = require("../model/Game.js");
+     exports.mongoose = mongoose;
 
 var uristring = 
   process.env.MONGOLAB_URI || 
@@ -24,9 +25,11 @@ var Schema = mongoose.Schema,
 
 
 var userSchema = new Schema({
-  username: String, 
-  email:  String, 
-  password:  String,
+  username: { type: String, required: true, unique: true }, 
+  email:  { type: String, required: true, unique: true }, 
+  password:  { type: String, required: true },
+  games: [{type: Number, ref: 'Game'} ],
+  friends: [{type: String, ref: 'User'}]
    }, 
   { collection: 'users'}
 );
