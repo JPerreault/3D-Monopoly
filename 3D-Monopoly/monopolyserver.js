@@ -48,9 +48,9 @@ app.post('/login', serverpost.login);
 
 app.get('/register', mainpage.register);
 app.post('/register', serverpost.register);
-
+app.get('/profile', mainpage.getprofile);
 app.post('/add-friend', serverpost.addfriend);
-
+app.post('/update_profile', serverpost.updateprofile);
 app.get('/play', game.play);
 app.get('/get-friends', pass.ensureAuthenticated, mainpage.friendload);
 app.get('/hub', pass.ensureAuthenticated, mainpage.hub);

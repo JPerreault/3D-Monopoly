@@ -42,6 +42,16 @@ exports.hub = function(req, res){
  }
 };
 
+exports.getprofile = function(req, res){
+if(req.user == undefined){
+  res.redirect('/login');
+}
+else{
+  res.render('profile', {title: 'Profile', user: req.user.username});
+}
+
+};
+
 exports.logout = function(req, res){
   req.logout();
   res.redirect('/login');
