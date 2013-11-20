@@ -91,11 +91,12 @@ color: #FF6600; text-decoration:none;}
 
 
 #main_content{
-width:100%;
+width:1000px;
 clear:both;
 background-color:#FFFFFF;
 height:auto;
 }
+
 
 #middle_banner{
 width:100%;
@@ -130,12 +131,15 @@ text-align: center;
 padding:4px 0 4px 0;
 }
 
+
+
 label.login{
 width:60px;
 float:left;
 text-align:right;
 padding:4px 8px 0 0;
 }
+
 
 input.login_input{
 width:120px;
@@ -183,6 +187,21 @@ margin:0 auto;
 width:600px;
 height:250px;
 overflow:auto;
+}
+
+#profile_form{
+width:175px;
+height: 250px;
+margin: 0 auto;
+padding:10px 10px 0 30px;
+color:#666666;
+background:url(../images/gradient_grey.png) no-repeat center;
+}
+
+.profile_row{
+width:200px;
+float:left;
+padding:4px 0 4px 0;
 }
 
 #footer{

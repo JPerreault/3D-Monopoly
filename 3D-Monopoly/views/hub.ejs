@@ -17,20 +17,20 @@
     <div id="menu_tab">                                     
         <ul class="menu">     
 
-         <li><a href="/hub" class="nav"> My Hub</a></li>
-         <li><a href="#" class="nav"> Start public game </a></li>
-         <li class="divider"></li>                                                         
-         <li><a href="#" class="nav"> Find public game </a></li>
-         <li class="divider"></li>
-         <li><a href="/profile" class="nav"> <%= user %>'s Profile</a></li>
-         <li class="divider"></li>
-         <li><a href="/logout" class="nav"> Logout </a></li>
+           <li><a href="/hub" class="nav"> My Hub</a></li>
+           <li><a href="#" class="nav"> Start public game </a></li>
+           <li class="divider"></li>                                                         
+           <li><a href="#" class="nav"> Find public game </a></li>
+           <li class="divider"></li>
+           <li><a href="/profile" class="nav"> <%= user %>'s Profile</a></li>
+           <li class="divider"></li>
+           <li><a href="/logout" class="nav"> Logout </a></li>
 
-     </ul>
- </div> 
+       </ul>
+   </div> 
 
 
- <div id="main_content">
+   <div id="main_content">
     <div id="welcome_message">
         <h1>Welcome to the hub <%= user %>!</h1>
     </div>
@@ -46,8 +46,8 @@
             <SELECT id="friend_list" NAME="friend_list" SIZE="5" MULTIPLE ></SELECT>
             <div class="login_row">
                 <form name="friend_entry_form" onsubmit="return false;">
-                <input type="text" placeholder="Enter Friend to Add Here" id="friend_entry" />
-            </form>
+                    <input type="text" placeholder="Enter Friend to Add Here" id="friend_entry" />
+                </form>
             </div>
             <div class="login_row">
                 <button id='add_friend' class="submission" required type="submit" value="Add_Friend">Add Friend</button>

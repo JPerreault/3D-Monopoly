@@ -115,8 +115,8 @@ padding:10px 0 0 20px;
 }
 
 .registration_form{
-width:200px;
-height: 400px;
+width:175px;
+height: 325px;
 margin: 0 auto;
 padding:10px 10px 0 30px;
 color:#666666;
@@ -156,6 +156,16 @@ float:left;
 width:70px;
 height:25px;
 float: right;
+background:url(../images/button_green.png) no-repeat center;
+color:#FFFFFF;
+cursor: pointer;
+text-align: center;
+}
+
+.register {
+width:70px;
+height:25px;
+float: center;
 background:url(../images/button_green.png) no-repeat center;
 color:#FFFFFF;
 cursor: pointer;

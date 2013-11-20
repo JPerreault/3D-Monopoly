@@ -1,3 +1,4 @@
+
  <script src="/javascripts/validation.js"></script>
 
  <div id="main_content">
@@ -8,8 +9,8 @@
   </div>
 
    <div class="registration_form">
-    <h1>Registration</h1>
     <form name="registration_form" id="registration_form" action="/register" onsubmit="return validateForm(this);" method="post">
+    <h1>Registration</h1>
      <div class="login_row">
       Username: <span class="star">*</span> <input required type="text" id="username" name="username" />
      </div>
@@ -26,10 +27,8 @@
       Confirm Email Address:<span class="star">*</span> <input required type=""text" id="useremail_repeat" name="useremail_repeat" />
      </div>
      <div class="login_row">
-      <button class="submission" required type="submit" value="Register">Register</button>
+      <button class="register" required type="submit" value="Register">Register</button>
      </div>
- </div>
- </form>
- </div>
- <div id="footer" />
- </div>
+     </form>
+     </div>
+     <div id="footer" />

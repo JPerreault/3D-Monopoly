@@ -1,60 +1,58 @@
 <!DOCTYPE html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
-    <title><%= title %></title>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/hub.css" />
-    <script src="javascripts/jquery.min.js"></script>
-     <script src="/javascripts/validation.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+  <title><%= title %></title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/hub.css" />
+  <script src="javascripts/jquery.min.js"></script>
+  <script src="/javascripts/validation.js"></script>
 </head>
 
 <body>
 
-    <div id="main_container">
-      <div id="header">
-        <div class="logo">
-        </div>
+  <div id="main_container">
+    <div id="header">
     </div>    
     <div id="menu_tab">                                     
-        <ul class="menu">     
+      <ul class="menu">     
 
-         <li><a href="/hub" class="nav"> My Hub</a></li>
-         <li><a href="#" class="nav"> Start public game </a></li>
-         <li class="divider"></li>                                                         
-         <li><a href="#" class="nav"> Find public game </a></li>
-         <li class="divider"></li>
-         <li><a href="/profile" class="nav"> <%= user %>'s Profile</a></li>
-         <li class="divider"></li>
-         <li><a href="/logout" class="nav"> Logout </a></li>
+       <li><a href="/hub" class="nav"> My Hub</a></li>
+       <li><a href="#" class="nav"> Start public game </a></li>
+       <li class="divider"></li>                                                         
+       <li><a href="#" class="nav"> Find public game </a></li>
+       <li class="divider"></li>
+       <li><a href="/profile" class="nav"> <%= user %>'s Profile</a></li>
+       <li class="divider"></li>
+       <li><a href="/logout" class="nav"> Logout </a></li>
 
      </ul>
- </div> 
- <div id="main_content">
+   </div> 
+   <div id="main_content">
 
-  <div id="middle_banner">
- <div class="middle_banner_content">
-   </div>
-  </div>
-
-   <div class="registration_form">
-    <h1><%= user %>'s Profile</h1>
-    <form name="registration_form" id="registration_form" action="/update_profile" onsubmit="return validateUpdate(this);" method="post">
-     <div class="login_row">
-      New Password: <input type="password" id="userpass" name="userpass" value="" />
-     </div>
-     <div class="login_row">
-      Confirm New Password: <input type="password" id="password_repeat" name="password_repeat" value="" />
-     </div>
-     <div class="login_row">
-      New Email Address: <input type="text" id="useremail" name="useremail" value=""/>
-     </div>
-     <div class="login_row">
-      Confirm New Email Address: <input type="text" id="useremail_repeat" name="useremail_repeat" value="" />
-     </div>
-     <div class="login_row">
-      <button class="submission" required type="submit" value="Register">Update Profile</button>
-     </div>
- </div>
- </form>
- </div>
- <div id="footer" />
- </div>
+    <div id="middle_banner">
+    </div>
+      <div class="registration_form">
+        
+        <form name="registration_form" id="profile_form" action="/update_profile" onsubmit="return validateUpdate(this);" method="post">
+          <h1><%= user %>'s Profile</h1>
+         <div class="profile_row">
+          New Password: <input type="password" id="userpass" name="userpass" value="" />
+        </div>
+        <div class="profile_row">
+          Confirm New Password: <input type="password" id="password_repeat" name="password_repeat" value="" />
+        </div>
+        <div class="profile_row">
+          New Email Address: <input type="text" id="useremail" name="useremail" value=""/>
+        </div>
+        <div class="profile_row">
+          Confirm New Email Address: <input type="text" id="useremail_repeat" name="useremail_repeat" value="" />
+        </div>
+        <div class="profile_row">
+          <button class="submission" required type="submit" value="Register">Update Profile</button>
+        </div>
+      </form>
+    </div>
+</div>
+<div id="footer" />
+</div>
+</body>
+</html>
