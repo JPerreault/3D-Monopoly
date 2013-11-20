@@ -19,7 +19,7 @@ mongoose.connect(uristring, mongoOptions, function (err, res) {
   }
 });
 
-//******* Database schema TODO add more validation
+
 var Schema = mongoose.Schema, 
     ObjectId = Schema.ObjectId;
 

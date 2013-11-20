@@ -37,6 +37,19 @@ exports.userFriends = function(un, callback){
 };
 
 exports.addFriendtoDB = function(un, friend, callback){
-User.update({ username: un }, {$push: { 'friends' : friend }},{upsert:true}, callback());
+User.findOne({ username : un }, function(err, user){
+if(err){
+  console.log(err);
+}
+if(!user){
+  console.log("user not found");
+}
+else{
+  user.friends.push(friend);
+  console.log("successful push");
+  user.save();
+  callback();
+}
+});
 
 };
