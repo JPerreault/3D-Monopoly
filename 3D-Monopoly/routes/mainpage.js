@@ -34,21 +34,13 @@ exports.screenshots = function(req, res){
   
 };
 exports.hub = function(req, res){
-  if(req.user == undefined){
-   res.redirect('/login');
- }
- else{
-   res.render('hub', {title: 'Hub', user: req.user.username });
- }
+
+ res.render('hub', {title: 'Hub', user: req.user.username });
 };
 
 exports.getprofile = function(req, res){
-if(req.user == undefined){
-  res.redirect('/login');
-}
-else{
+
   res.render('profile', {title: 'Profile', user: req.user.username});
-}
 
 };
 
@@ -70,4 +62,11 @@ exports.friendload = function(req, res){
     }
 
   });
+};
+
+exports.catch404 = function(req, res){
+  res.render('404', {layout: 'mainpagelayout', title:'Not Found'},
+    function(err,str) { 
+      res.send(str,404); 
+    }); 
 };

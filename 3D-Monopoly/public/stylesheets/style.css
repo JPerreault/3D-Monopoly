@@ -114,6 +114,19 @@ height:auto;
 padding:10px 0 0 20px;
 }
 
+#hold_404{
+width:350px;
+height: 50px;
+margin: 0 auto;
+padding:10px 10px 0 30px;
+color:#666666;
+background:url(../images/gradient_grey.png) no-repeat center;
+
+}
+
+.error{
+color:red;
+}
 .registration_form{
 width:175px;
 height: 325px;

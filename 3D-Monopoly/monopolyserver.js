@@ -42,24 +42,25 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-
-app.get('/login', mainpage.login);
-app.post('/login', serverpost.login);
-
-app.get('/register', mainpage.register);
-app.post('/register', serverpost.register);
-app.get('/profile', mainpage.getprofile);
-app.post('/add-friend', serverpost.addfriend);
-app.post('/update_profile', serverpost.updateprofile);
-app.get('/play', game.play);
+//routes that require user authentication
+app.get('/profile', pass.ensureAuthenticated, mainpage.getprofile);
+app.post('/add-friend', pass.ensureAuthenticated, serverpost.addfriend);
+app.post('/update_profile', pass.ensureAuthenticated, serverpost.updateprofile);
 app.get('/get-friends', pass.ensureAuthenticated, mainpage.friendload);
 app.get('/hub', pass.ensureAuthenticated, mainpage.hub);
-app.get('/contact', mainpage.contact);
+
+
+app.get('/play', game.play);
+app.get('/login', mainpage.login);
+app.post('/login', serverpost.login);
 app.get('/register', mainpage.register);
+app.post('/register', serverpost.register);
+app.get('/contact', mainpage.contact);
 app.get('/logout', mainpage.logout);
 app.get('/screenshots', mainpage.screenshots);
 app.get('/home', index.home);
 app.get('/', index.home);
+app.use(mainpage.catch404);
 
 
 server.listen(app.get('port'), function(){
