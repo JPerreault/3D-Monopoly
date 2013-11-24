@@ -20,11 +20,10 @@ var io = require('socket.io').listen(server);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-
+app.use(express.favicon(__dirname + '/public/images/go.ico'));
 app.use(partials());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
