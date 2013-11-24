@@ -31,9 +31,9 @@
   var newfriend = req.body.friend;
   var user = req.user.username;
   console.log("Attempting to save friend: " + newfriend + " to " + user +"'s document");
-  api.addFriendtoDB(req.user.username, newfriend, function(){
+  api.addFriendtoDB(req.user.username, newfriend, function(response){
     
-    res.send({response: "success"});
+    res.send(response);
     
   });
 };

@@ -58,33 +58,35 @@ exports.userFriends = function(un, callback){
 };
 
 exports.addFriendtoDB = function(un, friend, callback){
-  User.findOne({ username : un }, function(err, user){
-    if(err){
-      console.log(err);
-    }
-    if(!user){
-      console.log("user not found");
-    }
-    else{
-      user.friends.push(friend);
-      console.log("successful push");
-      user.save();
-      callback();
-    }
-  });
 
-  User.findOne({ username : friend }, function(err, user){
+  User.findOne({ username : friend }, function(err, friend){
     if(err){
       console.log(err);
     }
-    if(!user){
+    if(!friend){
       console.log("user not found");
+      callback({response: "Friend not found, check name and try again"});
     }
     else{
-      user.friends.push(un);
+      friend.friends.push(un);
       console.log("successful push");
-      user.save();
-      callback();
+      friend.save();
+      User.findOne({ username : un }, function(err, user){
+        if(err){
+          console.log(err);
+        }
+        if(!user){
+          console.log("user not found");
+        }
+        else{
+          user.friends.push(friend);
+          console.log("successful push");
+          user.save();
+          callback({response : "success"});
+        }
+      });
+
+
     }
   });
 
