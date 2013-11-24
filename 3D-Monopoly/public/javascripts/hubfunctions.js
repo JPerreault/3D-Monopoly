@@ -37,12 +37,19 @@ $(function(){
 
 		$('#add_friend').bind('click',
 			function(event){
+				$(".error").remove();
 				var friend = $('#friend_entry').val();
 				newFriend(friend, function(data){
 					console.log('Received friend response: ' + JSON.stringify(data));
+					if(data.response == "Friend not found, check name and try again"){
+						console.log("not found");
+						$('.login_form').before('<span class="error">'+ data.response + '</span>');
+					}
+					else{
 						var f = new Option();
 						$(f).html(friend);
 						$('#friend_list').append(f);
+					}
 				});
 				return false;
 			});
