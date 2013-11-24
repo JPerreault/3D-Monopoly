@@ -7,26 +7,22 @@
       if (!user) {
         req.session.messages =  [info.message];
         console.log(info.message);
-        return res.redirect('/login')
+        return res.send({message : info.message});
       }
       req.logIn(user, function(err) {
         if (err) { return next(err); }
-        return res.redirect('/hub');
+        return res.send(null);
       });
     })(req, res, next);
   };
 
   exports.register = function(req, res){
+   console.log(req.body);
    var username = req.body.username;
    var password = req.body.userpass;
    var useremail = req.body.useremail;
    api.createUser(username, password, useremail, function(err){
-    if(err){
-      console.log(err);
-    }
-    else{
-      res.redirect('/login');
-    }
+      res.send(err);
   });
 
  };
@@ -45,9 +41,8 @@
 exports.updateprofile = function(req, res){
   var newpass = req.body.userpass;
   var newemail = req.body.useremail;
-  api.updateUser(req.user.username, newpass, newemail, function(){
-    console.log("profile succesfully updated");
-    res.redirect('/profile');
+  api.updateUser(req.user.username, newpass, newemail, function(message){
+    res.send(message);
   });
 
 };

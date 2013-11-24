@@ -128,8 +128,8 @@ background:url(../images/gradient_grey.png) no-repeat center;
 color:red;
 }
 .registration_form{
-width:175px;
-height: 325px;
+width:250px;
+height: 270px;
 margin: 0 auto;
 padding:10px 10px 0 30px;
 color:#666666;
@@ -146,6 +146,12 @@ background:url(../images/gradient_grey.png) no-repeat center;
 
 .login_row{
 width:200px;
+float:left;
+padding:4px 0 4px 0;
+}
+
+.register_row{
+width:250px;
 float:left;
 padding:4px 0 4px 0;
 }

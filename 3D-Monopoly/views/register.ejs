@@ -1,6 +1,5 @@
 
  <script src="/javascripts/jquery.min.js"></script>
- <script src="/javascripts/validation.js"></script>
  <script src="/javascripts/registerclick.js"></script>
 
  <div id="main_content">
@@ -9,22 +8,22 @@
   </div>
 
    <div class="registration_form">
-    <form name="registration_form" id="registration_form" action="/register" onsubmit="return validateForm(this);" method="post">
+    <form name="registration_form" id="registration_form" method="post">
     <h1>Registration</h1>
-     <div class="login_row">
-      Username: <span class="star">*</span> <input required type="text" id="username" name="username" />
+     <div class="register_row">
+      <label class="login" id="account">Username:</label><span class="star">*</span> <input required type="text" id="username" name="username" />
      </div>
-     <div class="login_row">
-      Password: <span class="star">*</span> <input required type="password" id="userpass" name="userpass" />
+     <div class="register_row">
+      <label class="login" id="pw">Password:</label><span class="star">*</span> <input required type="password" id="userpass" name="userpass" />
      </div>
-     <div class="login_row">
-      Confirm Password: <span class="star">*</span> <input required type="password" id="password_repeat" name="password_repeat" />
+     <div class="register_row">
+      <label class="login" id="confirmpw">Confirm Password:</label><span class="star">*</span> <input required type="password" id="password_repeat" name="password_repeat" />
      </div>
-     <div class="login_row">
-      Email Address:<span class="star">*</span> <input required type="text" id="useremail" name="useremail" />
+     <div class="register_row">
+      <label class="login" id="email">Email:</label><span class="star">*</span> <input required type="text" id="useremail" name="useremail" />
      </div>
-     <div class="login_row">
-      Confirm Email Address:<span class="star">*</span> <input required type=""text" id="useremail_repeat" name="useremail_repeat" />
+     <div class="register_row">
+      <label class="login" id="confirmemail">Confirm Email:</label><span class="star">*</span> <input required type=""text" id="useremail_repeat" name="useremail_repeat" />
      </div>
      <div class="login_row">
       <button class="register" required type="submit" value="Register">Register</button>

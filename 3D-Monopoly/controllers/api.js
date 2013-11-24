@@ -4,18 +4,39 @@ var Game = require('../model/Game.js');
 
 exports.createUser = function(un, pw, useremail, callback){
 
-  var newUser = new User({
-   username: un,
-   email: useremail,
-   password: pw,
- });
-
-  newUser.save( function(err) {
+  User.findOne({ username: un}, function(err, user){
     if(err){
-     return callback(err);
+     return console.log(err);
    }
- });
-  return callback(null);
+   if(user){
+    return callback({message: "Username already taken, try a different name"});
+  }
+  else{
+    User.findOne({ email: useremail }, function(err, em){
+      if(err){
+        return console.log(err);
+      }
+      if(em){
+       return callback({message : "Email already in use, try another email"});
+     }
+     else{
+      var newUser = new User({
+       username: un,
+       email: useremail,
+       password: pw,
+     });
+      newUser.save( function(err) {
+        if(err){
+         return callback(err);
+       }
+       else{
+        return callback(null);
+      }
+    });
+    }
+  });
+  }
+});
 };
 
 exports.userFriends = function(un, callback){
@@ -70,23 +91,35 @@ exports.addFriendtoDB = function(un, friend, callback){
 };
 
 exports.updateUser = function(un, newpass, newemail, callback){
-User.findOne({username: un}, function(err, user){
-if(err){
-  console.log(err);
-}
-if(!user){
-  console.log("user not found");
-}
-else{
-  if(newpass != ""){
-    user.password = newpass;
-  }
-  if(newemail != ""){
-    user.email = newemail;
-  }
-  user.save();
-  callback();
-}
+  User.findOne({email: newemail}, function(err, em){
+    if(err){
+      console.log(err);
+    }
+    if(em){
+      console.log("Email already in use");
+      callback({message : "Email already in use"})
+    }
+    else{
+      User.findOne({username: un}, function(err, user){
+        if(err){
+          console.log(err);
+        }
+        if(!user){
+          console.log("User not found");
+        }
+        else{
 
-});
+          if(newpass != ""){
+            user.password = newpass;
+          }
+          if(newemail != ""){
+            user.email = newemail;
+          }
+          user.save();
+          callback({message : "Profile successfully updated"});
+        }
+      });
+    }
+
+  });
 };
