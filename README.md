@@ -8,15 +8,17 @@ To run the server(requires nodejs), type node monopolyserver.js in the terminal 
 
 Technologies
 -----------
+  * Express
   * Three.js
   * Nodejs
   * Socket.io
   * JQuery
+  * Ajax
   * MongoDB(and Mongoose)
   * Express-Partials(with EJS as view engine)
   * Passport
   * Bcrypt
-  
+  * Nodemailer
   
 Features
 -----------
