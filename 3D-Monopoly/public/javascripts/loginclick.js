@@ -11,12 +11,6 @@ $(function(){
 
 	}
 
-	function getHub(){
-		$.ajax({
-			type: 'GET',
-			url : '/hub'
-		});
-	}
 
 	function bindLogin(){ 
 		$(".register").on('click', function(e){

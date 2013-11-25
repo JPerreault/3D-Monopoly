@@ -17,6 +17,8 @@ var passport = require('passport');
 var app = module.exports = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
+var fs = require('fs');
+
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -35,6 +37,44 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'gamefiles')));
 
+var forgot = require('password-reset')({
+    uri : 'http://localhost:3000/password_reset',
+    from : 'password-robot@localhost',
+    host : '127.0.0.1', port : 25,
+});
+app.use(forgot.middleware);
+
+app.post('/forgot', function (req, res) {
+	console.log(req.body);
+    var email = req.body.email;
+    var reset = forgot(email, function (err) {
+        if (err) res.send('Error sending message: ' + err)
+        else res.send('Check your inbox for a password reset message.')
+    });
+
+    reset.on('request', function (req_, res_) {
+        req_.session.reset = { email : email, id : reset.id };
+        fs.createReadStream(__dirname + 'public/forgot.html').pipe(res_);
+    });
+});
+
+app.post('/reset', function (req, res) {
+    if (!req.session.reset) return res.send('reset token not set');
+
+    var password = req.body.password;
+    var confirm = req.body.confirm;
+    if (password !== confirm) return res.send('passwords do not match');
+
+    // update the user db here
+
+    forgot.expire(req.session.reset.id);
+    delete req.session.reset;
+    res.end('password reset');
+});
+
+
+
+
 
 // development only
 if ('development' == app.get('env')) {
@@ -49,6 +89,7 @@ app.get('/get-friends', pass.ensureAuthenticated, mainpage.friendload);
 app.get('/hub', pass.ensureAuthenticated, mainpage.hub);
 
 
+
 app.get('/play', game.play);
 app.get('/login', mainpage.login);
 app.post('/login', serverpost.login);
@@ -58,6 +99,7 @@ app.get('/contact', mainpage.contact);
 app.post('/contact', serverpost.contact);
 app.get('/logout', mainpage.logout);
 app.get('/screenshots', mainpage.screenshots);
+app.get('/account_recovery', index.accountRecovery);
 app.get('/home', index.home);
 app.get('/', index.home);
 app.use(mainpage.catch404);
