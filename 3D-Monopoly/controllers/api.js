@@ -59,18 +59,18 @@ exports.userFriends = function(un, callback){
 
 exports.addFriendtoDB = function(un, friend, callback){
 
-  User.findOne({ username : friend }, function(err, friend){
+  User.findOne({ username : friend }, function(err, foundfriend){
     if(err){
       console.log(err);
     }
-    if(!friend){
+    if(!foundfriend){
       console.log("user not found");
       callback({response: "Friend not found, check name and try again"});
     }
     else{
-      friend.friends.push(un);
+      foundfriend.friends.push(un);
       console.log("successful push");
-      friend.save();
+      foundfriend.save();
       User.findOne({ username : un }, function(err, user){
         if(err){
           console.log(err);

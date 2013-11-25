@@ -219,7 +219,6 @@ color:#666666;
 float: center;
 width:290px;
 height:17px;
-font-size:10px;
 background-color:#fff8dc;
 border:1px #f0e9cf solid;
 }
@@ -232,7 +231,6 @@ font-size:12px;
 .contact_textarea{
 width:290px;
 height:80px;
-font-size:10px;
 float:left;
 background-color:#fff8dc;
 border:1px #f0e9cf solid;

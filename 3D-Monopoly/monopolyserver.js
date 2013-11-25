@@ -55,6 +55,7 @@ app.post('/login', serverpost.login);
 app.get('/register', mainpage.register);
 app.post('/register', serverpost.register);
 app.get('/contact', mainpage.contact);
+app.post('/contact', serverpost.contact);
 app.get('/logout', mainpage.logout);
 app.get('/screenshots', mainpage.screenshots);
 app.get('/home', index.home);

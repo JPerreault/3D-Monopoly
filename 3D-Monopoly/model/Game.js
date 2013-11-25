@@ -3,7 +3,6 @@ var Schema = mongoose.Schema;
 var User = require("../model/User.js");
 
 var GameSchema = new Schema({
-	gid: { type: Number, required: true, unique: true },
 	finished: { type: Boolean, required: true, default: false },
 	players: [ { playerid: {type: String, required: true, ref: 'User'} },
 			   { player_position: {type: Number, required: true } },
