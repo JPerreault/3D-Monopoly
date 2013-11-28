@@ -53,7 +53,7 @@ app.post('/add-friend', pass.ensureAuthenticated, serverpost.addfriend);
 app.post('/update_profile', pass.ensureAuthenticated, serverpost.updateprofile);
 app.get('/get-friends', pass.ensureAuthenticated, mainpage.friendload);
 app.get('/hub', pass.ensureAuthenticated, mainpage.hub);
-
+app.get('/lobby', pass.ensureAuthenticated, mainpage.lobby);
 
 
 app.get('/play', game.play);

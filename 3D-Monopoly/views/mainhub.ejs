@@ -1,35 +1,6 @@
-<!DOCTYPE html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
-    <title><%= title %></title>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/hub.css" />
+<link rel="stylesheet" type="text/css" href="/stylesheets/hub.css" />
     <script src="javascripts/jquery.min.js"></script>
     <script src="javascripts/hubfunctions.js"></script>
-</head>
-
-<body>
-
-    <div id="main_container">
-      <div id="header">
-        <div class="logo">
-        </div>
-    </div>    
-    <div id="menu_tab">                                     
-        <ul class="menu">     
-
-           <li><a href="/hub" class="nav"> My Hub</a></li>
-           <li><a href="#" class="nav"> Start public game </a></li>
-           <li class="divider"></li>                                                         
-           <li><a href="#" class="nav"> Find public game </a></li>
-           <li class="divider"></li>
-           <li><a href="/profile" class="nav"> <%= user %>'s Profile</a></li>
-           <li class="divider"></li>
-           <li><a href="/logout" class="nav"> Logout </a></li>
-
-       </ul>
-   </div> 
-
-
    <div id="main_content">
     <div id="welcome_message">
         <h1>Welcome to the hub <%= user %>!</h1>
@@ -73,6 +44,3 @@
         </div>
         <div id="footer" />
     </div>
-
-</body>
-</html>

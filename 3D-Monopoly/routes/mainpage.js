@@ -11,12 +11,9 @@ exports.login = function(req, res){
 };
 
 exports.contact = function(req, res){
-  if(req.user != undefined){
-    res.redirect('/hub');
-  }
-  else{
-    res.render('contact.ejs', { layout: 'mainpagelayout', title: 'Contact' });
-  }
+  
+  res.render('contact.ejs', { layout: 'mainpagelayout', title: 'Contact' });
+  
 
 };
 
@@ -35,14 +32,19 @@ exports.screenshots = function(req, res){
 };
 exports.hub = function(req, res){
 
- res.render('hub', {title: 'Hub', user: req.user.username });
+ res.render('mainhub.ejs', {layout: 'hublayout', title: 'Hub', user: req.user.username });
 };
 
 exports.getprofile = function(req, res){
 
-  res.render('profile', {title: 'Profile', user: req.user.username});
+  res.render('profile.ejs', {layout: 'hublayout', title: 'Profile', user: req.user.username});
 
 };
+
+exports.lobby = function(req, res){
+
+  res.render('lobby.ejs', {layout: 'hublayout', title: 'Lobby', user: req.user.username });
+}
 
 exports.logout = function(req, res){
   req.logout();
