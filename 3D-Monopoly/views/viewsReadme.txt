@@ -1,0 +1,3 @@
+Author: Scott Hoffman
+
+The construction of templated views on the server is pretty simple to understand(I think so anyway). Using a library called Express-partials you can combine EJS templates into a single HTML document, which is what I did here. If you open mainpagelayout.ejs and hublayout.ejs you can see that there is a <%- body %> tag. This is where the second EJS file gets inserted using this library. If you see mainpage.js in the /routes directory you can see how I construct the combined templates(it's basically just one extra parameter in the res.render call).

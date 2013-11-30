@@ -1,6 +1,7 @@
-
-/**
- * Module dependencies.
+/*
+Scott Hoffman
+The server of the app, basically does some setup for the app for websockets
+and then redirects all the routing to the /routes folder
  */
 
 var express = require('express');
@@ -35,11 +36,6 @@ app.use(passport.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'gamefiles')));
-
-
-
-
-
 
 
 // development only
