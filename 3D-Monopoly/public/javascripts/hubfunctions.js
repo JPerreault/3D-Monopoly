@@ -12,13 +12,14 @@ $(function(){
 	function loadFriends(){
 		console.log("getting friends list");
 		getFriends(function(data){
-			console.log(data);
+			var friendarray = { friends: [] };
 			$.each(data, function(i, item){
-				var f = new Option();
-				$(f).html(item);
-				$('#friend_list').append(f);
+				friendarray.friends.push(item);
 			});
-
+			console.log(friendarray.friends);
+			var srctemplate = $('#friend_template').html();
+			var displaytemplate = Handlebars.compile(srctemplate);
+			$('#friend_list').html(displaytemplate(friendarray));
 			return false;
 		});
 	}
@@ -35,8 +36,8 @@ $(function(){
 
 	function bindAddFriend() {
 
-		$('#add_friend').bind('click',
-			function(event){
+		$('#add_friend').on('click',
+                function(event){
 				$(".error").remove();
 				var friend = $('#friend_entry').val();
 				newFriend(friend, function(data){
