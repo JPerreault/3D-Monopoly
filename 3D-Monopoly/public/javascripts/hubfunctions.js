@@ -9,6 +9,15 @@ $(function(){
 		});
 	}
 
+	function getGames(callback){
+		$.ajax({
+			type: 'GET',
+			url : '/get-games'
+		}).done(function(msg){
+			callback(msg);
+		});
+	}
+
 	function loadFriends(){
 		console.log("getting friends list");
 		getFriends(function(data){
@@ -24,40 +33,63 @@ $(function(){
 		});
 	}
 
-	function newFriend(newfriend, callback){
-		$.ajax({
-			type: 'POST',
-			url : '/add-friend', 
-			data: {friend : newfriend}
-		}).done(function(msg){
-			callback(msg);
+	function loadGames(){
+		console.log("getting games list");
+		getGames(function(gameslist){
+			var gamearray = { games: []};
+			console.log(gameslist);
+			$.each(gameslist, function(i, dbgame){
+				var playerslist = { players: []};
+				$.each(dbgame, function(j, dbplayer){
+					playerslist.players.push(dbplayer.playerid);
+				});
+				gamearray.games.push(playerslist);
+				gamearray.games[i].gameID = dbgame.id;
+				console.log(dbgame.id);
+			});
+			var srctemplate = $('#game_template').html();
+			var displaytemplate = Handlebars.compile(srctemplate);
+			$('#game_container').html(displaytemplate(gamearray));
+			console.log(gamearray);
 		});
 	}
 
-	function bindAddFriend() {
 
-		$('#add_friend').on('click',
-                function(event){
-				$(".error").remove();
-				var friend = $('#friend_entry').val();
-				newFriend(friend, function(data){
-					console.log('Received friend response: ' + JSON.stringify(data));
-					if(data.response == "Friend not found, check name and try again"){
-						console.log("not found");
-						$('.login_form').before('<span class="error">'+ data.response + '</span>');
-					}
-					else{
-						var f = new Option();
-						$(f).html(friend);
-						$('#friend_list').append(f);
-					}
-				});
-				return false;
+function newFriend(newfriend, callback){
+	$.ajax({
+		type: 'POST',
+		url : '/add-friend', 
+		data: {friend : newfriend}
+	}).done(function(msg){
+		callback(msg);
+	});
+}
+
+function bindAddFriend() {
+
+	$('#add_friend').on('click',
+		function(event){
+			$(".error").remove();
+			var friend = $('#friend_entry').val();
+			newFriend(friend, function(data){
+				console.log('Received friend response: ' + JSON.stringify(data));
+				if(data.response == "Friend not found, check name and try again"){
+					console.log("not found");
+					$('.login_form').before('<span class="error">'+ data.response + '</span>');
+				}
+				else{
+					var f = new Option();
+					$(f).html(friend);
+					$('#friend_list').append(f);
+				}
 			});
-	}
+			return false;
+		});
+}
 
-	loadFriends();
-	bindAddFriend();
+loadFriends();
+loadGames();
+bindAddFriend();
 
 
 });

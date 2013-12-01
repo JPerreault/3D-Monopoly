@@ -66,6 +66,21 @@ exports.friendload = function(req, res){
   });
 };
 
+exports.gameload = function(req, res){
+console.log("Loading games.");
+api.loadGames(req.user.username, function(response){
+if(response == "No games found"){
+  res.send("No games found");
+}
+else{
+  console.log(response);
+  res.send(response);
+}
+
+});
+
+};
+
 exports.catch404 = function(req, res){
   res.render('404', {layout: 'mainpagelayout', title:'Not Found'},
     function(err,str) { 

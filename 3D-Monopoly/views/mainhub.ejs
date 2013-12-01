@@ -20,9 +20,11 @@
         <div id="friend_container">
             <SELECT id="friend_list" NAME="friend_list" SIZE="5" MULTIPLE >
             <script id="friend_template" type="text/x-handlebars-template">
-          {{#each friends}}
+            {{#if friends}}
+            {{#each friends}}
             <option>{{ this }}</option>
             {{/each}}
+            {{/if}}
             </script>
             </SELECT>
             
@@ -41,17 +43,21 @@
 
     <div id="right_content"> 
         <h1>Games you are currently playing:</h1>
+        <div id="game_container">
+        <script id="game_template" type="text/x-handlebars-template">
         <div id="games_menu">                                     
-            <ul class="game_list" >
-                <li><a href="#">Game 1: Players - Friend 1, Friend 2, Friend 3, You. Current player turn: Yours!</a></li><br>
-                <li><a href="#">Game 2: Players - Friend 2, Friend 4, Friend 5, You. Current player turn: Friend 2 </a></li><br>
-                <li><a href="#">Game 3: Players - Friend 4, Friend 5, Friend 2, You. Current player turn: Friend 4 </a></li><br>
-                <li><a href="#">Game 4: Players - Friend 1, Friend 2, Friend 3, You. Current player turn: Yours!</a></li><br>
-                <li><a href="#">Game 5: Players - Friend 2, Friend 4, Friend 5, You. Current player turn: Friend 2 </a></li><br>
-                <li><a href="#">Game 6: Players - Friend 4, Friend 5, Friend 2, You. Current player turn: Friend 4 </a></li><br>
-                <li><a href="#">Game 7: Players - Friend 1, Friend 2, Friend 3, You. Current player turn: Yours!</a></li><br>
-                <li><a href="#">Game 8: Players - Friend 2, Friend 4, Friend 5, You. Current player turn: Friend 2 </a></li><br>
-                <li><a href="#">Game 9: Players - Friend 4, Friend 5, Friend 2, You. Current player turn: Friend 4 </a></li><br>
+            {{#if games}}
+            <h1>here's the games</h1>
+            <ul class='games_list'>
+            {{#each games}}
+            <li><a href='/load_game/{{gameID}}'>Players:{{#each players}} {{this}} {{/each}}
+           </a></li></br>
+            {{/each}}
+            </ul>
+            {{else}}There are no games being played at this time.
+            {{/if}}
+            </div>
+            </script>
             </div>
         </div>
         <div id="footer" />

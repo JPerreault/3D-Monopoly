@@ -1,11 +1,16 @@
 var pidList = [false, false, false, false];
-
+var api = require('../controllers/api.js');
 exports.play = function(req, res){
 //	if(req.user == undefined){
 //		res.redirect('/login')
 //	}
 //	else{
-        res.render('game.ejs', { });
+       //api.createGame(function(res){
+          
+          res.render('game.ejs', { });
+        //});
+        
+        
 //	}
     // commented this stuff for now so it's easier to test gameplay
 };

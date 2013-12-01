@@ -92,6 +92,35 @@ exports.addFriendtoDB = function(un, friend, callback){
 
 };
 
+exports.createGame = function(){
+var newgame = new Game();
+        newgame.players.push({playerid: 'sahoffma'});
+        newgame.players.push({playerid: 'monopolyman'});
+        newgame.players.push({playerid: 'other guy'});
+        newgame.save();
+
+};
+
+exports.loadGames = function(un, callback){
+  Game.find({'players.playerid': un}, function(err, games){
+    if(err){
+      console.log(err);
+    }
+    if(!games){
+      callback("No games found");
+    }
+    else{
+      var array = [];
+      for(var i = 0; i < games.length; i++){
+        array.push(games[i].players);
+      }
+      callback(array);
+    }
+
+  });
+
+};
+
 exports.updateUser = function(un, newpass, newemail, callback){
   User.findOne({email: newemail}, function(err, em){
     if(err){
