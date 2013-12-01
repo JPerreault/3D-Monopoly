@@ -40,12 +40,12 @@ $(function(){
 			console.log(gameslist);
 			$.each(gameslist, function(i, dbgame){
 				var playerslist = { players: []};
-				$.each(dbgame, function(j, dbplayer){
+				$.each(dbgame.game.players, function(j, dbplayer){
 					playerslist.players.push(dbplayer.playerid);
 				});
 				gamearray.games.push(playerslist);
-				gamearray.games[i].gameID = dbgame.id;
-				console.log(dbgame.id);
+				gamearray.games[i].gameID = dbgame.game.gameID;
+				gamearray.games[i].currentPlayer = dbgame.game.currentPlayer;
 			});
 			var srctemplate = $('#game_template').html();
 			var displaytemplate = Handlebars.compile(srctemplate);

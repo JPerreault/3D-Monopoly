@@ -73,7 +73,6 @@ if(response == "No games found"){
   res.send("No games found");
 }
 else{
-  console.log(response);
   res.send(response);
 }
 

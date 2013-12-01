@@ -5,10 +5,9 @@ exports.play = function(req, res){
 //		res.redirect('/login')
 //	}
 //	else{
-       //api.createGame(function(res){
-          
+       api.createGame();
           res.render('game.ejs', { });
-        //});
+        
         
         
 //	}

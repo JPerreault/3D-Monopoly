@@ -112,8 +112,15 @@ exports.loadGames = function(un, callback){
     else{
       var array = [];
       for(var i = 0; i < games.length; i++){
-        array.push(games[i].players);
+        array.push(  
+         { 
+          "game": {
+          "players": games[i].players,
+          "gameID" : games[i]._id, 
+          "currentPlayer" : games[i].currentplayer  
+        }});
       }
+      console.log(array);
       callback(array);
     }
 
