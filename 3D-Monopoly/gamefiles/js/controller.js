@@ -16,6 +16,8 @@ var rectmesh, underMesh;
 var size = 600;
 var step = 150;
 var objHeight = 15;
+var houseloader, hotelloader;
+var hotelmesh, housemesh;
 
 var main;
 var playerPosition = board = turnCount = reRollCount = 0;
@@ -30,20 +32,23 @@ var chance_cards;
 window.onload = function()
 {
     initalConnect();
+	houseloader = new THREE.STLLoader();
+	hotelloader = new THREE.STLLoader();
 	
-	var loader = new THREE.STLLoader();
-	loader.addEventListener( 'load', function ( event ) {
-
+	houseloader.addEventListener('load', function (event){
 		var geometry = event.content;
-		var material = new THREE.MeshPhongMaterial( { ambient: 0xff5533, color: 0xff5533, specular: 0x111111, shininess: 200 } );
-		var mesh = new THREE.Mesh( geometry, material );
-
-		mesh.position.set( 0, - 0.25, 0.6 );
-		mesh.rotation.set( 0, - Math.PI / 2, 0 );
-		mesh.scale.set( 0.5, 0.5, 0.5 );
-
-		scene.add( mesh );
-	} );
+		geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
+		var mesh = new THREE.Mesh( geometry,  new THREE.MeshPhongMaterial( { ambient: 0xff5533, color: 0xff5533, specular: 0x111111, shininess: 200 } ) );
+		housemesh = mesh;
+	});
+	hotelloader.addEventListener('load', function (event){
+		var geometry = event.content;
+		geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
+		var mesh = new THREE.Mesh( geometry,  new THREE.MeshPhongMaterial( { ambient: 0xff5533, color: 0xff5533, specular: 0x111111, shininess: 200 } ) );
+		hotelmesh = mesh;
+	});
+	houseloader.load('textures/house.stl');
+	hotelloader.load('textures/hotel.stl');
 
 	init();
 	animate();
@@ -55,13 +60,13 @@ window.onload = function()
     
     initializeTileBoard();
     populateListing();
-    
 }
 function initializeTileBoard()
 {
     for(var x=0; x<40; x++)
     {
         tileBoard[x] = createTile(x);
+		tileBoard[x].hotels = new Array();
     }
 }
 
@@ -138,7 +143,6 @@ function init()
     var rm = new THREE.MeshBasicMaterial( { map: cardTexture, wireframe: false } );
     chancecards = new THREE.Mesh(comcard, rm);
     scene.add(chancecards);
-    
     
     document.getElementById('rolldice').onclick = function()
     {
@@ -374,6 +378,70 @@ function move(piece, currentSpace, spaces)
     scene.add(piece);
 }
 
+function createHotels(square, hotelNumber)
+{
+	for (var i = 0; i < tileBoard[square].hotels.length; i++)
+		scene.remove(tileBoard[square].hotels[i]);
+	tileBoard[square].hotels = new Array();
+		
+	if (hotelNumber < 5)
+	{
+		for (var i = 1; i <= hotelNumber; i++)
+			drawHotels(square, i);
+	}
+	else
+		drawHotels(square, 5);
+}
+
+function drawHotels(square, hotelNumber)
+{
+    var sidePush = 390;
+	var subt = 97;
+	var objHeight = 0;
+	var xoffset = 0;
+	var offset = 0;
+	
+	if (hotelNumber === 5)
+	{
+		var geometry = hotelmesh.geometry.clone();
+		var scale = .75;
+		var offSide = 463 - 3 * Math.floor(square/10);
+		xoffset = -15 + 5 * (Math.floor(square/10));
+	}
+	else
+	{
+		var geometry = housemesh.geometry.clone();
+		var scale = 1.75;
+		
+		var offSide = 475 - 10 * Math.floor(square/10);
+		xoffset = 47 - 22 * hotelNumber;
+		if (square > 19)
+			xoffset += 5 * Math.floor(square/10);
+	}
+	var invscale = 1/scale;
+	
+	if (square < 10)
+		geometry.applyMatrix(new THREE.Matrix4().makeTranslation((sidePush-(((square)%10)-1)*subt + xoffset) * invscale, objHeight, (offSide + offset) * invscale));
+	else if (square < 20)
+	{
+		geometry.applyMatrix(new THREE.Matrix4().makeRotationY(-Math.PI/2));
+		geometry.applyMatrix(new THREE.Matrix4().makeTranslation((-offSide - offset) * invscale, objHeight, (sidePush-(((square)%10)-1)*subt + xoffset) * invscale));
+	}
+	else if (square < 30)
+		geometry.applyMatrix(new THREE.Matrix4().makeTranslation((-sidePush+(((square)%10)-1)*subt - xoffset) * invscale, objHeight, (-offSide - offset) * invscale));
+	else if (square < 40)
+	{
+		geometry.applyMatrix(new THREE.Matrix4().makeRotationY(-Math.PI/2));
+		geometry.applyMatrix(new THREE.Matrix4().makeTranslation((offSide + offset) * invscale, objHeight, (-sidePush+(((square)%10)-1)*subt - xoffset) * invscale));
+	}
+	var mesh = new THREE.Mesh (geometry, hotelmesh.material);
+	mesh.rotation.x = targetX;
+	mesh.rotation.y = targetY;
+	mesh.scale.set(scale, scale, scale);
+	scene.add(mesh);
+	tileBoard[square].hotels.push(mesh);
+}
+
 function moveToGo()
 {
     move(players[currentPlayer].piece, 0, 0);
@@ -488,6 +556,16 @@ function render()
     
     chancetop.rotation.x += ( targetX - chancetop.rotation.x ) * 0.05;
     chancetop.rotation.y += ( targetY - chancetop.rotation.y ) * 0.05;
+	
+	for (var i = 0; i < tileBoard.length; i++)
+	{
+		for (var j = 0; j < tileBoard[i].hotels.length; j++)
+		{
+			var hotel = tileBoard[i].hotels[j];
+			hotel.rotation.x += ( targetX - hotel.rotation.x ) * 0.05;
+			hotel.rotation.y += ( targetY - hotel.rotation.y ) * 0.05;
+		}
+	}
         
     camera.lookAt(scene.position);
     renderer.render(scene, camera);
@@ -691,4 +769,3 @@ function updateDisplay()
     // update debug stuff
     document.getElementById("money").value = players[currentPlayer].money;
 }
-
