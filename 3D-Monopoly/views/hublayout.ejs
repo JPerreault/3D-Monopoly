@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <title><%= title %></title>
+    
+</head>
+
+<body>
+
+    <div id="main_container">
+      <div id="header">
+        <div class="logo">
+        </div>
+    </div>    
+    <div id="menu_tab">                                     
+        <ul class="menu">     
+
+           <li><a href="/hub" class="nav"> My Hub</a></li>
+           <li><a href="/lobby" class="nav"> Start public game </a></li>
+           <li class="divider"></li>                                                         
+           <li><a href="#" class="nav"> Find public game </a></li>
+           <li class="divider"></li>
+           <li><a href="/profile" class="nav"> <%= user %>'s Profile</a></li>
+           <li class="divider"></li>
+           <li><a href="/logout" class="nav"> Logout </a></li>
+
+       </ul>
+   </div> 
+
+   <%- body %>
+
+</body>
+</html>

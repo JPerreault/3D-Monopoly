@@ -203,11 +203,13 @@ function init()
     }
     document.getElementById('comchest').onclick = function(){
         
-        drawCard("comchest");
+        //drawCard("comchest");
+        move(players[currentPlayer].piece,0,2);
         
     }
     document.getElementById('chance').onclick = function(){
-        drawCard("chance");
+        //drawCard("chance");
+        move(players[currentPlayer].piece,0,7);
     }
 }
 
@@ -339,6 +341,7 @@ function move(piece, currentSpace, spaces)
     {
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide + 60*(id%2), objHeight, offSide - 50 + 60 * (Math.floor((id)/2))));
         players[currentPlayer].jailed = true;
+        destSquare = 10;
     }
     else if (destSquare < 40)
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(offSide + offset, objHeight, -sidePush+(((currentSpace+spaces)%10)-1)*subt - xoffset));
@@ -353,10 +356,12 @@ function move(piece, currentSpace, spaces)
     
     console.log(destSquare);
     
+    
+    var currentProp;
     if (id == currentPlayer)
     {
-    
-        var currentProp = tileBoard[destSquare].activate();
+        currentProp = tileBoard[destSquare].activate();
+        
         if (currentProp.cost && !alreadyOwned(destSquare))
         {
             if (currentProp.cost <= players[id].money)
@@ -372,10 +377,20 @@ function move(piece, currentSpace, spaces)
             console.log(currentProp);
     }
     
+    
     players[id].piece = piece;
     players[id].playerPosition = destSquare;
     players[id].piece.id = id;
     scene.add(piece);
+    
+    if(currentProp === "Call chance function"){
+    drawCard("chance");
+    }
+    else if(currentProp === "Call comunity chest function"){
+    drawCard("comchest");
+    } 
+    
+    
 }
 
 function createHotels(square, hotelNumber)
@@ -577,6 +592,7 @@ function initialize_community_chest_cards(){
  community_chest_cards.push(new Card("comchest",0,
  "<p>Advance to Go.<br> Collect $200</p>",
  function(player){
+  move(player.piece, 0, 0);
   player.money = player.money + 200;
  }
  ));
@@ -724,15 +740,17 @@ function initialize_chance_cards(){
 
 function drawCard(type){
 if(type === "comchest"){
- community_chest_cards[16].behavior(players[currentPlayer]);
- styleCard(community_chest_cards[16].message,"comchest");
+ setTimeout(function(){
+ community_chest_cards[0].behavior(players[currentPlayer]);updateDisplay();},4000);
+ styleCard(community_chest_cards[0].message,"comchest");
 }
 else if(type === "chance"){
- chance_cards[0].behavior(players[currentPlayer]);
+ setTimeout(function(){
+ chance_cards[0].behavior(players[currentPlayer]);updateDisplay();},4000);
  styleCard(chance_cards[0].message,"chance");
 }
     
-    updateDisplay();
+    
 
 }
 

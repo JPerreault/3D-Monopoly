@@ -1,0 +1,35 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/hub.css" />
+  <script src="javascripts/jquery.min.js"></script>
+  <script src="/javascripts/profileclick.js"></script>
+  
+   <div id="main_content">
+
+    <div id="middle_banner">
+    </div>
+      <div class="registration_form">
+        
+        <form name="registration_form" id="profile_form" method="post">
+          <h1><%= user %>'s Profile</h1>
+         <div class="profile_row">
+          <label class="login" id="pw">New Password:</label> <input type="password" id="userpass" name="userpass" value="" />
+        </div>
+        <div class="profile_row">
+          <label class="login" id="confirmpw">
+          Confirm New Password:</label> <input type="password" id="password_repeat" name="password_repeat" value="" />
+        </div>
+        <div class="profile_row">
+          <label class="login" id="email">
+          New Email Address: </label><input type="text" id="useremail" name="useremail" value=""/>
+        </div>
+        <div class="profile_row">
+          <label class="login" id="confirmemail">
+          Confirm New Email Address: </label> <input type="text" id="useremail_repeat" name="useremail_repeat" value="" />
+        </div>
+        <div class="profile_row">
+      <button class="register" required type="submit" value="Update">Update</button>
+     </div>
+      </form>
+    </div>
+</div>
+<div id="footer" />
+</div>

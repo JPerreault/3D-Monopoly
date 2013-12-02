@@ -1,0 +1,66 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/hub.css" />
+    <script src="javascripts/jquery.min.js"></script>
+    <script type="text/javascript"
+    src="javascripts/handlebars-1.0.rc.1.min.js"></script>
+    <script src="javascripts/hubfunctions.js"></script>
+
+   <div id="main_content">
+    <div id="welcome_message">
+        <h1>Welcome to the hub <%= user %>!</h1>
+    </div>
+    <div id="middle_banner">
+
+    </div>
+
+
+
+    <div id="left_content">
+        <h1>Friends</h1>
+        <div class="login_form">
+        <div id="friend_container">
+            <SELECT id="friend_list" NAME="friend_list" SIZE="5" MULTIPLE >
+            <script id="friend_template" type="text/x-handlebars-template">
+            {{#if friends}}
+            {{#each friends}}
+            <option>{{ this }}</option>
+            {{/each}}
+            {{/if}}
+            </script>
+            </SELECT>
+            
+            </div>
+            <div class="login_row">
+                <form name="friend_entry_form" onsubmit="return false;">
+                    <input type="text" placeholder="Enter Friend to Add Here" id="friend_entry" />
+                    </form>
+            </div>
+            <div class="login_row">
+                <button id='add_friend' class="submission" required type="submit" value="Add_Friend">Add Friend</button>
+                <button class="submission" id="game_with_friends" type="submit" value="game_with_friends">Invite Friends to Game</button>
+            </div>
+        </div>
+        </div>
+
+    <div id="right_content"> 
+        <h1>Games you are currently playing:</h1>
+        <div id="game_container">
+        <script id="game_template" type="text/x-handlebars-template">
+        <div id="games_menu">                                     
+            {{#if games}}
+            <ul class='games_list'>
+            {{#each games}}
+            <li><a href='/load_game/{{gameID}}'>Players:{{#each players}} {{this}} | {{/each}}
+            Current Player turn: {{currentPlayer}}
+           </a></li></br>
+            {{/each}}
+            </ul>
+            {{else}}There are no games being played at this time.
+            {{/if}}
+            </div>
+            </script>
+            </div>
+        </div>
+        <div id="footer" />
+    </div>
+    
+    </div>

@@ -1,0 +1,8 @@
+Author: Scott Hoffman
+
+This directory contains the client side Ajax calls for the non-game parts of the application. In general these calls are all POST requests done on a form submission that then wait for a response from the server/db and update the page without reloading(or sometimes redirecting the page if necessary). There's also a liberal amount of JQuery used in these files to update the page elements as needed. The file names are self explanatory I think(loginclick.js = you are trying to log in on the login page for instance). 
+
+Some notes about these files:
+The contact form works but it requires access to a mail server via SMTP or some other mail protocol. It uses nodemailer which is a library for sending emails with node. In my internal tests I was able to setup my GMail account to be accessible via this app(requires 2 step verification in your GMail account settings) and send emails on the contact form using it but I'm obviously not including the username/password with the final submission. If you wanted to try it yourself you would have to setup your own GMail or other account to allow third-party applications to access it. The information you need to edit is in post.js in the contact function, change this function to whatever your own email provider is + username and password and it should most likely work.
+
+I wasn't able to complete email verification on registration or account recovery in time for the final submission of this application but perhaps it wasn't the most important part of the app.
