@@ -99,5 +99,5 @@ function updateStatus(string)
 
 function postMessage(string)
 {
-    socket.emit('post-message', {message: string, sender: username});
+    socket.emit('post-message', {message: string, sender: username, id: gameID});
 }

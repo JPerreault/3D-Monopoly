@@ -27,25 +27,26 @@ exports.connected = function(socket)
               console.log(data.gamestate.players);
               console.log(data.gamestate.players[0].position);
 
+              var datId = data.id;
               api.saveGame(data.id, data.gamestate, function(){
                             api.getGameJSON(data.id, function(data){
-                                            socket.broadcast.to(data.id).emit('update', {game: data, firstTime: false});});
+                                console.log("updating "+socket+" to room "+data.id);
+                                socket.broadcast.to(data.id).emit('update', {game: data, firstTime: false});});
                            });
              });
     
     socket.on('disconnect', function (data){
               
-//              pidList[socket.pid] = false;
-              
-              socket.broadcast.emit('get-message', {message: "Player "+socket.pid+" has disconnected", sender: "null"});
+//              socket.broadcast.to(data.id).emit('get-message', {message: "Player "+socket.pid+" has disconnected", sender: "null"});
               });
     
     socket.on('post-message', function (data){
-              socket.broadcast.emit('get-message', data);
+              socket.broadcast.to(data.id).emit('get-message', data);
               });
     
     socket.on('add-me-to-game', function (data){
               socket.join(data.id);
+              console.log("adding "+socket+" to room "+data.id);
               socket.pid = data.name;
               api.getGameJSON(data.id, function(data){
                               socket.emit('update', {game: data, firstTime: true});

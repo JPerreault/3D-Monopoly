@@ -91,7 +91,7 @@ function bindAddFriend() {
 				else{
 					var f = new Option();
 					$(f).html(friend);
-					$('#friend_list').append(f);
+					$('#game_container').append(f);
 				}
 			});
 			return false;
@@ -103,16 +103,10 @@ function bindAddFriend() {
                       var friends = $('#friend_list').val();
                       newGame(friends, function(data){
                                 console.log('New room was created with ID: ' + JSON.stringify(data));
-//                                if(data.response == "Friend not found, check name and try again"){
-//                                console.log("not found");
-//                                $('.login_form').before('<span class="error">'+ data.response + '</span>');
-//                                }
-//                                else{
-//                                var f = new Option();
-//                                $(f).html(friend);
-//                                $('#friend_list').append(f);
-//                                }
-                                });
+                              
+                              //temp, TODO replace with ajax
+                              location.reload();
+                              });
                       return false;
                       });
 

@@ -137,7 +137,8 @@ exports.getGameJSON = function(id, callback)
                           var output   =   {
                                 "players": games.players,
                                 "gameID" : games._id,
-                                "activePlayer" : games.currentplayer
+                                "activePlayer" : games.currentplayer,
+                                "id" : id
                                 }
                      callback(output);
                  }
