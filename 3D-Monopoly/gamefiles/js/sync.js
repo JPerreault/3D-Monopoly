@@ -22,7 +22,7 @@ function initalConnect()
               
                 players[x].username = data.game.players[x].playerid;
                 players[x].properties = data.game.players[x].properties;
-                players[x].money = data.game.players[x].money;
+                players[x].money = parseInt(data.game.players[x].money);
               players[x].playerPosition = data.game.players[x].position;
               
               if (data.game.players[x].playerid == username)

@@ -6,7 +6,7 @@ var PlayerSchema = new Schema({
 	playerid: {type: String, required: true, ref: 'User' },
     position: {type: Number, required: true, default: '0'},
 	properties: [{type: Number } ],
-	money: {type: Number }
+    money: {type: Number, required: true, default: '1500'}
 	});
 
 var GameSchema = new Schema({
