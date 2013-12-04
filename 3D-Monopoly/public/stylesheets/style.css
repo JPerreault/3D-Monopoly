@@ -114,9 +114,22 @@ height:auto;
 padding:10px 0 0 20px;
 }
 
+#hold_404{
+width:350px;
+height: 50px;
+margin: 0 auto;
+padding:10px 10px 0 30px;
+color:#666666;
+background:url(../images/gradient_grey.png) no-repeat center;
+
+}
+
+.error{
+color:red;
+}
 .registration_form{
-width:200px;
-height: 400px;
+width:250px;
+height: 270px;
 margin: 0 auto;
 padding:10px 10px 0 30px;
 color:#666666;
@@ -133,6 +146,12 @@ background:url(../images/gradient_grey.png) no-repeat center;
 
 .login_row{
 width:200px;
+float:left;
+padding:4px 0 4px 0;
+}
+
+.register_row{
+width:250px;
 float:left;
 padding:4px 0 4px 0;
 }
@@ -156,6 +175,16 @@ float:left;
 width:70px;
 height:25px;
 float: right;
+background:url(../images/button_green.png) no-repeat center;
+color:#FFFFFF;
+cursor: pointer;
+text-align: center;
+}
+
+.register {
+width:70px;
+height:25px;
+float: center;
 background:url(../images/button_green.png) no-repeat center;
 color:#FFFFFF;
 cursor: pointer;
@@ -190,7 +219,6 @@ color:#666666;
 float: center;
 width:290px;
 height:17px;
-font-size:10px;
 background-color:#fff8dc;
 border:1px #f0e9cf solid;
 }
@@ -203,7 +231,6 @@ font-size:12px;
 .contact_textarea{
 width:290px;
 height:80px;
-font-size:10px;
 float:left;
 background-color:#fff8dc;
 border:1px #f0e9cf solid;

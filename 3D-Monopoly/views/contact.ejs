@@ -1,3 +1,5 @@
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/contactsend.js"></script>
 <div id="main_content">
     
         <div id="middle_banner">
@@ -7,18 +9,20 @@
                 
                 <div id="contact_form">
                     <h1>Contact Form</h1>
-                        <label class="contact_form">Name:</label>
-                        <input type="text" name="user" class="contact_input" />
-                        <div class="cleardiv"></div>
+                    <form name="contact_form" id="contact" method="post">
                         <label class="contact_form">Email:</label>
-                        <input type="text" name="message"  class="contact_input"/>
+                        <input type="text" name="message" id="email" class="contact_input"/>
+                        <label class="contact_form">Subject:</label>
+                        <input required type="text" id="subject" class="contact_input" />
+                        <div class="cleardiv"></div>
                         <div class="cleardiv"></div>
                         <label class="contact_form">Message:</label>
-                        <textarea name="text" cols="" rows="" class="contact_textarea"></textarea>
+                        <textarea id="textbox" name="text" cols="" rows="" class="contact_textarea"></textarea>
                         <div class="cleardiv"></div>
                         <div class="login_row">
-                        <button class="submission">Send</button>
-                        </div>    
+                        <button class="submission" required type="submit">Send</button>
+                        </div>
+                        </form> 
             
                </div>
                

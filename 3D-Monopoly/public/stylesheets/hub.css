@@ -1,195 +1,242 @@
 body
 {
-background:url(../images/monopoly_skyline_green.jpg) repeat-x top #fff;
-padding:0;
-font-family:Verdana, Arial, Helvetica, sans-serif;
-font-size:10px;
-margin:0px auto auto auto;
-color:#514c48;
+	background:url(../images/monopoly_skyline_green.jpg) repeat-x top #fff;
+	padding:0;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	margin:0px auto auto auto;
+	color:#514c48;
 }
 
 a{
-text-decoration:underline;
-color:#D86200;
-font-size: 12px;
+	text-decoration:underline;
+	color:#D86200;
+	font-size: 12px;
 }
 
 p{
-text-align:justify;
-line-height:15px;
-padding:5px 0 5px 0;
-font-size:11px;
-margin:0px;
+	text-align:justify;
+	line-height:15px;
+	padding:5px 0 5px 0;
+	font-size:11px;
+	margin:0px;
 }
 
 span{
-color:#FF9900;
+	color:#FF9900;
 }
 
 h1{
-font-size:18px;
-color:#514c48;
-font-family:Arial, Helvetica, sans-serif;
-font-weight:bold;
-padding:5px 0 5px 0;
-margin:0px;
+	font-size:18px;
+	color:#514c48;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	padding:5px 0 5px 0;
+	margin:0px;
 }
 
 #main_container{
-width:1000px;
-height:auto;
-margin:auto;
-padding:0px;
-position:relative;
+	width:1000px;
+	height:auto;
+	margin:auto;
+	padding:0px;
+	position:relative;
 }
 
 #header{
-width:1000px;
-height:62px;
-margin:auto;
+	width:1000px;
+	height:62px;
+	margin:auto;
 }
 
 #menu_tab{
-width:100%;
-height:52px;
-font-family:Arial, Helvetica, sans-serif;
-text-align: center;
-padding:0px;
-background:url(../images/gradient_grey.png) no-repeat center;
-background-size: 100%;
-background-color: #FFFFFF;
-z-index:1;
+	width:100%;
+	height:52px;
+	font-family:Arial, Helvetica, sans-serif;
+	text-align: center;
+	padding:0px;
+	background:url(../images/gradient_grey.png) no-repeat center;
+	background-size: 100%;
+	background-color: #FFFFFF;
+	z-index:1;
 }
 
 ul.menu {
-list-style-type:none; 
-display:block; 
-width:500px;
-margin: auto;
-padding:0px; 
-background:none;
+	list-style-type:none; 
+	display:block; 
+	width:600px;
+	margin: auto;
+	padding:0px; 
+	background:none;
 }
 
 ul.menu li {
-display:inline;
-font-size:13px;
-font-weight:bold;
-line-height:52px;
+	display:inline;
+	font-size:13px;
+	font-weight:bold;
+	line-height:52px;
 }
 
 
 a.nav:link, a.nav:visited {
-display:block; float:left; padding:0px; margin:0;width: auto; margin:0px 14px 0px 14px; text-align:center;
-text-decoration:none; background:none; color:#534848;}
+	display:block; float:left; padding:0px; margin:0;width: auto; margin:0px 14px 0px 14px; text-align:center;
+	text-decoration:none; background:none; color:#534848;
+}
 
 a.nav_selected:link, a.nav_selected:visited {
-display:block; float:left; padding:0px; margin:0;width: auto;margin:0px 14px 0px 14px;text-align:center;
-text-decoration:none; color: #FF6600;}
+	display:block; float:left; padding:0px; margin:0;width: auto;margin:0px 14px 0px 14px;text-align:center;
+	text-decoration:none; color: #FF6600;
+}
 
 a.nav:hover {
-color: #FF6600; text-decoration:none;}
+	color: #FF6600; text-decoration:none;
+}
 
 
 #main_content{
-width:100%;
-clear:both;
-background-color:#FFFFFF;
-height:auto;
+	width:1000px;
+	clear:both;
+	background-color:#FFFFFF;
+	height:auto;
 }
 
+
 #middle_banner{
-width:100%;
-display:block;
-margin:auto;
-height:142px;
-padding:20px 0 0 0;
-background:url(../images/Monopoly_pack_logo.png) no-repeat center;
+	width:100%;
+	display:block;
+	margin:auto;
+	height:142px;
+	padding:20px 0 0 0;
+	background:url(../images/Monopoly_pack_logo.png) no-repeat center;
 }
 
 #left_content{
-width:350px;
-background-color: #FFFFFF;
-float:left;
-height:auto;
-padding:10px 0 0 20px;
+	width:350px;
+	background-color: #FFFFFF;
+	float:left;
+	height:auto;
+	padding:10px 0 0 20px;
 }
 
 #right_content{
-width:550px;
-margin: 0 auto;
-background-color: #FFFFFF;
-float:left;
-height:auto;
-padding:10px 0 0 20px;
+	width:550px;
+	margin: 0 auto;
+	background-color: #FFFFFF;
+	float:left;
+	height:auto;
+	padding:10px 0 0 20px;
 }
 
 .login_row{
-width:450px;
-float:left;
-text-align: center;
-padding:4px 0 4px 0;
+	width:450px;
+	float:left;
+	text-align: center;
+	padding:4px 0 4px 0;
 }
+
+
 
 label.login{
-width:60px;
-float:left;
-text-align:right;
-padding:4px 8px 0 0;
+	width:60px;
+	float:left;
+	text-align:right;
+	padding:4px 8px 0 0;
 }
 
+
 input.login_input{
-width:120px;
-height:16px;
-background-color:#FFFFFF;
-border:1px #CCCCCC solid;
-float:left;
+	width:120px;
+	height:16px;
+	background-color:#FFFFFF;
+	border:1px #CCCCCC solid;
+	float:left;
 }
 
 .submission {
-width:150px;
-height:25px;
-float: left;
-background:url(../images/button_green.png) no-repeat center;
-color:#FFFFFF;
-cursor: pointer;
-text-align: center;
+	width:150px;
+	height:25px;
+	float: left;
+	background:url(../images/button_green.png) no-repeat center;
+	color:#FFFFFF;
+	cursor: pointer;
+	text-align: center;
 }
 
 #friend_list {
 
-width:300px;
-height:150px;
-float: left;
+	width:300px;
+	height:150px;
+	float: left;
 
 }
 
 #games_menu {
 
-width:600px;
-height:250px;
-overflow:auto;
+	width:600px;
+	height:250px;
+	overflow:auto;
 }
 
 #welcome_message {
 
-width:1000px;
-text-align: center;
-font-size: 16px;
-margin:0 auto;
+	width:1000px;
+	text-align: center;
+	font-size: 16px;
+	margin:0 auto;
 }
 
 #game_list {
 
-width:600px;
-height:250px;
-overflow:auto;
+	width:600px;
+	height:250px;
+	overflow:auto;
+}
+
+#profile_form{
+	width:275px;
+	height: 275px;
+	margin: 0 auto;
+	padding:10px 10px 0 30px;
+	color:#666666;
+	background:url(../images/gradient_grey.png) no-repeat center;
+}
+
+.profile_row{
+	width:250px;
+	float:left;
+	padding:4px 0 4px 0;
+}
+
+label.login{
+	width:60px;
+	float:left;
+	text-align:right;
+	padding:4px 8px 0 0;
+}
+
+.error{
+	color:red;
+}
+
+.success{
+	color:green;
+}
+
+.register {
+	width:70px;
+	height:25px;
+	float: center;
+	background:url(../images/button_green.png) no-repeat center;
+	color:#FFFFFF;
+	cursor: pointer;
+	text-align: center;
 }
 
 #footer{
-width:auto;
-clear:both;
-background-color: #FFFFFF;
-padding:15px 0 10px 0;
-text-align:center;
-color:#999999;
+	width:auto;
+	clear:both;
+	background-color: #FFFFFF;
+	padding:15px 0 10px 0;
+	text-align:center;
+	color:#999999;
 }

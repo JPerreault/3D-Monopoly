@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <title>Account Recovery</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <script src="/javascripts/jquery.min.js"></script>
+ <script src="/javascripts/recovery.js"></script>
+</head>
+
+<body>
+
+    <div id="main_container">
+      <div id="header">
+        <div class="logo">
+        </div>
+    </div>    
+    <div id="menu_tab">                                     
+        <ul class="menu">                                                                               
+         <li><a href="/login" class="nav"> Login </a></li>
+         <li class="divider"></li>
+         <li><a href="/register" class="nav"> Register</a></li>
+         <li class="divider"></li>
+         <li><a href="/screenshots" class="nav"> Screenshots</a></li>
+         <li class="divider"></li>
+         <li><a href="/contact" class="nav"> Contact </a></li>
+
+     </ul>
+ </div> 
+
+ <div id="main_content">
+
+    <div id="middle_banner">
+    </div>
+    
+    <div class="registration_form" id="pass_recovery">
+        <h2>Enter email below for account recovery</h2>
+        <form id="recovery_form">
+            <div class="login_row">
+                <label class="login" id="email">Enter email:</label>
+                <input required type="text" class="login_input" id="useremail" />
+            </div>
+            <div class="login_row">
+                <button class="submission" required type="submit" id="reset" value="Reset">Reset</button>
+            </div>
+        </form>
+    </div>
+
+
+    <div id="footer" />
+</div>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+Author: Scott Hoffman
+All GET routes are done via mainpage.js(except for the game itself which is done in play.js). Some routes use a controller called api.js from the /controllers directory to carry out some functions like pulling data from the db to populate a page. Most of the routes are straightforward and simply render a page using templates(described in /views readme).
+
+POST routes are done in post.js and almost all of them use api.js to talk to the db, along with passport(an authentication/session library I used for the project), and nodemailer which was an email library that I played with towards the end(but didn't finish my work with such as emailing registration links/account recovery links). All of these routes are called after the client sends some data and the server either needs to update or create new data for the db or a session for the user. They then send a response to the client that will update their page via Ajax.

@@ -1,6 +1,7 @@
-
-/**
- * Module dependencies.
+/*
+Scott Hoffman
+The server of the app, basically does some setup for the app for websockets
+and then redirects all the routing to the /routes folder
  */
 
 var express = require('express');
@@ -18,13 +19,13 @@ var app = module.exports = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
+
 // all environments
 app.set('port', process.env.PORT || 3000);
-
+app.use(express.favicon(__dirname + '/public/images/go.ico'));
 app.use(partials());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
@@ -42,22 +43,29 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+//routes that require user authentication
+app.get('/profile', pass.ensureAuthenticated, mainpage.getprofile);
+app.post('/add-friend', pass.ensureAuthenticated, serverpost.addfriend);
+app.post('/update_profile', pass.ensureAuthenticated, serverpost.updateprofile);
+app.get('/get-friends', pass.ensureAuthenticated, mainpage.friendload);
+app.get('/hub', pass.ensureAuthenticated, mainpage.hub);
+app.get('/lobby', pass.ensureAuthenticated, mainpage.lobby);
+app.get('/get-games', pass.ensureAuthenticated, mainpage.gameload);
 
-app.get('/login', mainpage.login);
-app.post('/login', serverpost.login);
-
-app.get('/register', mainpage.register);
-app.post('/register', serverpost.register);
 
 app.get('/play', game.play);
-
-app.get('/hub', pass.ensureAuthenticated, mainpage.hub);
-app.get('/contact', mainpage.contact);
+app.get('/login', mainpage.login);
+app.post('/login', serverpost.login);
 app.get('/register', mainpage.register);
+app.post('/register', serverpost.register);
+app.get('/contact', mainpage.contact);
+app.post('/contact', serverpost.contact);
 app.get('/logout', mainpage.logout);
 app.get('/screenshots', mainpage.screenshots);
+app.get('/account_recovery', index.accountRecovery);
 app.get('/home', index.home);
 app.get('/', index.home);
+app.use(mainpage.catch404);
 
 
 server.listen(app.get('port'), function(){

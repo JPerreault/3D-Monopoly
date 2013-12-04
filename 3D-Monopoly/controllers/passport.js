@@ -22,7 +22,7 @@ passport.use(new LocalStrategy(function(un, pw, done) {
       return done(err); }
     if (!user) { 
       console.log("Unknown User");
-      return done(null, false, { message: 'Unknown user ' + username }); 
+      return done(null, false, { message: 'Incorrect login details, try again'}); 
     }
     user.comparePassword(pw, function(err, isMatch) {
       if (err) {
@@ -33,7 +33,7 @@ passport.use(new LocalStrategy(function(un, pw, done) {
         return done(null, user);
       } else {
         console.log("Invalid password");
-        return done(null, false, { message: 'Invalid password' });
+        return done(null, false, { message: 'Incorrect login details, try again' });
       }
     });
   });

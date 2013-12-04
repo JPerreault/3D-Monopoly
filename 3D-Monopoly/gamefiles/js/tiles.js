@@ -35,7 +35,7 @@ function getProperty()
 
 function communityChest()
 {
-    drawCard("comchest");
+    //drawCard("comchest");
     updateDisplay();
 
     return "Call comunity chest function";
@@ -43,7 +43,7 @@ function communityChest()
 
 function chance()
 {
-    drawCard("chance"); //not working right, cloning piece
+    //drawCard("chance"); //not working right, cloning piece
     updateDisplay();
 
     return "Call chance function";
