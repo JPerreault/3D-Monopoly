@@ -1,17 +1,11 @@
 //var pidList = [false, false, false, false];
 var api = require('../controllers/api.js');
 exports.play = function(req, res){
-//	if(req.user == undefined){
-//		res.redirect('/login')
-//	}
-//	else{
-       //api.createGame();
-    res.render('game.ejs', {signedIn: false});
-    
-        
-        
-//	}
-    // commented this stuff for now so it's easier to test gameplay
+		res.redirect('/login')
+
+    // you need to specificy game now, so just /play won't work
+    // try /play-[GameID]. if the game exists it should be in the
+    // list of users
 };
 
 exports.load = function(req, res){
