@@ -92,6 +92,9 @@ function bindAddFriend() {
 					var f = new Option();
 					$(f).html(friend);
 					$('#game_container').append(f);
+                      
+                      // the ajax broke here?
+                      location.reload();
 				}
 			});
 			return false;
