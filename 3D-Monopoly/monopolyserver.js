@@ -46,6 +46,7 @@ if ('development' == app.get('env')) {
 //routes that require user authentication
 app.get('/profile', pass.ensureAuthenticated, mainpage.getprofile);
 app.post('/add-friend', pass.ensureAuthenticated, serverpost.addfriend);
+app.post('/add-game', pass.ensureAuthenticated, serverpost.addgame);
 app.post('/update_profile', pass.ensureAuthenticated, serverpost.updateprofile);
 app.get('/get-friends', pass.ensureAuthenticated, mainpage.friendload);
 app.get('/hub', pass.ensureAuthenticated, mainpage.hub);
@@ -54,6 +55,8 @@ app.get('/get-games', pass.ensureAuthenticated, mainpage.gameload);
 
 
 app.get('/play', game.play);
+app.get('/play-:id', game.load);
+
 app.get('/login', mainpage.login);
 app.post('/login', serverpost.login);
 app.get('/register', mainpage.register);

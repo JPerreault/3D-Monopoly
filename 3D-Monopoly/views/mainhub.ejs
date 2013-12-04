@@ -49,7 +49,7 @@
             {{#if games}}
             <ul class='games_list'>
             {{#each games}}
-            <li><a href='/load_game/{{gameID}}'>Players:{{#each players}} {{this}} | {{/each}}
+            <li><a href='/play-{{gameID}}'>Players:{{#each players}} {{this}} | {{/each}}
             Current Player turn: {{currentPlayer}}
            </a></li></br>
             {{/each}}

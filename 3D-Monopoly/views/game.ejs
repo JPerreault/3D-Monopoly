@@ -7,6 +7,13 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link rel="stylesheet" href="css/style.css" />
 	</head>
+    
+    <% if (signedIn) { %>
+        <script>
+        var gameID = "<%= gameID %>";
+        var loadedName = "<%= username %>";
+        </script>
+    <% } %>
 
 	<body>		
 		<script src="js/lib/three.min.js"></script>

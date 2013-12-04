@@ -40,6 +40,18 @@
   });
 };
 
+exports.addgame = function(req, res){
+    var friends = req.body.friends;
+    var user = req.user.username;
+    console.log("Got list of users : " + friends + " to make a game with " + user +"'s account");
+    friends.push(user);
+    api.createGame(friends, function(response){
+                      
+                      res.send(response);
+                      
+                      });
+};
+
 exports.updateprofile = function(req, res){
   var newpass = req.body.userpass;
   var newemail = req.body.useremail;

@@ -64,6 +64,17 @@ function newFriend(newfriend, callback){
 		callback(msg);
 	});
 }
+  
+function newGame(players, callback){
+$.ajax({
+     type: 'POST',
+     url : '/add-game',
+     data: {friends : players}
+     }).done(function(msg){
+             callback(msg);
+             });
+}
+
 
 function bindAddFriend() {
 
@@ -85,6 +96,26 @@ function bindAddFriend() {
 			});
 			return false;
 		});
+  
+  $('#game_with_friends').on('click',
+                      function(event){
+                      $(".error").remove();
+                      var friends = $('#friend_list').val();
+                      newGame(friends, function(data){
+                                console.log('New room was created with ID: ' + JSON.stringify(data));
+//                                if(data.response == "Friend not found, check name and try again"){
+//                                console.log("not found");
+//                                $('.login_form').before('<span class="error">'+ data.response + '</span>');
+//                                }
+//                                else{
+//                                var f = new Option();
+//                                $(f).html(friend);
+//                                $('#friend_list').append(f);
+//                                }
+                                });
+                      return false;
+                      });
+
 }
 
 loadFriends();
