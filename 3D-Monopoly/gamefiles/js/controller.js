@@ -364,8 +364,12 @@ function move(piece, currentSpace, spaces)
                 updateDisplay();
             }
         }
-        else
-            console.log(currentProp);
+        else if(alreadyOwned(destSquare) && players[currentPlayer].properties.indexOf(lookUps[destSquare]) == -1)
+        {
+
+            players[currentPlayer].money -= currentProp.rent;
+            updateDisplay();
+        }
     }
     
     players[id].piece = piece;
