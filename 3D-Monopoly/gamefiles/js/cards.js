@@ -314,13 +314,17 @@ player.money = player.money + 100;
 
 function drawCard(type){
 if(type === "comchest"){
- setTimeout(function(){
- community_chest_cards[0].behavior(players[currentPlayer]);updateDisplay();},4000);
+ /*setTimeout(function(){
+ community_chest_cards[0].behavior(players[currentPlayer]);updateDisplay();},4000);*/
+ community_chest_cards[0].behavior(players[currentPlayer]);
+ updateDisplay();
  styleCard(community_chest_cards[0].message,"comchest");
 }
 else if(type === "chance"){
- setTimeout(function(){
- chance_cards[16].behavior(players[currentPlayer]);updateDisplay();},4000);
+ /*setTimeout(function(){
+ chance_cards[16].behavior(players[currentPlayer]);updateDisplay();},4000);*/
+ chance_cards[16].behavior(players[currentPlayer]);
+ updateDisplay();
  styleCard(chance_cards[16].message,"chance");
 }
 }

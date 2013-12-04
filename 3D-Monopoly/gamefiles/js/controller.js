@@ -205,7 +205,7 @@ function init()
     }
     document.getElementById('chance').onclick = function(){
         //drawCard("chance");
-        players[2].addPropertyIndex(lookUps[12]);
+        //players[2].addPropertyIndex(lookUps[12]);
         move(players[currentPlayer].piece,0,7);
     }
 }
