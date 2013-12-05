@@ -13,6 +13,14 @@ function initalConnect()
               chatMessage(data.message, data.sender);
               });
     
+    socket.on('get_chance_pos',function(data){
+    chance_pos = data.chance;
+    });
+    
+    socket.on('get_com_chest_pos',function(data){
+    community_chest_pos = data.com_chest;
+    }
+    );
     
     socket.on('update', function(data){
 

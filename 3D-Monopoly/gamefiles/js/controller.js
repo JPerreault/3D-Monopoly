@@ -26,6 +26,8 @@ var testCount = 1; //4 full turns
 
 var community_chest_cards;
 var chance_cards;
+var community_chest_pos = 0;
+var chance_pos = 0;
 
 window.onload = function()
 {
@@ -205,7 +207,7 @@ function init()
     }
     document.getElementById('chance').onclick = function(){
         //drawCard("chance");
-        players[2].addPropertyIndex(lookUps[12]);
+        //players[2].addPropertyIndex(lookUps[12]);
         move(players[currentPlayer].piece,0,7);
     }
 }
