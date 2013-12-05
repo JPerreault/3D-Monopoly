@@ -1,5 +1,8 @@
 $(function(){
-	
+	var srctemplate = $('#friend_template').html();
+	var displaytemplate = Handlebars.compile(srctemplate);
+	var gametemplate = $('#game_template').html();
+	var gamedisplaytemplate = Handlebars.compile(gametemplate);
 	function getFriends(callback){
 		$.ajax({
 			type: 'GET',
@@ -26,10 +29,7 @@ $(function(){
 				friendarray.friends.push(item);
 			});
 			console.log(friendarray.friends);
-			var srctemplate = $('#friend_template').html();
-			var displaytemplate = Handlebars.compile(srctemplate);
 			$('#friend_list').html(displaytemplate(friendarray));
-			return false;
 		});
 	}
 
@@ -47,77 +47,75 @@ $(function(){
 				gamearray.games[i].gameID = dbgame.game.gameID;
 				gamearray.games[i].currentPlayer = dbgame.game.currentPlayer;
 			});
-			var srctemplate = $('#game_template').html();
-			var displaytemplate = Handlebars.compile(srctemplate);
-			$('#game_container').html(displaytemplate(gamearray));
-			console.log(gamearray);
+			$('#game_container').html(gamedisplaytemplate(gamearray));
+		});
+		setTimeout(loadGames, 30000);
+	}
+
+
+	function newFriend(newfriend, callback){
+		$.ajax({
+			type: 'POST',
+			url : '/add-friend', 
+			data: {friend : newfriend}
+		}).done(function(msg){
+			callback(msg);
+		});
+	}
+
+	function newGame(players, callback){
+		$.ajax({
+			type: 'POST',
+			url : '/add-game',
+			data: {friends : players}
+		}).done(function(msg){
+			callback(msg);
 		});
 	}
 
 
-function newFriend(newfriend, callback){
-	$.ajax({
-		type: 'POST',
-		url : '/add-friend', 
-		data: {friend : newfriend}
-	}).done(function(msg){
-		callback(msg);
-	});
-}
-  
-function newGame(players, callback){
-$.ajax({
-     type: 'POST',
-     url : '/add-game',
-     data: {friends : players}
-     }).done(function(msg){
-             callback(msg);
-             });
-}
+	function bindAddFriend() {
 
+		$('#add_friend').on('click',
+			function(event){
+				$(".error").remove();
+				var friend = $('#friend_entry').val();
+				newFriend(friend, function(data){
+					console.log('Received friend response: ' + JSON.stringify(data));
+					if(data.response == "Friend not found, check name and try again"){
+						console.log("not found");
+						$('.login_form').before('<span class="error">'+ data.response + '</span>');
+					}
+					else{
+						var f = new Option();
+						$(f).html(friend);
+						$('#friend_list').append(f);
 
-function bindAddFriend() {
-
-	$('#add_friend').on('click',
-		function(event){
-			$(".error").remove();
-			var friend = $('#friend_entry').val();
-			newFriend(friend, function(data){
-				console.log('Received friend response: ' + JSON.stringify(data));
-				if(data.response == "Friend not found, check name and try again"){
-					console.log("not found");
-					$('.login_form').before('<span class="error">'+ data.response + '</span>');
-				}
-				else{
-					var f = new Option();
-					$(f).html(friend);
-					$('#game_container').append(f);
-                      
                       // the ajax broke here?
-                      location.reload();
-				}
+                      //location.reload();
+                  }
+              });
+				return false;
 			});
-			return false;
-		});
-  
-  $('#game_with_friends').on('click',
-                      function(event){
-                      $(".error").remove();
-                      var friends = $('#friend_list').val();
-                      newGame(friends, function(data){
-                                console.log('New room was created with ID: ' + JSON.stringify(data));
-                              
+
+		$('#game_with_friends').on('click',
+			function(event){
+				$(".error").remove();
+				var friends = $('#friend_list').val();
+				newGame(friends, function(data){
+					console.log('New room was created with ID: ' + JSON.stringify(data));
+
                               //temp, TODO replace with ajax
                               location.reload();
-                              });
-                      return false;
-                      });
+                          });
+				return false;
+			});
 
-}
+	}
 
-loadFriends();
-loadGames();
-bindAddFriend();
+	loadFriends();
+	loadGames();
+	bindAddFriend();
 
 
 });

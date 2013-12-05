@@ -11,6 +11,7 @@ var PlayerSchema = new Schema({
 
 var GameSchema = new Schema({
 //    id: {type: String, required: true, default: "nope" },
+	open: {type: Boolean, required: true, default: true},
 	finished: { type: Boolean, required: true, default: false },
 	players: [PlayerSchema],
 	currentplayer: { type: String, required: true, default: 'sahoffma' }},

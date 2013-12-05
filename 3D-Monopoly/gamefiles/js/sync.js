@@ -5,7 +5,7 @@ function initalConnect()
 {
     document.getElementById("status").innerHTML = "Connecting...";
 
-    socket = io.connect('http://localhost');
+    socket = io.connect('http://localhost/');
     username = loadedName;
     
     socket.on('get-message', function(data)

@@ -8,15 +8,20 @@ exports.play = function(req, res){
     // list of users
 };
 
-exports.load = function(req, res){
-   if(req.user == undefined){
-   	res.redirect('/login')
-   }
-   else{
-    
+
+exports.addnplay = function(req, res){
+
+  api.addUsertoGame(req.user.username, req.params.id, function(){
     res.render('game.ejs', {gameID: req.params.id, username: req.user.username, signedIn: true});
-    
-    	}
+
+  });
+
+};
+
+exports.load = function(req, res){
+
+    res.render('game.ejs', {gameID: req.params.id, username: req.user.username, signedIn: true});
+ 
 };
 
 

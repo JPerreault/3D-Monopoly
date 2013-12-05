@@ -40,6 +40,16 @@
   });
 };
 
+exports.addpublicgame = function(req, res){
+var player = [];
+console.log("got here");
+player.push(req.user.username);
+api.createGame(player, function(response){
+  res.redirect("/hub");
+});
+
+};
+
 exports.addgame = function(req, res){
     var friends = req.body.friends;
     var user = req.user.username;

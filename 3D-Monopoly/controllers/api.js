@@ -98,6 +98,13 @@ exports.createGame = function(players, callback){
     var newgame = new Game();
     for (var x=0; x<players.length; x++)
         newgame.players.push({playerid: players[x]});
+
+      if(newgame.players.length < 4){
+        newgame.open = true;
+      }
+      else{
+        newgame.open = false;
+      }
     
     newgame.save(function()
                  {
@@ -105,6 +112,26 @@ exports.createGame = function(players, callback){
                  });
     
     
+
+};
+
+exports.addUsertoGame = function(un, gameid, callback){
+  var gameident = String(gameid);
+  console.log(gameid);
+  Game.findOne({'_id': gameident}, function(err, game){
+    if(err){
+      console.log(err);
+    }
+    else{
+      game.players.push({playerid: un});
+      if(game.players.length == 4){
+        game.open = false;
+      }
+      game.save();
+      callback();
+    }
+  });
+
 
 };
 
@@ -145,8 +172,36 @@ exports.getGameJSON = function(id, callback)
               });
 };
 
-exports.loadGames = function(un, callback){
+exports.loadPlayerGames = function(un, callback){
   Game.find({'players.playerid': un}, function(err, games){
+    if(err){
+      console.log(err);
+    }
+    if(!games){
+      callback("No games found");
+    }
+    else{
+      var array = [];
+      for(var i = 0; i < games.length; i++){
+        array.push(  
+         { 
+          "game": {
+          "players": games[i].players,
+          "gameID" : games[i]._id, 
+          "currentPlayer" : games[i].currentplayer  
+        }});
+      }
+      console.log(array);
+      callback(array);
+    }
+
+  });
+
+};
+
+exports.loadServerGames = function(callback){
+
+Game.find({'open': true}, function(err, games){
     if(err){
       console.log(err);
     }
