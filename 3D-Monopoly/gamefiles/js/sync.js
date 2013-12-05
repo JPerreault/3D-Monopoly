@@ -53,7 +53,11 @@ function initalConnect()
               finalPlayerID = currentPlayer;
               updateStatus("Connected as Player "+currentPlayer);
               chatMessage("You have connected", null);
+              numberOfPlayers = data.game.players.length;
               
+              // remove other players
+              for (var x=numberOfPlayers; x<4; x++)
+                scene.remove(players[x].piece)
               }
               
               updateDisplay();
