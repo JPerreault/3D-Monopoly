@@ -22,6 +22,18 @@ exports.load = function(req, res){
 
 exports.connected = function(socket)
 {
+    socket.on('chance_pos',function(data){
+    socket.broadcast.emit('get_chance_pos',data);
+    socket.emit('get_chance_pos',data);
+    
+    });
+    
+    socket.on('com_chest_pos',function(data){
+    socket.broadcast.emit('get_com_chest_pos',data);
+    socket.emit('get_com_chest_pos',data);
+    });
+    
+    
     
     socket.on('payload', function (data) {
               console.log(data.gamestate.players);

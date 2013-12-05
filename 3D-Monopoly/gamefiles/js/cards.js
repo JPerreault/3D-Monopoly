@@ -316,16 +316,18 @@ function drawCard(type){
 if(type === "comchest"){
  /*setTimeout(function(){
  community_chest_cards[0].behavior(players[currentPlayer]);updateDisplay();},4000);*/
- community_chest_cards[0].behavior(players[currentPlayer]);
+ community_chest_cards[community_chest_pos].behavior(players[currentPlayer]);
  updateDisplay();
- styleCard(community_chest_cards[0].message,"comchest");
+ styleCard(community_chest_cards[community_chest_pos].message,"comchest");
+ socket.emit('com_chest_pos',{com_chest:(community_chest_pos+1)%community_chest_cards.length});
 }
 else if(type === "chance"){
  /*setTimeout(function(){
  chance_cards[16].behavior(players[currentPlayer]);updateDisplay();},4000);*/
- chance_cards[16].behavior(players[currentPlayer]);
+ chance_cards[chance_pos].behavior(players[currentPlayer]);
  updateDisplay();
- styleCard(chance_cards[16].message,"chance");
+ styleCard(chance_cards[chance_pos].message,"chance");
+ socket.emit('chance_pos',{chance:(chance_pos+1)%chance_cards.length});
 }
 }
 

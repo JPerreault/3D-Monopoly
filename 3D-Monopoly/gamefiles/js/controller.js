@@ -26,6 +26,8 @@ var testCount = 1; //4 full turns
 
 var community_chest_cards;
 var chance_cards;
+var community_chest_pos = 0;
+var chance_pos = 0;
 
 window.onload = function()
 {
