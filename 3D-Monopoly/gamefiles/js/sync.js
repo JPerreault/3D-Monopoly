@@ -5,7 +5,7 @@ function initalConnect()
 {
     document.getElementById("status").innerHTML = "Connecting...";
 
-    socket = io.connect('http://localhost/');
+    socket = io.connect();
     username = loadedName;
     
     socket.on('get-message', function(data)
@@ -55,6 +55,8 @@ function initalConnect()
               chatMessage("You have connected", null);
               
               }
+              
+              updateDisplay();
               
 //              var otherPlayer = parseInt(data.pid);
 //              var spaces = parseInt(data.pos)-players[otherPlayer].playerPosition;

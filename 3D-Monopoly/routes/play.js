@@ -46,10 +46,11 @@ exports.connected = function(socket)
 
               var datId = data.id;
               api.saveGame(data.id, data.gamestate, function(){
-                            api.getGameJSON(data.id, function(data){
-                                console.log("updating "+socket+" to room "+data.id);
-                                socket.broadcast.to(data.id).emit('update', {game: data, firstTime: false});});
-                           });
+//                            api.getGameJSON(data.id, function(data){
+////                                console.log("updating "+socket+" to room "+data.id);
+//                           });
+               socket.broadcast.to(data.id).emit('update', {game: data.gamestate, firstTime: false});});
+
              });
     
     socket.on('disconnect', function (data){
