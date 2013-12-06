@@ -144,7 +144,7 @@ function move(piece, currentSpace, spaces)
         }
         else if(alreadyOwned(destSquare) && players[currentPlayer].properties.indexOf(lookUps[destSquare]) == -1)
         {
-            var moneyDue = currentProp.rent;
+            var moneyDue = parseInt(currentProp.rent);
             
             if(monopoly(currentProp.color))
                 moneyDue *= 2;

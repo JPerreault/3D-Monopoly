@@ -81,21 +81,74 @@ function monopoly(color)
     
     for(var x=0; x<deeds.length; x++)
     {
-        if(deeds[x].color == color)
+        
+        var deedTemp = createDeed(x);
+       
+        if(deedTemp.color == color)
+        {
             colorCounter++;
+        }
     }
     
     for(var y = 0; y<players.length; y++)
     {
         tempCounter = colorCounter;
-        for(var x=0; x<players[x].properties.length; x++)
+        for(var x=0; x<players[y].properties.length; x++)
         {
-            if(properties[x].color == color)
+            var deedTemp = createDeed(players[y].properties[x]);
+            
+            console.log("player"+ y);
+            console.log(deedTemp.color == color);
+            if(deedTemp.color == color)
+            {
                 tempCounter--;
+            }
         }
         if(tempCounter == 0)
             return true;
     }
+    
+    return monopoly;
+}
+
+function buyHouse(house)
+{
+    if(selfMonopoly())
+}
+
+function selfMonopoly(color)
+{
+    var monopoly = false;
+    var colorCounter = 0;
+    var tempCounter = 0;
+    
+    for(var x=0; x<deeds.length; x++)
+    {
+        
+        var deedTemp = createDeed(x);
+        
+        if(deedTemp.color == color)
+        {
+            colorCounter++;
+        }
+    }
+    
+        tempCounter = colorCounter;
+    
+        for(var x=0; x<players[currentPlayer].properties.length; x++)
+        {
+            var deedTemp = createDeed(players[currentPlayer].properties[x]);
+            
+            console.log("player"+ y);
+            console.log(deedTemp.color == color);
+            if(deedTemp.color == color)
+            {
+                tempCounter--;
+            }
+            
+            if(tempCounter == 0)
+                return true;
+        }
     
     return monopoly;
 }
