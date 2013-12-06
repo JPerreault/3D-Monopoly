@@ -230,3 +230,26 @@ function justMove(piece)
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation((offSide + offset) * invscale, objHeight, (-sidePush+(((currentSpace+spaces)%10)-1)*subt - xoffset) * invscale));
 	}
 }
+
+function dance (piece)
+{
+		setTimeout(function(){piece.position.x += 10;}, 0);
+		setTimeout(function(){piece.position.y += 40;}, 0);
+		setTimeout(function(){piece.position.x -= 10;}, 100);
+		setTimeout(function(){piece.position.y -= 40;}, 100);
+		
+		setTimeout(function(){piece.position.x -= 10;}, 200);
+		setTimeout(function(){piece.position.y += 40;}, 200);
+		setTimeout(function(){piece.position.x += 10;}, 300);
+		setTimeout(function(){piece.position.y -= 40;}, 300);
+		
+		setTimeout(function(){piece.position.z += 10;}, 400);
+		setTimeout(function(){piece.position.y += 40;}, 400);
+		setTimeout(function(){piece.position.z -= 10;}, 500);
+		setTimeout(function(){piece.position.y -= 40;}, 500);
+		
+		setTimeout(function(){piece.position.z -= 10;}, 600);
+		setTimeout(function(){piece.position.y += 40;}, 600);
+		setTimeout(function(){piece.position.z += 10;}, 700);
+		setTimeout(function(){piece.position.y -= 40;}, 700);
+}
