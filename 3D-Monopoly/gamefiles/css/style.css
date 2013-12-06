@@ -88,7 +88,7 @@ canvas
     width: 200px;
     height: 150px;
     position: absolute;
-    left: 45px;
+    left: 85px;
     top: 60px;
     text-align: center;
     z-index: 1000;
@@ -110,14 +110,20 @@ canvas
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-#camera
+#button_tray
 {
     position: absolute;
     left: 10px;
-	width: 40;
-	height: 40px;
     top: 50px;
     z-index: 1000;
+    color: black;
+
+}
+
+.button
+{
+	width: 40;
+	height: 40px;
 }
 
 #message
