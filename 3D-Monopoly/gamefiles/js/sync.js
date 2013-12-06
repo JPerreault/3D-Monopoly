@@ -61,6 +61,15 @@ function initalConnect()
               players[x].username = data.game.players[x].playerid;
               activePlayer = data.game.active;
               
+              if (data.game.houses.length != 0)
+                houses = data.game.houses;
+              
+              for (var y=0; y<houses.length; y++)
+              {
+                    for (var z=0; z<houses[y]; z++)
+                        buyHouse(y, true)
+              }
+              
               if (data.game.players[x].playerid == username)
               {
                 currentPlayer = x;
@@ -135,7 +144,7 @@ function sync()
         players2.push(newp);
     }
     console.log("the guy is - "+activePlayer);
-    var gamestate = {players: players2, active: activePlayer};
+    var gamestate = {players: players2, active: activePlayer, houses: houses};
     console.log(players2);
     socket.emit('payload', {id: gameID, gamestate: gamestate});
 

@@ -113,13 +113,34 @@ function monopoly(color)
     return monopoly;
 }
 
-function buyHouse(houseNum)
+function buyHouse(houseNum, instabuy)
 {
+        var location = 0;
+    var houseQuantity = houses[houseNum];
+
     
+    for(var x=0; x<lookUps.length; x++)
+    {
+        if(lookUps[x] == houseNum)
+        {
+            location = x;
+            console.log(location + "NEW LOCATION");
+            
+            break;
+        }
+    }
+    
+    
+    if (typeof instabuy !== 'undefined')
+    {
+        createHotels(location, houseQuantity+1)
+        updateDisplay();
+        return true;
+}
     var deedTemp = createDeed(houseNum);
     
     var haveProp = false;
-    var location = 0;
+
     for(var x=0; x<players[currentPlayer].properties.length; x++)
     {
         var playerProp = createDeed(players[currentPlayer].properties[x]);
@@ -131,18 +152,7 @@ function buyHouse(houseNum)
             break;
         }
     }
-    
-    for(var x=0; x<lookUps.length; x++)
-    {
-        if(lookUps[x] == houseNum)
-        {
-            location = x;
-            console.log(location + "NEW LOCATION");
 
-            break;
-        }
-    }
-    
     if(!haveProp)
         return false;
     
@@ -150,7 +160,6 @@ function buyHouse(houseNum)
     
     var houseCost;
     
-    var houseQuantity = houses[houseNum];
     
     if(houseQuantity == 0)
         houseCost = deedTemp.house1;
@@ -352,6 +361,12 @@ function init()
         players[currentPlayer].addPropertyIndex(parseInt(document.getElementById("deedValue").value));
         updateDisplay();
     }
+    
+//    document.getElementById('buildHere').onclick = function()
+//    {
+//        buyHouse(parseInt(document.getElementById("deedValue").value), true);
+//        updateDisplay();
+//    }
     
     document.getElementById('jail').onclick = function()
     {

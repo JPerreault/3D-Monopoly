@@ -150,6 +150,7 @@ exports.saveGame = function(id, gamestate, callback)
                  game.players[x].position = gamestate.players[x].position;
                  console.log("active: "+gamestate.active);
                  game.currentplayer = gamestate.active;
+                 game.houses = gamestate.houses;
                  //console.log(game.players[x].position);
                  //game.players[x].save();
                  }
@@ -169,7 +170,8 @@ exports.getGameJSON = function(id, callback)
                                 "players": games.players,
                                 "gameID" : games._id,
                                 "active" : games.currentplayer,
-                                "id" : id
+                                "id" : id,
+                                "houses" : games.houses
                                 }
                      callback(output);
                  }
@@ -192,7 +194,8 @@ exports.loadPlayerGames = function(un, callback){
           "game": {
           "players": games[i].players,
           "gameID" : games[i]._id, 
-          "active" : games[i].currentplayer
+          "active" : games[i].currentplayer,
+                   "houses" : games[i].houses
         }});
       }
       console.log(array);
@@ -220,7 +223,8 @@ Game.find({'open': true}, function(err, games){
           "game": {
           "players": games[i].players,
           "gameID" : games[i]._id, 
-          "active" : games[i].currentplayer
+          "active" : games[i].currentplayer,
+                   "houses" : games[i].houses
         }});
       }
       console.log(array);
