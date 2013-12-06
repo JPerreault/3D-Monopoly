@@ -1,3 +1,6 @@
+/* Author: Philip Donlon
+   Controls how players work and how they own properties. */
+
 var Player = function(playerPosition, piece, money)
 {
     this.playerPosition = playerPosition;

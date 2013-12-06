@@ -1,3 +1,6 @@
+/* Author: Jason Perreault
+   Contains the logic for both the locked and unlocked camera modes. */
+
 function onWindowResize() 
 {
     camera.aspect = window.innerWidth / window.innerHeight;

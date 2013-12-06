@@ -1,3 +1,6 @@
+/* Author: Jason Perreault
+   Loads in the real monopoly pieces. */
+
 function pieceLoader()
 {
 	hatLoader = new THREE.STLLoader();
@@ -24,11 +27,13 @@ function pieceLoader()
 	
 	thimbleLoader.addEventListener('load', function (event){
 		var geometry = event.content;
+		geometry.applyMatrix(new THREE.Matrix4().makeRotationY(3*Math.PI/2));
+		 geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, -50, 0));
 		var test = new THREE.Mesh( geometry,  new THREE.MeshPhongMaterial( { ambient: 0xff5533, color: 0xff5533, specular: 0x111111, shininess: 200 } ) );
 		thimblegeo = test.geometry.clone();
 		
 		var i = 1;
-		var scale = .85;
+		var scale = .25;
 		var invscale = 1/scale;
 		test.scale.set(scale, scale, scale);
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation((475 + (75*(i%2))) * invscale, objHeight, (420 + step/2 + 70 * (Math.floor((i)/2))) * invscale));
@@ -37,7 +42,7 @@ function pieceLoader()
         scene.add(test);
         players[i].piece = test;
 	});
-	thimbleLoader.load('textures/thimble.stl');
+	thimbleLoader.load('textures/car.stl');
 	
 	shipLoader.addEventListener('load', function (event){
 		var geometry = event.content;
@@ -62,7 +67,7 @@ function pieceLoader()
 		flatirongeo = test.geometry.clone();
 		
 		var i = 3;
-		var scale = .65;
+		var scale = .55;
 		var invscale = 1/scale;
 		test.scale.set(scale, scale, scale);
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation((475 + (75*(i%2))) * invscale, objHeight, (420 + step/2 + 70 * (Math.floor((i)/2))) * invscale));

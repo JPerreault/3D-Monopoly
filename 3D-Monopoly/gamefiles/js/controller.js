@@ -1,3 +1,6 @@
+/* Authors: Jason Perreault, Philip Donlon, Richard Ayoub, Max Whittemore
+   Controls: Game, player, board, graphics and event listener initialization. */
+
 var players = new Array();
 var tileBoard = new Array();
 var currentPlayer = 0;
@@ -363,97 +366,6 @@ function alreadyOwned(destSquare)
     }
     
     return alreadyOwned;
-}
-
-function onWindowResize() 
-{
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-
-function onMouseWheel()
-{
-    var fovMAX = 160;
-    var fovMIN = 5;
-    
-    if ( event.target.id == 'chatbox')
-        return;
-    
-    camera.fov -= event.wheelDeltaY * 0.05;
-    camera.fov = Math.max(Math.min(camera.fov, fovMAX), fovMIN);
-    camera.projectionMatrix = new THREE.Matrix4().makePerspective(camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far);
-}
-
-function onMouseDown(event)
-{
-
-    if ( event.target.tagName == 'DIV')
-        event.preventDefault();
-
-    document.addEventListener( 'mousemove', onMouseMoveCam, false );
-    document.addEventListener( 'mouseup', onMouseUpCam, false );
-    document.addEventListener( 'mouseout', onMouseUpCam, false );
-
-    mouseXOnMouseDown = event.clientX - that.currentWindowX;
-    mouseYOnMouseDown = event.clientY - that.currentWindowY;
-    targetYRotationOnMouseDown = that.targetY;
-    targetXRotationOnMouseDown = that.targetX;
-}
-
-function onMouseMoveCam(event)
-{
-    mouseX = event.clientX - that.currentWindowX;
-    mouseY = event.clientY - that.currentWindowY;
-
-    that.targetY = targetYRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.015;
-    that.targetX = targetXRotationOnMouseDown + ( mouseY - mouseYOnMouseDown ) * 0.015;
-}
-
-function onMouseUpCam(event)
-{
-    document.removeEventListener( 'mousemove', onMouseMoveCam, false );
-    document.removeEventListener( 'mouseup', onMouseUpCam, false );
-    document.removeEventListener( 'mouseout', onMouseUpCam, false );
-}
-
-function animate()
-{
-    requestAnimationFrame(animate);
-    render();
-}
-
-function render()
-{
-    for (var i = 0; i < numberOfPlayers; i++)
-    {
-        var piece = players[i].piece;
-        piece.rotation.x += ( targetX - piece.rotation.x ) * 0.05;
-        piece.rotation.y += ( targetY - piece.rotation.y ) * 0.05;
-    }
-    
-    rectmesh.rotation.x += ( targetX - rectmesh.rotation.x ) * 0.05;
-    rectmesh.rotation.y += ( targetY - rectmesh.rotation.y ) * 0.05;
-    
-    underMesh.rotation.x += ( targetX - underMesh.rotation.x ) * 0.05;
-    underMesh.rotation.y += ( targetY - underMesh.rotation.y ) * 0.05;
-    
-    chancecards.rotation.x += ( targetX - chancecards.rotation.x ) * 0.05;
-    chancecards.rotation.y += ( targetY - chancecards.rotation.y ) * 0.05;
-    
-    comcards.rotation.x += ( targetX - comcards.rotation.x ) * 0.05;
-    comcards.rotation.y += ( targetY - comcards.rotation.y ) * 0.05;
-    
-    comtop.rotation.x += ( targetX - comtop.rotation.x ) * 0.05;
-    comtop.rotation.y += ( targetY - comtop.rotation.y ) * 0.05;
-    
-    chancetop.rotation.x += ( targetX - chancetop.rotation.x ) * 0.05;
-    chancetop.rotation.y += ( targetY - chancetop.rotation.y ) * 0.05;
-        
-    camera.lookAt(scene.position);
-    renderer.render(scene, camera);
 }
 
 function updateDisplay()
