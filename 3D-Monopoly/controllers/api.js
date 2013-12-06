@@ -106,7 +106,7 @@ exports.createGame = function(players, callback){
         newgame.open = false;
       }
     
-    //newgame.currentplayer = players[0].username;
+    newgame.currentplayer = newgame.players[0].playerid;
     
     newgame.save(function()
                  {
