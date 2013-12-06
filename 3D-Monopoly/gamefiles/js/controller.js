@@ -231,7 +231,7 @@ function init()
 	}
     document.getElementById('rollembaby').onclick = function()
 	{
-		rollDice(true);
+		rollDice(false);
 	}
 	lockCamera();
 }
