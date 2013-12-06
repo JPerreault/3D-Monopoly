@@ -204,6 +204,21 @@ function initializeTileBoard()
     }
 }
 
+function shrink()
+{
+    document.getElementById("right_sidebar").style.webkitTransform = "scale(.5)";
+    document.getElementById("right_sidebar").style.right = "-50px";
+    document.getElementById("right_sidebar").style.bottom = "-30px";
+
+
+    document.getElementById("left_sidebar").style.webkitTransform = "scale(.5)";
+    document.getElementById("left_sidebar").style.left = "-47px";
+    document.getElementById("left_sidebar").style.bottom = "-30px";
+
+
+    
+}
+
 function init()
 {
     container = document.getElementById("container");
@@ -312,6 +327,7 @@ function init()
         players[currentPlayer].money = document.getElementById("money").value;
         updateDisplay();
     }
+    
     
     document.getElementById('addDeed').onclick = function()
     {

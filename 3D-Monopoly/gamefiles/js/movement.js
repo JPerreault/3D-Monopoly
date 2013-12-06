@@ -16,7 +16,7 @@ function rollDice(twodice)
     postMessage(username+" rolled ("+firstDie+","+secondDie+") = "+roll, true);
     chatMessage("You rolled ("+firstDie+","+secondDie+") = "+roll, null);
 
-    
+ 
     document.getElementById('move').value = roll;
     
     if (firstDie === secondDie)
@@ -125,10 +125,7 @@ function move(piece, currentSpace, spaces)
     piece.rotation.x = xrot;
     piece.rotation.y = yrot;
 	piece.scale.set(scale, scale, scale);
-    
-    console.log('Destination Square: ',destSquare);
-    
-    
+
     var currentProp;
     if (id == currentPlayer)
     {
@@ -188,6 +185,92 @@ function move(piece, currentSpace, spaces)
 	
 	if (cameralock)
 		updateLockedCamera();
+}
+
+function slideRoll()
+{
+    var piece = players[0].piece;
+    var pos = players[0].playerPosition;
+    
+    firstDie = Math.floor((Math.random()*6)+1);
+	secondDie = Math.floor((Math.random()*6)+1);
+    var roll = firstDie + secondDie;
+
+    document.getElementById('move').value = roll;
+    
+	if (players[0].playerPosition+ roll === 30)
+	{
+		roll--;
+		document.getElementById('move').value--;
+	}
+    animove(piece, pos, roll+pos);
+}
+
+function animove(piece, currentSpace, destSquare)
+{
+	if (currentSpace === destSquare)
+		return;
+	var endresult = destSquare%40;
+	destSquare = currentSpace + 1;
+	if (destSquare === 0)
+		piece.position.set(0, 0, 0);
+	if (destSquare < 10)
+	{
+		for (var i = 1; i < 10000; i++)
+			setTimeout(function(){piece.position.x -= .0097}, .1);
+	}
+	else if (destSquare === 10)
+	{
+		for (var i = 1; i < 10000; i++)
+			setTimeout(function(){piece.position.x -= .018}, .1);
+	}
+	else if (destSquare < 20)
+	{
+		if (destSquare === 11)
+		{
+			piece.position.x += 80;
+			piece.position.z -= 30;
+		}
+		for (var i = 1; i < 10000; i++)
+			setTimeout(function(){piece.position.z -= .0097}, .1);
+	}
+	else if (destSquare === 20)
+	{
+		for (var i = 1; i < 10000; i++)
+		{
+			setTimeout(function(){piece.position.z -= .0095}, .1);
+			setTimeout(function(){piece.position.x += .003}, .1);
+		}
+	}
+	else if (destSquare < 30)
+	{
+		for (var i = 1; i < 10000; i++)
+			setTimeout(function(){piece.position.x += .0098}, .1)
+	}
+	else if (destSquare === 30)
+	{
+		for (var i = 1; i < 10000; i++)
+		{
+			setTimeout(function(){piece.position.z += .003}, .1);
+			setTimeout(function(){piece.position.x += .0085}, .1);
+		}
+	}
+	else if (destSquare < 40)
+	{
+		for (var i = 1; i < 10000; i++)
+			setTimeout(function(){piece.position.z += .0098}, .1)
+	}
+	else
+	{
+		piece.position.set(0, 0, 0);
+		destSquare = 0;
+		endresult = endresult%40;
+	}
+	players[piece.id].playerPosition = destSquare;
+	updateLockedCamera();
+	console.log(destSquare%40);
+	console.log('endresult' + endresult);
+	animove(piece, destSquare%40, endresult);
 }
 
 function justMove(piece)

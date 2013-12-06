@@ -12,7 +12,12 @@ function initChat()
 function chatMessage(string, sender)
 {
     if (string == "/dance")
+    {
         string = "&nbsp;&nbsp;<i><font color=D3D3D3>"+sender+" did a little dance!</font></i>";
+        for (var x=0; x<players.length; x++)
+            if (players[x].username == sender)
+                dance(players[x].piece);
+    }
     else if (sender == username)
         string = "&nbsp;&nbsp;<b><font color=pink>"+sender+":</font></b> "+string;
     else if (sender!= null && sender!="null")
