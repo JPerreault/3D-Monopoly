@@ -229,11 +229,14 @@ function init()
 		else
 			lockCamera();
 	}
+<<<<<<< HEAD
     document.getElementById('rollembaby').onclick = function()
 	{
 		rollDice(true);
 	}
+=======
 	lockCamera();
+>>>>>>> 5fe7b482b54ac2a233d380839d28188658d1e75c
 }
 
 function getPiece(playerNumber)

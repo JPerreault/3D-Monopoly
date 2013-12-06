@@ -1,5 +1,8 @@
 /* Author: Jason Perreault
    Contains the logic for both the locked and unlocked camera modes. */
+   
+   var camtarx = 0;
+   var camtarz = 1000;
 
 function onWindowResize() 
 {
@@ -100,6 +103,12 @@ function render()
 			hotel.rotation.y += ( targetY - hotel.rotation.y ) * 0.05;
 		}
 	}
+	
+	if (cameralock)
+	{
+		camera.position.x += (camtarx - camera.position.x) * .05;
+		camera.position.z += (camtarz - camera.position.z) * .05;
+	}
         
     camera.lookAt(scene.position);
     renderer.render(scene, camera);
@@ -144,44 +153,38 @@ function lockCamera()
 	 document.removeEventListener( 'mousedown', onMouseDown, false );
 	 //window.removeEventListener( 'mousewheel', onMouseWheel, false);
 	 //window.removeEventListener( 'DOMMouseScroll', onMouseWheel, false);
-	 
-	if (players[currentPlayer].playerPosition < 10)
-	{
-		camera.position.set(0, 1250, 1000);
-	}
-	else if (players[currentPlayer].playerPosition < 20)
-	{
-		camera.position.set(-1000, 1250, 0);
-	}
-	else if (players[currentPlayer].playerPosition < 30)
-	{
-		camera.position.set(0, 1250, -1000);
-	}
-	else
-	{
-		camera.position.set(1000, 1250, 0);
-	}
+	
+	updateLockedCamera();
 }
 
 function updateLockedCamera()
 {
-	console.log(players[currentPlayer].playerPosition);
 	if (players[currentPlayer].playerPosition < 10)
 	{
-		camera.position.set(0, 1250, 1000);
+		camtarx = 0;
+		camtarz = 1000;
 	}
 	else if (players[currentPlayer].playerPosition < 20)
 	{
-		camera.position.set(-1000, 1250, 0);
+		camtarx = -1000;
+		camtarz = 0;
 	}
 	else if (players[currentPlayer].playerPosition < 30)
 	{
-		camera.position.set(0, 1250, -1000);
+		camtarx = 0;
+		camtarz = -1000;
 	}
 	else
 	{
-		camera.position.set(1000, 1250, 0);
+		camtarx = 1000;
+		camtarz = 0;
 	}
+}
+
+function ulc(a)
+{
+	camtarx = -1000;
+	camtarz = 0;
 }
 
 function unlockCamera()
@@ -190,4 +193,6 @@ function unlockCamera()
 	document.addEventListener( 'mousedown', onMouseDown, false );
 	
 	camera.position.set(0, 1250, 1000);
+	camtarx = 0;
+	camtary = 0;
 }
