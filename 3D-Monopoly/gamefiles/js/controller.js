@@ -229,6 +229,7 @@ function init()
 		else
 			lockCamera();
 	}
+	lockCamera();
 }
 
 function getPiece(playerNumber)
