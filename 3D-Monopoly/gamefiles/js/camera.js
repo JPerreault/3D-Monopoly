@@ -144,19 +144,19 @@ function lockCamera()
 	 
 	if (players[currentPlayer].playerPosition < 10)
 	{
-		camera.position.set(0, 500, 1100);
+		camera.position.set(0, 1250, 1000);
 	}
 	else if (players[currentPlayer].playerPosition < 20)
 	{
-		camera.position.set(-1100, 500, 0);
+		camera.position.set(-1000, 1250, 0);
 	}
 	else if (players[currentPlayer].playerPosition < 30)
 	{
-		camera.position.set(0, 500, -1100);
+		camera.position.set(0, 1250, -1000);
 	}
 	else
 	{
-		camera.position.set(1100, 500, 0);
+		camera.position.set(1000, 1250, 0);
 	}
 }
 
@@ -165,19 +165,19 @@ function updateLockedCamera()
 	console.log(players[currentPlayer].playerPosition);
 	if (players[currentPlayer].playerPosition < 10)
 	{
-		camera.position.set(0, 500, 1100);
+		camera.position.set(0, 1250, 1000);
 	}
 	else if (players[currentPlayer].playerPosition < 20)
 	{
-		camera.position.set(-1100, 500, 0);
+		camera.position.set(-1000, 1250, 0);
 	}
 	else if (players[currentPlayer].playerPosition < 30)
 	{
-		camera.position.set(0, 500, -1100);
+		camera.position.set(0, 1250, -1000);
 	}
 	else
 	{
-		camera.position.set(1100, 500, 0);
+		camera.position.set(1000, 1250, 0);
 	}
 }
 
