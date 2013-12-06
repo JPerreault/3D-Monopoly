@@ -1,3 +1,6 @@
+/* Author: Richard Ayoub
+   Controls the money sidebar. */
+
 var moneys = 703; // placeholder, will be dynamically loaded from current player's money value.
 
 // This function gets the moneys in the smallest amount of bills possible

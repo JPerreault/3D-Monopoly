@@ -1,3 +1,6 @@
+/* Authors: Jason Perreault and Philip Donlon.
+   Controls the movement of the gameplay pieces. */
+
 function rollDice(twodice)
 {
     var piece = players[currentPlayer].piece;
