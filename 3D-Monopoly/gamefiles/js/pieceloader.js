@@ -10,7 +10,7 @@ function pieceLoader()
 	
 	hatLoader.addEventListener('load', function (event){
 		var geometry = event.content;
-		var test = new THREE.Mesh( geometry,  new THREE.MeshPhongMaterial( { ambient: 0xff5533, color: 0xff5533, specular: 0x111111, shininess: 200 } ) );
+		var test = new THREE.Mesh( geometry, redmat );
 		hatgeo = test.geometry.clone();
 		
 		var i = 0;
@@ -29,7 +29,7 @@ function pieceLoader()
 		var geometry = event.content;
 		geometry.applyMatrix(new THREE.Matrix4().makeRotationY(3*Math.PI/2));
 		 geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, -50, 0));
-		var test = new THREE.Mesh( geometry,  new THREE.MeshPhongMaterial( { ambient: 0xff5533, color: 0xff5533, specular: 0x111111, shininess: 200 } ) );
+		var test = new THREE.Mesh( geometry,  redmat );
 		thimblegeo = test.geometry.clone();
 		
 		var i = 1;
@@ -46,7 +46,7 @@ function pieceLoader()
 	
 	shipLoader.addEventListener('load', function (event){
 		var geometry = event.content;
-		var test = new THREE.Mesh( geometry,  new THREE.MeshPhongMaterial( { ambient: 0xff5533, color: 0xff5533, specular: 0x111111, shininess: 200 } ) );
+		var test = new THREE.Mesh( geometry,  redmat );
 		shipgeo = test.geometry.clone();
 		
 		var i = 2;
@@ -63,7 +63,7 @@ function pieceLoader()
 	
 	flatironLoader.addEventListener('load', function (event){
 		var geometry = event.content;
-		var test = new THREE.Mesh( geometry,  new THREE.MeshPhongMaterial( { ambient: 0xff5533, color: 0xff5533, specular: 0x111111, shininess: 200 } ) );
+		var test = new THREE.Mesh( geometry,  redmat );
 		flatirongeo = test.geometry.clone();
 		
 		var i = 3;
