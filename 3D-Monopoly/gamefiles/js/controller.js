@@ -404,7 +404,7 @@ function init()
 		else
 			lockCamera();
 	}
-    document.getElementById('trade').onclick = function()
+    document.getElementById('house').onclick = function()
     {
         $('#trade_it').show();
     }
