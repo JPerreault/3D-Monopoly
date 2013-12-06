@@ -10,7 +10,7 @@ function initialize_community_chest_cards(){
  community_chest_cards = new Array();
  
  community_chest_cards.push(new Card("comchest",0,
- "<p>Advance to Go. Collect $200.</p>",
+ "<p>Advance to Go.<br> Collect $200</p>",
  function(player){
   move(player.piece, 0, 0);
   player.money = player.money + 200;
@@ -18,7 +18,7 @@ function initialize_community_chest_cards(){
  ));
  
  community_chest_cards.push(new Card("comchest",1,
- "<p>Bank error in your favor. Collect $75.</p>",
+ "<p>Bank error in your favor. <br>Collect $75.</p>",
  function(player){
    player.money = player.money + 75;
    document.getElementById("money").value = players[currentPlayer].money;
@@ -27,7 +27,7 @@ function initialize_community_chest_cards(){
  ));
  
  community_chest_cards.push(new Card("comchest",2,
- "<p>Doctor's fees. Pay $50.</p>",
+ "<p>Doctor's fees.<br>Pay $50.</p>",
  function(player){
   player.money = player.money - 50;
  }
@@ -35,14 +35,14 @@ function initialize_community_chest_cards(){
  ));
  
  community_chest_cards.push(new Card("comchest",3,
- "<p>Get out of jail free. This card may be kept unitl needed, or sold.</p>",
+ "<p>Get out of jail free.<br> This card may be kept unitl needed, or sold.</p>",
  function(player){
   player.cardsHeld.push(this);
   //add code later to remove this card from the com_chest_deck
  }));
  
  community_chest_cards.push(new Card("comchest",4,
- "<p>Go to jail. Go directly to jail. Do not pass Go. Do not collect $200.</p>",
+ "<p>Go to jail.<br>Go directly to jail.<br>Do not pass Go.<br> Do not collect $200.</p>",
  function(player){
   move(player.piece,0,10);
   player.jailed = true;
@@ -50,7 +50,7 @@ function initialize_community_chest_cards(){
  ));
  
 community_chest_cards.push(new Card("comchest",5,
-"<p>It's your birthday. Collect $10 from each player.</p>",
+"<p>It's your birthday.<br>Collect $10 from each player.</p>",
 function(player){
  for(var i=0; i < players.length; i++){
   if(i !== currentPlayer){
@@ -63,7 +63,7 @@ function(player){
 ));
 
 community_chest_cards.push(new Card("comchest",6,
-"<p>Grand Opera Night. Collect $50 from every player for opening night seats.</p>",
+"<p>Grand Opera Night. <br> Collect $50 from every player<br> for opening night seats.</p>",
 function(player){
  for(var i=0; i < players.length; i++){
   if(i !== currentPlayer){
@@ -74,7 +74,7 @@ function(player){
 }));
 
 community_chest_cards.push(new Card("comchest",7,
-"<p>Income Tax refund. Collect $20.</p>",
+"<p>Income Tax refund.<br>Collect $20.</p>",
 function(player){
  player.money = player.money + 20;
 }
@@ -82,7 +82,7 @@ function(player){
 ));
 
 community_chest_cards.push(new Card("comchest",8,
-"<p>Life Insurance Matures. Collect $100.</p>",
+"<p>Life Insurance Matures.<br> Collect $100.</p>",
 function(player){
 player.money = player.money + 100;
 }
@@ -110,7 +110,7 @@ function(player){
 ));
 
 community_chest_cards.push(new Card("comchest",12,
-"<p>You are assessed for street repairs. $40 per house. $115 per hotel.</p>",
+"<p>You are assessed for street repairs.<br>$40 per house.<br>$115 per hotel.</p>",
 function(player){
 //I'll write code for this later.
 }
@@ -149,7 +149,7 @@ function initialize_chance_cards(){
  chance_cards = new Array();
  
  chance_cards.push(new Card("chance",0,
-  "<p> Advance to Go. Collect $200.</p>",
+  "<p> Advance to Go.<br>Collect $200.</p>",
   function(player){
    move(player.piece, 0, 0);
    player.money = player.money + 200;
@@ -314,12 +314,9 @@ player.money = player.money + 100;
 
 function drawCard(type){
 if(type === "comchest"){
- /*setTimeout(function(){
- community_chest_cards[0].behavior(players[currentPlayer]);updateDisplay();},4000);*/
- community_chest_cards[community_chest_pos].behavior(players[currentPlayer]);
- updateDisplay();
- styleCard(community_chest_cards[community_chest_pos].message,"comchest");
- socket.emit('com_chest_pos',{com_chest:(community_chest_pos+1)%community_chest_cards.length});
+ setTimeout(function(){
+ community_chest_cards[0].behavior(players[currentPlayer]);updateDisplay();},4000);
+ styleCard(community_chest_cards[0].message,"comchest");
 }
 else if(type === "chance"){
  /*setTimeout(function(){
@@ -329,7 +326,17 @@ else if(type === "chance"){
  styleCard(chance_cards[chance_pos].message,"chance");
  socket.emit('chance_pos',{chance:(chance_pos+1)%chance_cards.length});
 }
+    
+    
+
+ /*setTimeout(function(){
+ community_chest_cards[0].behavior(players[currentPlayer]);updateDisplay();},4000);*/
+ community_chest_cards[community_chest_pos].behavior(players[currentPlayer]);
+ updateDisplay();
+ styleCard(community_chest_cards[community_chest_pos].message,"comchest");
+ socket.emit('com_chest_pos',{com_chest:(community_chest_pos+1)%community_chest_cards.length});
 }
+
 
 function styleCard(message,type){
     if(type === "comchest"){
@@ -353,5 +360,7 @@ function styleCard(message,type){
     
     }
     
-    
+
+
 }
+
