@@ -119,12 +119,28 @@ function buyHouse(houseNum)
     var deedTemp = createDeed(houseNum);
     
     var haveProp = false;
+    var location = 0;
     for(var x=0; x<players[currentPlayer].properties.length; x++)
     {
         var playerProp = createDeed(players[currentPlayer].properties[x]);
 
         if(deedTemp.name == playerProp.name)
+        {
             haveProp = true;
+            console.log(location + "LOCATION");
+            break;
+        }
+    }
+    
+    for(var x=0; x<lookUps.length; x++)
+    {
+        if(lookUps[x] == houseNum)
+        {
+            location = x;
+            console.log(location + "NEW LOCATION");
+
+            break;
+        }
     }
     
     if(!haveProp)
@@ -146,12 +162,14 @@ function buyHouse(houseNum)
         houseCost = deedTemp.house4;
     else if(houseQuantity == 4)
         houseCost = deedTemp.hotel;
+    else if(houseQuantity > 4)
+        return false;
     
     if(selfMonopoly(deedTemp.color) && playerMoney >= houseCost)
     {
         players[currentPlayer].money -= houseCost;
         houses[houseNum] = houseQuantity+1;
-        createHotels(houseNum, houseQuantity+1)
+        createHotels(location, houseQuantity+1)
         updateDisplay();
         return true;
     }
