@@ -45,7 +45,7 @@ $(function(){
 				});
 				gamearray.games.push(playerslist);
 				gamearray.games[i].gameID = dbgame.game.gameID;
-				gamearray.games[i].currentPlayer = dbgame.game.currentPlayer;
+				gamearray.games[i].currentPlayer = dbgame.game.active;
 			});
 			$('#game_container').html(gamedisplaytemplate(gamearray));
 		});

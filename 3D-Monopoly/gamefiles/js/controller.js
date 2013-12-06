@@ -247,9 +247,27 @@ function init()
 	}
     document.getElementById('rollembaby').onclick = function()
 	{
-		rollDice(false);
+        if (isItYourTurn())
+        {
+            nextPlayer();
+            rollDice(false);
+            sync();
+        }
+        
 	}
 	lockCamera();
+}
+
+function nextPlayer()
+{
+    console.log("SUPERDEBUGTIME")
+    console.log(players);
+    console.log(numberOfPlayers);
+    console.log(currentPlayer+1)
+    console.log((currentPlayer+1)%numberOfPlayers);
+
+    activePlayer = players[(currentPlayer+1)%numberOfPlayers].username;
+    changeHands();
 }
 
 function getPiece(playerNumber)
@@ -311,6 +329,11 @@ function createHotels(square, hotelNumber)
 	}
 	else
 		drawHotels(square, 5);
+}
+
+function hideLoading()
+{
+    $("#blackout1").fadeOut(500);
 }
 
 function drawHotels(square, hotelNumber)

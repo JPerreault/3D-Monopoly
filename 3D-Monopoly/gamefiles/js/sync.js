@@ -1,6 +1,31 @@
 var socket;
 var finalPlayerID;
 
+function isItYourTurn()
+{
+    return (activePlayer == username);
+}
+
+function changeHands()
+{
+    if (!isItYourTurn())
+    {
+        //not your turn
+        $(".buttonsthatdie").fadeTo(0, .2);
+        $(".buttonsthatdie").removeClass('clickable');
+
+        $("#fadespan").fadeTo(0, .2);
+    }
+    else
+    {
+        // your turn
+        $(".buttonsthatdie").fadeTo(0, 1);
+        $("#fadespan").fadeTo(0, 1);
+        $(".buttonsthatdie").addClass('clickable');
+
+    }
+}
+
 function initalConnect()
 {
     document.getElementById("status").innerHTML = "Connecting...";
@@ -33,6 +58,7 @@ function initalConnect()
                 players[x].properties = data.game.players[x].properties;
                 players[x].money = parseInt(data.game.players[x].money);
               players[x].playerPosition = data.game.players[x].position;
+              players[x].username = data.game.players[x].playerid;
               activePlayer = data.game.active;
               
               if (data.game.players[x].playerid == username)
@@ -60,9 +86,16 @@ function initalConnect()
               // remove other players
               for (var x=numberOfPlayers; x<4; x++)
                 scene.remove(players[x].piece)
+              
+              lockCamera();
+              
+              hideLoading();
+
               }
               
               updateDisplay();
+              
+              changeHands();
               
 //              var otherPlayer = parseInt(data.pid);
 //              var spaces = parseInt(data.pos)-players[otherPlayer].playerPosition;
@@ -92,15 +125,17 @@ function initalConnect()
 function sync()
 {
     var players2 = [];
-    for (var x=0; x<players.length; x++)
+    for (var x=0; x<numberOfPlayers; x++)
     {
         var newp = {};
         newp.position = players[x].playerPosition;
         newp.properties = players[x].properties;
         newp.money = players[x].money;
+        newp.playerid = players[x].username;
         players2.push(newp);
     }
-    var gamestate = {players: players2};
+    console.log("the guy is - "+activePlayer);
+    var gamestate = {players: players2, active: activePlayer};
     console.log(players2);
     socket.emit('payload', {id: gameID, gamestate: gamestate});
 

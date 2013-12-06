@@ -40,12 +40,12 @@
         </div>
 		
         <div id="button_tray">
-            <img class="button" id="camera" src="img/camera.png">
-            <img class="button" id="rollembaby" src="img/diethang.png">
-            <img class="button" id="trade" src="img/trade.png">
-            <img class="button" id="house" src="img/house.png"><br>
+            <img class="button clickable" id="camera" src="img/camera.png">
+            <img class="button buttonsthatdie clickable" id="rollembaby" src="img/diethang.png">
+            <img class="button buttonsthatdie clickable" id="trade" src="img/trade.png">
+            <img class="button buttonsthatdie clickable" id="house" src="img/house.png"><br>
 
-            &nbsp;View&nbsp;&nbsp;&nbsp;Roll&nbsp;&nbsp;Trade&nbsp;&nbsp;Build
+            &nbsp;View&nbsp;&nbsp;&nbsp;<span id="fadespan">Roll&nbsp;&nbsp;Trade&nbsp;&nbsp;Build</span>
         </div>
 
         <div id = "chatdock">
@@ -54,6 +54,8 @@
             </div>
             <input type="text" id="message" placeholder="type message here and hit enter"></input>
         </div>
+        
+        <div id= "blackout1">Loading...</div>
         
         
         <div id = "left_sidebar">
