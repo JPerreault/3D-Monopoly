@@ -299,7 +299,23 @@ canvas
  top: 200px;
 }
 
-.chance_display p {
+#buildHere
+{
+}
+
+#trade_it
+{
+position: absolute;
+top: 150px;
+display: none;
+}
+
+#deedValueThing
+{
+
+}
+ 
+ .chance_display p {
   color:black;
   text-align:left;
 }

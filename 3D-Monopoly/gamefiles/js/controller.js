@@ -73,6 +73,7 @@ window.onload = function()
     
     initializeTileBoard();
     populateListing();
+   // populateBuild();
 }
 
 function monopoly(color)
@@ -362,11 +363,13 @@ function init()
         updateDisplay();
     }
     
-//    document.getElementById('buildHere').onclick = function()
-//    {
-//        buyHouse(parseInt(document.getElementById("deedValue").value), true);
-//        updateDisplay();
-//    }
+    document.getElementById('buildHere').onclick = function()
+    {
+        buyHouse(parseInt(document.getElementById("deedValueThing").value), true);
+        sync();
+        $('#trade_it').hide()
+        updateDisplay();
+    }
     
     document.getElementById('jail').onclick = function()
     {
@@ -401,6 +404,11 @@ function init()
 		else
 			lockCamera();
 	}
+    document.getElementById('trade').onclick = function()
+    {
+        $('#trade_it').show();
+    }
+    
     document.getElementById('rollembaby').onclick = function()
 	{
         if (isItYourTurn())

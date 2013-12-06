@@ -67,7 +67,7 @@ function initalConnect()
               for (var y=0; y<houses.length; y++)
               {
                     for (var z=0; z<houses[y]; z++)
-                        buyHouse(y, true)
+                        buyHouse(y, true);
               }
               
               if (data.game.players[x].playerid == username)

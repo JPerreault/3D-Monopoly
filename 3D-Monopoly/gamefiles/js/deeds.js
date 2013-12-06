@@ -155,6 +155,21 @@ function updateDeedCards(deed_list)
     $(".deed").mousedown(undoBringToFront);
 }
 
+function populateBuild()
+{
+    var select = document.getElementById('deedValueThing');
+    var output = "<option>-- select property --</option>";
+    
+    for (var x=0; x<deeds.length; x++)
+    {
+        if (selfMonopoly(deeds[x][1]))
+            output += "<option value="+x+">"+x+" "+deeds[x][0]+"</option>";
+    }
+    
+    select.innerHTML = output;
+}
+
+
 function populateListing()
 {
     var select = document.getElementById('deedValue');
