@@ -362,11 +362,11 @@ function init()
         updateDisplay();
     }
     
-    document.getElementById('buildHere').onclick = function()
-    {
-        buyHouse(parseInt(document.getElementById("deedValue").value), true);
-        updateDisplay();
-    }
+//    document.getElementById('buildHere').onclick = function()
+//    {
+//        buyHouse(parseInt(document.getElementById("deedValue").value), true);
+//        updateDisplay();
+//    }
     
     document.getElementById('jail').onclick = function()
     {
