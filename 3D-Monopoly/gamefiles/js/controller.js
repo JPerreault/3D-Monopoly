@@ -12,12 +12,16 @@ this.currentWindowY = window.innerHeight;
 var that = this;
 var material = new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), shininess: 200, reflectivity: .85});
 var selMaterial = new THREE.MeshLambertMaterial( { color: 0x000000, emissive: 0x000000, ambient: 0x000000, shading: THREE.SmoothShading } );
+var redmat = new THREE.MeshPhongMaterial( { ambient: 0xff5533, color: 0xff5533, specular: 0x111111, shininess: 200 } ) ;
 var rectmesh, underMesh;
 var size = 600;
 var step = 150;
-var objHeight = 15;
+var objHeight = 0;
 var houseloader, hotelloader;
 var hotelmesh, housemesh;
+var hatgeo;
+var scalearray = [.5, .5, .5, .5];
+var cameralock = false;
 
 var main;
 var playerPosition = board = turnCount = reRollCount = 0;
@@ -49,6 +53,8 @@ window.onload = function()
 	});
 	houseloader.load('textures/house.stl');
 	hotelloader.load('textures/hotel.stl');
+	
+	pieceLoader();
 
 	init();
 	animate();
@@ -98,15 +104,13 @@ function init()
     document.addEventListener( 'mousedown', onMouseDown, false );
     
     initializePlayers();
-    initializePieces(step);
     
     var recttest = new THREE.CubeGeometry(1200, .0001, 1200);
     angelTexture = THREE.ImageUtils.loadTexture("textures/board.jpg");
     var rm = new THREE.MeshBasicMaterial( { map: angelTexture, wireframe: false } )
     rectmesh = new THREE.Mesh(recttest, rm);
     scene.add(rectmesh);
-
-    
+	
     var newgeo = new THREE.CubeGeometry(1210, 10, 1210);
     newgeo.applyMatrix(new THREE.Matrix4().makeTranslation(0, -5.5, 0));
     underMesh = new THREE.Mesh(newgeo, selMaterial);
@@ -211,21 +215,13 @@ function init()
         //drawCard("chance");
         move(players[currentPlayer].piece,0,7);
     }
-}
-
-function initializePieces(step)
-{
-    for (var i = 0; i < numberOfPlayers; i++)
-    {
-        var geometry = getPiece(i);
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(475 + (75*(i%2)), objHeight, 420 + step/2 + 70 * (Math.floor((i)/2))));
-        test = new THREE.Mesh(geometry, selMaterial);
-        test = new THREE.Mesh(geometry, material);
-
-        test.id = i;
-        scene.add(test);
-        players[i].piece = test;
-    }
+	document.getElementById('camera').onclick = function()
+	{
+		if (cameralock)
+			unlockCamera();
+		else
+			lockCamera();
+	}
 }
 
 function getPiece(playerNumber)
@@ -241,156 +237,23 @@ function getPiece(playerNumber)
     return geometry;
 }
 
+function getRealPiece(playerNumber)
+{
+	  if (playerNumber === 0)
+        var geometry = hatgeo.clone();
+    else if (playerNumber === 1)
+        var geometry = thimblegeo.clone();
+    else if (playerNumber === 2)
+        var geometry = shipgeo.clone();
+    else if (playerNumber === 3)
+        var geometry = flatirongeo.clone();
+    return geometry;
+}
+
 function initializePlayers()
 {
     for (var i = 0; i < numberOfPlayers; i++)
         players.push(new Player(0, test, 1500));
-}
-
-function rollDice(twodice)
-{
-    var piece = players[currentPlayer].piece;
-    var pos = players[currentPlayer].playerPosition;
-    
-    firstDie = Math.floor((Math.random()*6)+1);
-    if (twodice)
-        secondDie = firstDie;
-    else
-        secondDie = Math.floor((Math.random()*6)+1);
-    var roll = firstDie + secondDie;
-    
-    
-    document.getElementById('move').value = roll;
-    
-    if (firstDie === secondDie)
-    {
-        if (players[currentPlayer].jailed === true)
-        {
-            move(piece, pos, roll);
-            players[currentPlayer].jailed = false;
-        }
-        else
-        {
-            players[currentPlayer].doublesRolled += 1;
-            if (players[currentPlayer].doublesRolled === 3)
-                getJailed();
-            else
-                move(piece, pos, roll);
-        }
-    }
-    else if (players[currentPlayer].jailed === false)
-    {
-        move(piece, pos, roll);
-        players[currentPlayer].doublesRolled = 0;
-    }
-}
-
-function getJailed()
-{
-    players[currentPlayer].jailed = true;
-    move(players[currentPlayer].piece, 0, 10);
-}
-
-function move(piece, currentSpace, spaces)
-{
-    var id = piece.id;
-    var geometry = getPiece(id);
-    var subt = 97;
-    var offset = 0;
-    var xoffset = 0;
-    var offSide = 525;
-    var sidePush = 390;
-	var jaily = 0;
-    var destSquare = (currentSpace + spaces) % 40;
-    
-    if (currentSpace + spaces >= 40)
-    {
-        passedGo();
-    }
-
-	offset = 50 * Math.floor(id/2);
-	xoffset = -20 + (45 * (id%2));
-	
-    
-
-    if (destSquare === 0)
-         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(475 + (75*(id%2)), objHeight, 420 + step/2 + 70 * (Math.floor((id)/2))));
-    else if (destSquare < 10)
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(sidePush-(((currentSpace+spaces)%10)-1)*subt + xoffset, objHeight, offSide + offset));
-    else if (destSquare === 10)
-    {
-        if (players[currentPlayer].jailed === true)
-            geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide + 60*(id%2), objHeight, offSide - 50 + 60 * (Math.floor((id)/2))));
-        else
-		{
-			if (id === 0)
-				jaily = -50;
-			if (id === 3)
-				offset += 50;
-		
-            geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide - 45 + offset, objHeight, offSide + 55 + jaily));
-		}
-    }
-    else if (destSquare < 20)
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide - offset, objHeight, sidePush-(((currentSpace+spaces)%10)-1)*subt + xoffset));
-    else if (destSquare === 20)
-         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-475 - (75*(id%2)), objHeight, -420 - step/2 - 70 * (Math.floor((id)/2))));
-    else if (destSquare < 30)
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-sidePush+(((currentSpace+spaces)%10)-1)*subt - xoffset, objHeight, -offSide - offset));
-    else if (destSquare === 30)
-    {
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(-offSide + 60*(id%2), objHeight, offSide - 50 + 60 * (Math.floor((id)/2))));
-        players[currentPlayer].jailed = true;
-        destSquare = 10;
-    }
-    else if (destSquare < 40)
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(offSide + offset, objHeight, -sidePush+(((currentSpace+spaces)%10)-1)*subt - xoffset));
-        
-    var xrot = piece.rotation.x;
-    var yrot = piece.rotation.y;
-    scene.remove(piece);
-    
-    piece = new THREE.Mesh(geometry, material);
-    piece.rotation.x = xrot;
-    piece.rotation.y = yrot;
-    
-    console.log(destSquare);
-    
-    
-    var currentProp;
-    if (id == currentPlayer)
-    {
-        currentProp = tileBoard[destSquare].activate();
-        
-        if (currentProp.cost && !alreadyOwned(destSquare))
-        {
-            if (currentProp.cost <= players[id].money)
-            {
-                //console.log(currentProp.getInfo());
-                
-                players[currentPlayer].addPropertyIndex(currentProp.index);
-                players[currentPlayer].money -= currentProp.cost;
-                updateDisplay();
-            }
-        }
-        else
-            console.log(currentProp);
-    }
-    
-    
-    players[id].piece = piece;
-    players[id].playerPosition = destSquare;
-    players[id].piece.id = id;
-    scene.add(piece);
-    
-    if(currentProp === "Call chance function"){
-    drawCard("chance");
-    }
-    else if(currentProp === "Call comunity chest function"){
-    drawCard("comchest");
-    } 
-    
-    
 }
 
 function createHotels(square, hotelNumber)
@@ -482,301 +345,6 @@ function alreadyOwned(destSquare)
     }
     
     return alreadyOwned;
-}
-
-
-function onWindowResize() 
-{
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-
-function onMouseWheel()
-{
-    var fovMAX = 160;
-    var fovMIN = 5;
-    
-    if ( event.target.id == 'chatbox')
-        return;
-    
-    camera.fov -= event.wheelDeltaY * 0.05;
-    camera.fov = Math.max(Math.min(camera.fov, fovMAX), fovMIN);
-    camera.projectionMatrix = new THREE.Matrix4().makePerspective(camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far);
-}
-
-function onMouseDown(event)
-{
-
-    if ( event.target.tagName == 'DIV')
-        event.preventDefault();
-
-    document.addEventListener( 'mousemove', onMouseMoveCam, false );
-    document.addEventListener( 'mouseup', onMouseUpCam, false );
-    document.addEventListener( 'mouseout', onMouseUpCam, false );
-
-    mouseXOnMouseDown = event.clientX - that.currentWindowX;
-    mouseYOnMouseDown = event.clientY - that.currentWindowY;
-    targetYRotationOnMouseDown = that.targetY;
-    targetXRotationOnMouseDown = that.targetX;
-}
-
-function onMouseMoveCam(event)
-{
-    mouseX = event.clientX - that.currentWindowX;
-    mouseY = event.clientY - that.currentWindowY;
-
-    that.targetY = targetYRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.015;
-    that.targetX = targetXRotationOnMouseDown + ( mouseY - mouseYOnMouseDown ) * 0.015;
-}
-
-function onMouseUpCam(event)
-{
-    document.removeEventListener( 'mousemove', onMouseMoveCam, false );
-    document.removeEventListener( 'mouseup', onMouseUpCam, false );
-    document.removeEventListener( 'mouseout', onMouseUpCam, false );
-}
-
-function animate()
-{
-    requestAnimationFrame(animate);
-    render();
-}
-
-function render()
-{
-    for (var i = 0; i < numberOfPlayers; i++)
-    {
-        var piece = players[i].piece;
-        piece.rotation.x += ( targetX - piece.rotation.x ) * 0.05;
-        piece.rotation.y += ( targetY - piece.rotation.y ) * 0.05;
-    }
-    
-    rectmesh.rotation.x += ( targetX - rectmesh.rotation.x ) * 0.05;
-    rectmesh.rotation.y += ( targetY - rectmesh.rotation.y ) * 0.05;
-    
-    underMesh.rotation.x += ( targetX - underMesh.rotation.x ) * 0.05;
-    underMesh.rotation.y += ( targetY - underMesh.rotation.y ) * 0.05;
-    
-    chancecards.rotation.x += ( targetX - chancecards.rotation.x ) * 0.05;
-    chancecards.rotation.y += ( targetY - chancecards.rotation.y ) * 0.05;
-    
-    comcards.rotation.x += ( targetX - comcards.rotation.x ) * 0.05;
-    comcards.rotation.y += ( targetY - comcards.rotation.y ) * 0.05;
-    
-    comtop.rotation.x += ( targetX - comtop.rotation.x ) * 0.05;
-    comtop.rotation.y += ( targetY - comtop.rotation.y ) * 0.05;
-    
-    chancetop.rotation.x += ( targetX - chancetop.rotation.x ) * 0.05;
-    chancetop.rotation.y += ( targetY - chancetop.rotation.y ) * 0.05;
-	
-	for (var i = 0; i < tileBoard.length; i++)
-	{
-		for (var j = 0; j < tileBoard[i].hotels.length; j++)
-		{
-			var hotel = tileBoard[i].hotels[j];
-			hotel.rotation.x += ( targetX - hotel.rotation.x ) * 0.05;
-			hotel.rotation.y += ( targetY - hotel.rotation.y ) * 0.05;
-		}
-	}
-        
-    camera.lookAt(scene.position);
-    renderer.render(scene, camera);
-}
-
-function initialize_community_chest_cards(){
- community_chest_cards = new Array();
- 
- community_chest_cards.push(new Card("comchest",0,
- "<p>Advance to Go.<br> Collect $200</p>",
- function(player){
-  move(player.piece, 0, 0);
-  player.money = player.money + 200;
- }
- ));
- 
- community_chest_cards.push(new Card("comchest",1,
- "<p>Bank error in your favor. <br>Collect $75.</p>",
- function(player){
-   player.money = player.money + 75;
-   document.getElementById("money").value = players[currentPlayer].money;
- }
- 
- ));
- 
- community_chest_cards.push(new Card("comchest",2,
- "<p>Doctor's fees.<br>Pay $50.</p>",
- function(player){
-  player.money = player.money - 50;
- }
- 
- ));
- 
- community_chest_cards.push(new Card("comchest",3,
- "<p>Get out of jail free.<br> This card may be kept unitl needed, or sold.</p>",
- function(player){
-  player.cardsHeld.push(this);
-  //add code later to remove this card from the com_chest_deck
- }));
- 
- community_chest_cards.push(new Card("comchest",4,
- "<p>Go to jail.<br>Go directly to jail.<br>Do not pass Go.<br> Do not collect $200.</p>",
- function(player){
-  move(player.piece,0,10);
-  player.jailed = true;
- }
- ));
- 
-community_chest_cards.push(new Card("comchest",5,
-"<p>It's your birthday.<br>Collect $10 from each player.</p>",
-function(player){
- for(var i=0; i < players.length; i++){
-  if(i !== currentPlayer){
-   players[i].money = players[i].money - 10;
-   player.money = player.money + 10;
-  }
- }
-}
-
-));
-
-community_chest_cards.push(new Card("comchest",6,
-"<p>Grand Opera Night. <br> Collect $50 from every player<br> for opening night seats.</p>",
-function(player){
- for(var i=0; i < players.length; i++){
-  if(i !== currentPlayer){
-   players[i].money = players[i].money - 50;
-   player.money = player.money + 50;
-  }
- }
-}));
-
-community_chest_cards.push(new Card("comchest",7,
-"<p>Income Tax refund.<br>Collect $20.</p>",
-function(player){
- player.money = player.money + 20;
-}
-
-));
-
-community_chest_cards.push(new Card("comchest",8,
-"<p>Life Insurance Matures.<br> Collect $100.</p>",
-function(player){
-player.money = player.money + 100;
-}
-));
-
-community_chest_cards.push(new Card("comchest",9,
-"<p>Pay Hospital Fees of $100.</p>",
-function(player){
- player.money = player.money - 100;
-}
-));
-
-community_chest_cards.push(new Card("comchest",10,
-"<p>Pay School Fess of $50.</p>",
-function(player){
- player.money = player.money - 50;
-}
-));
-
-community_chest_cards.push(new Card("comchest",11,
-"<p>Receive $25 Consultancy Fee.</p>",
-function(player){
- player.money = player.money + 25;
-}
-));
-
-community_chest_cards.push(new Card("comchest",12,
-"<p>You are assessed for street repairs.<br>$40 per house.<br>$115 per hotel.</p>",
-function(player){
-//I'll write code for this later.
-}
-));
-
-community_chest_cards.push(new Card("comchest",13,
-"<p>You have won second prize in a beauty contest. Collect $10.</p>",
-function(player){
- player.money = player.money+10;
-}
-));
-
-community_chest_cards.push(new Card("comchest",14,
-"<p>You inherit $100.</p>",
-function(player){
- player.money = player.money+100;
-}
-));
-
-community_chest_cards.push(new Card("comchest",15,
-"<p>From sale of stock you get $50.</p>",
-function(player){
- player.money = player.money + 50;
-}
-));
-
-community_chest_cards.push(new Card("comchest",16,
-"<p>Holiday Fund matures. Receive $100.</p>",
-function(player){
- player.money = player.money + 100;
-}
-));
-}
-
-function initialize_chance_cards(){
- chance_cards = new Array();
- 
- chance_cards.push(new Card("chance",0,
-  "<p> Advance to Go.<br>Collect $200.</p>",
-  function(player){
-   move(player.piece, 0, 0);
-   player.money = player.money + 200;
-  }
- ));
-
-}
-
-function drawCard(type){
-if(type === "comchest"){
- setTimeout(function(){
- community_chest_cards[0].behavior(players[currentPlayer]);updateDisplay();},4000);
- styleCard(community_chest_cards[0].message,"comchest");
-}
-else if(type === "chance"){
- setTimeout(function(){
- chance_cards[0].behavior(players[currentPlayer]);updateDisplay();},4000);
- styleCard(chance_cards[0].message,"chance");
-}
-    
-    
-
-}
-
-function styleCard(message,type){
-    if(type === "comchest"){
-     var output = "<div class='com_chest_display'>";
-     output = output+message;
-     output = output+"</div>";
-     document.getElementById("community_chest_card_display").innerHTML = output;
-     setTimeout(function(){
-                   $(".com_chest_display").remove();					
-                                                 },5000);
-    
-    }
-    else if(type === "chance"){
-     var output = "<div class='chance_display'>";
-     output = output + message;
-     output = output+"</div>";
-     document.getElementById("chance_card_display").innerHTML = output;
-        setTimeout(function(){
-                   $(".chance_display").remove();
-                                            },5000);
-    
-    }
-    
-    
 }
 
 function updateDisplay()
