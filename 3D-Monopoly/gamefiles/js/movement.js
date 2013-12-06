@@ -13,6 +13,9 @@ function rollDice(twodice)
         secondDie = Math.floor((Math.random()*6)+1);
     var roll = firstDie + secondDie;
     
+    postMessage(username+" rolled ("+firstDie+","+secondDie+") = "+roll, true);
+    chatMessage("You rolled ("+firstDie+","+secondDie+") = "+roll, null);
+
     
     document.getElementById('move').value = roll;
     
@@ -140,6 +143,9 @@ function move(piece, currentSpace, spaces)
                 players[currentPlayer].addPropertyIndex(currentProp.index);
                 players[currentPlayer].money -= currentProp.cost;
                 updateDisplay();
+                
+                postMessage(username+" purchased "+currentProp.title+" for $"+currentProp.cost, true);
+                chatMessage("You purchased "+currentProp.title+" for $"+currentProp.cost, null);
             }
         }
         else if(alreadyOwned(destSquare) && players[currentPlayer].properties.indexOf(lookUps[destSquare]) == -1)
@@ -234,4 +240,27 @@ function justMove(piece)
 		geometry.applyMatrix(new THREE.Matrix4().makeRotationY(Math.PI/2));
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation((offSide + offset) * invscale, objHeight, (-sidePush+(((currentSpace+spaces)%10)-1)*subt - xoffset) * invscale));
 	}
+}
+
+function dance (piece)
+{
+		setTimeout(function(){piece.position.x += 10;}, 0);
+		setTimeout(function(){piece.position.y += 40;}, 0);
+		setTimeout(function(){piece.position.x -= 10;}, 100);
+		setTimeout(function(){piece.position.y -= 40;}, 100);
+		
+		setTimeout(function(){piece.position.x -= 10;}, 200);
+		setTimeout(function(){piece.position.y += 40;}, 200);
+		setTimeout(function(){piece.position.x += 10;}, 300);
+		setTimeout(function(){piece.position.y -= 40;}, 300);
+		
+		setTimeout(function(){piece.position.z += 10;}, 400);
+		setTimeout(function(){piece.position.y += 40;}, 400);
+		setTimeout(function(){piece.position.z -= 10;}, 500);
+		setTimeout(function(){piece.position.y -= 40;}, 500);
+		
+		setTimeout(function(){piece.position.z -= 10;}, 600);
+		setTimeout(function(){piece.position.y += 40;}, 600);
+		setTimeout(function(){piece.position.z += 10;}, 700);
+		setTimeout(function(){piece.position.y -= 40;}, 700);
 }

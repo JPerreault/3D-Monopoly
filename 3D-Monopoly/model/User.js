@@ -29,8 +29,8 @@ var userSchema = new Schema({
   email:  { type: String, required: true, unique: true }, 
   password:  { type: String, required: true },
   games: [{type: Number, ref: 'Game'} ],
-  friends: [{type: String, ref: 'User'}]
-   }, 
+    friends: [{type: String, ref: 'User', unique: true}]
+   },
   { collection: 'users'}
 );
 
