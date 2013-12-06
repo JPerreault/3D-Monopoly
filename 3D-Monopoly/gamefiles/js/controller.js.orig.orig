@@ -5,8 +5,6 @@ var players = new Array();
 var tileBoard = new Array();
 var currentPlayer = 0;
 
-var houses = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-
 var renderer, container, camera, scene;
 var line, test, geometry, chancecards, comcards, comtop, chancetop;
 var mouseXOnMouseDown = mouseYOnMouseDown = 0;
@@ -74,6 +72,7 @@ window.onload = function()
     initializeTileBoard();
     populateListing();
 }
+<<<<<<< HEAD
 
 function monopoly(color)
 {
@@ -83,28 +82,17 @@ function monopoly(color)
     
     for(var x=0; x<deeds.length; x++)
     {
-        
-        var deedTemp = createDeed(x);
-       
-        if(deedTemp.color == color)
-        {
+        if(deeds[x].color == color)
             colorCounter++;
-        }
     }
     
     for(var y = 0; y<players.length; y++)
     {
         tempCounter = colorCounter;
-        for(var x=0; x<players[y].properties.length; x++)
+        for(var x=0; x<players[x].properties.length; x++)
         {
-            var deedTemp = createDeed(players[y].properties[x]);
-            
-            console.log("player"+ y);
-            console.log(deedTemp.color == color);
-            if(deedTemp.color == color)
-            {
+            if(properties[x].color == color)
                 tempCounter--;
-            }
         }
         if(tempCounter == 0)
             return true;
@@ -113,88 +101,8 @@ function monopoly(color)
     return monopoly;
 }
 
-function buyHouse(houseNum)
-{
-    
-    var deedTemp = createDeed(houseNum);
-    
-    var haveProp = false;
-    for(var x=0; x<players[currentPlayer].properties.length; x++)
-    {
-        var playerProp = createDeed(players[currentPlayer].properties[x]);
-
-        if(deedTemp.name == playerProp.name)
-            haveProp = true;
-    }
-    
-    if(!haveProp)
-        return false;
-    
-    var playerMoney = players[currentPlayer].money;
-    
-    var houseCost;
-    
-    var houseQuantity = houses[houseNum];
-    
-    if(houseQuantity == 0)
-        houseCost = deedTemp.house1;
-    else if(houseQuantity == 1)
-        houseCost = deedTemp.house2;
-    else if(houseQuantity == 2)
-        houseCost = deedTemp.house3;
-    else if(houseQuantity == 3)
-        houseCost = deedTemp.house4;
-    else if(houseQuantity == 4)
-        houseCost = deedTemp.hotel;
-    
-    if(selfMonopoly(deedTemp.color) && playerMoney >= houseCost)
-    {
-        players[currentPlayer].money -= houseCost;
-        houses[houseNum] = houseQuantity+1;
-        createHotels(houseNum, houseQuantity+1)
-        updateDisplay();
-        return true;
-    }
-    else
-        return false;
-    
-}
-
-function selfMonopoly(color)
-{
-    var monopoly = false;
-    var colorCounter = 0;
-    var tempCounter = 0;
-    
-    for(var x=0; x<deeds.length; x++)
-    {
-        var deedTemp = createDeed(x);
-        
-        if(deedTemp.color == color)
-        {
-            colorCounter++;
-        }
-    }
-    
-        tempCounter = colorCounter;
-    
-        for(var x=0; x<players[currentPlayer].properties.length; x++)
-        {
-            var deedTemp = createDeed(players[currentPlayer].properties[x]);
-            
-            console.log(deedTemp.color == color);
-            if(deedTemp.color == color)
-            {
-                tempCounter--;
-            }
-            
-            if(tempCounter == 0)
-                return true;
-        }
-    
-    return monopoly;
-}
-
+=======
+>>>>>>> f06b3d06c983c0cf24e5751b73b68adb740642ac
 function initializeTileBoard()
 {
     for(var x=0; x<40; x++)
@@ -352,11 +260,17 @@ function init()
 		else
 			lockCamera();
 	}
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
     document.getElementById('rollembaby').onclick = function()
 	{
-		rollDice(false);
+		rollDice(true);
 	}
+=======
 	lockCamera();
+>>>>>>> 5fe7b482b54ac2a233d380839d28188658d1e75c
+>>>>>>> f06b3d06c983c0cf24e5751b73b68adb740642ac
 }
 
 function getPiece(playerNumber)
@@ -486,6 +400,7 @@ function alreadyOwned(destSquare)
     
     for(var x=0; x<players.length; x++)
     {
+<<<<<<< HEAD
         for(var y=0; y<players[x].properties.length; y++)
         {
             if(players[x].properties[y] == lookUps[destSquare])
@@ -496,6 +411,7 @@ function alreadyOwned(destSquare)
     return alreadyOwned;
 }
 
+<<<<<<< HEAD
 function findOwner(destSquare)
 {
     for(var x=0; x<players.length; x++)
@@ -508,6 +424,111 @@ function findOwner(destSquare)
     }
 }
 
+function onWindowResize() 
+{
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+
+function onMouseWheel()
+{
+    var fovMAX = 160;
+    var fovMIN = 5;
+    
+    if ( event.target.id == 'chatbox')
+        return;
+    
+    camera.fov -= event.wheelDeltaY * 0.05;
+    camera.fov = Math.max(Math.min(camera.fov, fovMAX), fovMIN);
+    camera.projectionMatrix = new THREE.Matrix4().makePerspective(camera.fov, window.innerWidth / window.innerHeight, camera.near, camera.far);
+}
+
+function onMouseDown(event)
+{
+
+    if ( event.target.tagName == 'DIV')
+        event.preventDefault();
+
+    document.addEventListener( 'mousemove', onMouseMoveCam, false );
+    document.addEventListener( 'mouseup', onMouseUpCam, false );
+    document.addEventListener( 'mouseout', onMouseUpCam, false );
+
+    mouseXOnMouseDown = event.clientX - that.currentWindowX;
+    mouseYOnMouseDown = event.clientY - that.currentWindowY;
+    targetYRotationOnMouseDown = that.targetY;
+    targetXRotationOnMouseDown = that.targetX;
+}
+
+function onMouseMoveCam(event)
+{
+    mouseX = event.clientX - that.currentWindowX;
+    mouseY = event.clientY - that.currentWindowY;
+
+    that.targetY = targetYRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.015;
+    that.targetX = targetXRotationOnMouseDown + ( mouseY - mouseYOnMouseDown ) * 0.015;
+}
+
+function onMouseUpCam(event)
+{
+    document.removeEventListener( 'mousemove', onMouseMoveCam, false );
+    document.removeEventListener( 'mouseup', onMouseUpCam, false );
+    document.removeEventListener( 'mouseout', onMouseUpCam, false );
+}
+
+function animate()
+{
+    requestAnimationFrame(animate);
+    render();
+}
+
+function render()
+{
+    for (var i = 0; i < numberOfPlayers; i++)
+    {
+        var piece = players[i].piece;
+        piece.rotation.x += ( targetX - piece.rotation.x ) * 0.05;
+        piece.rotation.y += ( targetY - piece.rotation.y ) * 0.05;
+    }
+    
+    rectmesh.rotation.x += ( targetX - rectmesh.rotation.x ) * 0.05;
+    rectmesh.rotation.y += ( targetY - rectmesh.rotation.y ) * 0.05;
+    
+    underMesh.rotation.x += ( targetX - underMesh.rotation.x ) * 0.05;
+    underMesh.rotation.y += ( targetY - underMesh.rotation.y ) * 0.05;
+    
+    chancecards.rotation.x += ( targetX - chancecards.rotation.x ) * 0.05;
+    chancecards.rotation.y += ( targetY - chancecards.rotation.y ) * 0.05;
+    
+    comcards.rotation.x += ( targetX - comcards.rotation.x ) * 0.05;
+    comcards.rotation.y += ( targetY - comcards.rotation.y ) * 0.05;
+    
+    comtop.rotation.x += ( targetX - comtop.rotation.x ) * 0.05;
+    comtop.rotation.y += ( targetY - comtop.rotation.y ) * 0.05;
+    
+    chancetop.rotation.x += ( targetX - chancetop.rotation.x ) * 0.05;
+    chancetop.rotation.y += ( targetY - chancetop.rotation.y ) * 0.05;
+        
+    camera.lookAt(scene.position);
+    renderer.render(scene, camera);
+}
+
+=======
+>>>>>>> e18046d93a043f34361f10f712260d204fad7b88
+=======
+        for(var y=0; y<players[x].properties.length; y++){
+            
+            if(players[x].properties[y] == lookUps[destSquare])
+                alreadyOwned = true;
+        }
+    }
+    
+    return alreadyOwned;
+}
+
+>>>>>>> f06b3d06c983c0cf24e5751b73b68adb740642ac
 function updateDisplay()
 {
     expandMoneys(players[currentPlayer].money);

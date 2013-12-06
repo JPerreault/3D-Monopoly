@@ -152,8 +152,18 @@ function move(piece, currentSpace, spaces)
         {
             var moneyDue = parseInt(currentProp.rent);
             
-            if(monopoly(currentProp.color))
+            if( monopoly(currentProp.color) && houses[destSquare] == 0)
                 moneyDue *= 2;
+            else if(houses[destSquare] == 1)
+                moneyDue = currentProp.house1;
+            else if(houses[destSquare] == 2)
+                moneyDue = currentProp.house2;
+            else if(houses[destSquare] == 3)
+                moneyDue = currentProp.house3;
+            else if(houses[destSquare] == 4)
+                moneyDue = currentProp.house4;
+            else if(houses[destSquare] == 5)
+                moneyDue = currentProp.house5;
             
             players[currentPlayer].money -= moneyDue;
             
