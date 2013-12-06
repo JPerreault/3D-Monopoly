@@ -127,9 +127,21 @@ canvas
     -webkit-transition: all .2s ease-in-out;
 }
 
-.button:hover
+#blackout1
+{
+    width: 100%;
+    height: 100%;
+    z-index: 9999999999999;
+    background-color: black;
+    color: white;
+    font-size: 30px;
+    position: absolute;
+}
+
+.clickable:hover
 {
     -webkit-transform: scale(1.1);
+    cursor: pointer;
 }
 
 #message

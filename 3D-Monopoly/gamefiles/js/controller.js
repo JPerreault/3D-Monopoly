@@ -17,7 +17,7 @@ this.currentWindowY = window.innerHeight;
 var that = this;
 var material = new THREE.MeshLambertMaterial({color: 0xD9E8FF, map: THREE.ImageUtils.loadTexture('textures/lighttexture.png'), shininess: 200, reflectivity: .85});
 var selMaterial = new THREE.MeshLambertMaterial( { color: 0x000000, emissive: 0x000000, ambient: 0x000000, shading: THREE.SmoothShading } );
-var redmat = new THREE.MeshPhongMaterial( { ambient: 0xff5533, color: 0xff5533, specular: 0x111111, shininess: 200 } ) ;
+var redmat = new THREE.MeshPhongMaterial( { ambient: 0xE6E5E3, color: 0xD6D6D6, specular: 0x111111, shininess: 0} ) ;
 var rectmesh, underMesh;
 var size = 600;
 var step = 150;
@@ -388,9 +388,27 @@ function init()
 	}
     document.getElementById('rollembaby').onclick = function()
 	{
-		rollDice(false);
+        if (isItYourTurn())
+        {
+            nextPlayer();
+            rollDice(false);
+            sync();
+        }
+        
 	}
 	lockCamera();
+}
+
+function nextPlayer()
+{
+    console.log("SUPERDEBUGTIME")
+    console.log(players);
+    console.log(numberOfPlayers);
+    console.log(currentPlayer+1)
+    console.log((currentPlayer+1)%numberOfPlayers);
+
+    activePlayer = players[(currentPlayer+1)%numberOfPlayers].username;
+    changeHands();
 }
 
 function getPiece(playerNumber)
@@ -452,6 +470,11 @@ function createHotels(square, hotelNumber)
 	}
 	else
 		drawHotels(square, 5);
+}
+
+function hideLoading()
+{
+    $("#blackout1").fadeOut(500);
 }
 
 function drawHotels(square, hotelNumber)
