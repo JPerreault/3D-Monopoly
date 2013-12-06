@@ -106,6 +106,7 @@ function init()
     document.addEventListener( 'mousedown', onMouseDown, false );
     
     initializePlayers();
+	initTempPieces();
     
     var recttest = new THREE.CubeGeometry(1200, .0001, 1200);
     angelTexture = THREE.ImageUtils.loadTexture("textures/board.jpg");
@@ -257,6 +258,20 @@ function initializePlayers()
 {
     for (var i = 0; i < numberOfPlayers; i++)
         players.push(new Player(0, test, 1500));
+}
+
+function initTempPieces(step)
+{
+	for (var i = 0; i < numberOfPlayers; i++)
+	{
+		var geometry = getPiece(i);
+		geometry.applyMatrix(new THREE.Matrix4().makeTranslation(475 + (75*(i%2)), objHeight, 420 + step/2 + 70 * (Math.floor((i)/2))));
+		test = new THREE.Mesh(geometry, material);
+
+		test.id = i;
+		scene.add(test);
+		players[i].piece = test;
+	}
 }
 
 function createHotels(square, hotelNumber)
