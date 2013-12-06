@@ -14,7 +14,8 @@ var GameSchema = new Schema({
 	open: {type: Boolean, required: true, default: true},
 	finished: { type: Boolean, required: true, default: false },
 	players: [PlayerSchema],
-	currentplayer: { type: String, required: true, default: 'sahoffma' }},
+	currentplayer: { type: String, required: true, default: 'sahoffma' },
+                            houses: [{type: Number}]},
 	{ collection: 'games'});
 
 //Export Game model
