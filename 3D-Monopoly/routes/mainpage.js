@@ -11,7 +11,7 @@ exports.login = function(req, res){
 };
 
 exports.contact = function(req, res){
-  
+
   res.render('contact.ejs', { layout: 'mainpagelayout', title: 'Contact' });
   
 
@@ -41,9 +41,9 @@ exports.getprofile = function(req, res){
 
 };
 
-exports.lobby = function(req, res){
+exports.list = function(req, res){
 
-  res.render('lobby.ejs', {layout: 'hublayout', title: 'Lobby', user: req.user.username });
+  res.render('lobby.ejs', {layout: 'hublayout', title: 'Find a Game', user: req.user.username });
 }
 
 exports.logout = function(req, res){
@@ -67,16 +67,28 @@ exports.friendload = function(req, res){
 };
 
 exports.gameload = function(req, res){
-console.log("Loading games.");
-api.loadGames(req.user.username, function(response){
-if(response == "No games found"){
-  res.send("No games found");
-}
-else{
-  res.send(response);
-}
+  console.log("Loading games.");
+  api.loadPlayerGames(req.user.username, function(response){
+    if(response == "No games found"){
+      res.send("No games found");
+    }
+    else{
+      res.send(response);
+    }
+  });
 
-});
+};
+
+exports.gamelist = function(req, res){
+
+  api.loadServerGames(function(response){
+    if(response == "No games found"){
+      res.send("No games found");
+    }
+    else{
+      res.send(response);
+    }
+  });
 
 };
 

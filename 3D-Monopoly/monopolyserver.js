@@ -1,7 +1,9 @@
 /*
 Scott Hoffman
 The server of the app, basically does some setup for the app for websockets
-and then redirects all the routing to the /routes folder
+and then redirects all the routing to the /routes folder. pass.ensureAuthenticated
+is a middleware function that ensures an authenticated session exists. If it doesn't
+it redirects the user to the login page rather than trigger the route function.
  */
 
 var express = require('express');
@@ -46,14 +48,18 @@ if ('development' == app.get('env')) {
 //routes that require user authentication
 app.get('/profile', pass.ensureAuthenticated, mainpage.getprofile);
 app.post('/add-friend', pass.ensureAuthenticated, serverpost.addfriend);
+app.post('/add-game', pass.ensureAuthenticated, serverpost.addgame);
 app.post('/update_profile', pass.ensureAuthenticated, serverpost.updateprofile);
 app.get('/get-friends', pass.ensureAuthenticated, mainpage.friendload);
 app.get('/hub', pass.ensureAuthenticated, mainpage.hub);
-app.get('/lobby', pass.ensureAuthenticated, mainpage.lobby);
+app.get('/list', pass.ensureAuthenticated, mainpage.list);
 app.get('/get-games', pass.ensureAuthenticated, mainpage.gameload);
+app.get('/get-all-games', pass.ensureAuthenticated, mainpage.gamelist);
+app.get('/addplay-:id', pass.ensureAuthenticated, game.addnplay);
+app.get('/play', pass.ensureAuthenticated, game.play);
+app.get('/play-:id', pass.ensureAuthenticated, game.load);
+app.get('/public_game', pass.ensureAuthenticated, serverpost.addpublicgame);
 
-
-app.get('/play', game.play);
 app.get('/login', mainpage.login);
 app.post('/login', serverpost.login);
 app.get('/register', mainpage.register);

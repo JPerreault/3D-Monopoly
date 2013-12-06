@@ -6,6 +6,7 @@ var Player = function(playerPosition, piece, money)
     this.properties = [];
 	this.jailed = false;
 	this.doublesRolled = 0;
+    this.username = "";
     
     this.addPropertyIndex = addPropertyIndex;
     

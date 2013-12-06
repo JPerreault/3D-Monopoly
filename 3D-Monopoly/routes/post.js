@@ -40,6 +40,28 @@
   });
 };
 
+exports.addpublicgame = function(req, res){
+var player = [];
+console.log("got here");
+player.push(req.user.username);
+api.createGame(player, function(response){
+  res.redirect("/hub");
+});
+
+};
+
+exports.addgame = function(req, res){
+    var friends = req.body.friends;
+    var user = req.user.username;
+    console.log("Got list of users : " + friends + " to make a game with " + user +"'s account");
+    friends.push(user);
+    api.createGame(friends, function(response){
+                      
+                      res.send(response);
+                      
+                      });
+};
+
 exports.updateprofile = function(req, res){
   var newpass = req.body.userpass;
   var newemail = req.body.useremail;

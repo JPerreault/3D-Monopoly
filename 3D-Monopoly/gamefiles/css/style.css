@@ -261,6 +261,7 @@ canvas
 
 .com_chest_display p{
   color:black;
+  text-align:left;
  }
  
 .chance_display{
@@ -276,4 +277,5 @@ canvas
 
 .chance_display p {
   color:black;
+  text-align:left;
 }

@@ -39,6 +39,8 @@ exports.createUser = function(un, pw, useremail, callback){
 });
 };
 
+
+
 exports.userFriends = function(un, callback){
   User.findOne({ username: un }, function(err, user){
     if(err){
@@ -92,17 +94,114 @@ exports.addFriendtoDB = function(un, friend, callback){
 
 };
 
-exports.createGame = function(){
-var newgame = new Game();
-        newgame.players.push({playerid: 'sahoffma'});
-        newgame.players.push({playerid: 'monopolyman'});
-        newgame.players.push({playerid: 'other guy'});
-        newgame.save();
+exports.createGame = function(players, callback){
+    var newgame = new Game();
+    for (var x=0; x<players.length; x++)
+        newgame.players.push({playerid: players[x]});
+
+      if(newgame.players.length < 4){
+        newgame.open = true;
+      }
+      else{
+        newgame.open = false;
+      }
+    
+    newgame.save(function()
+                 {
+                 callback(newgame);
+                 });
+    
+    
 
 };
 
-exports.loadGames = function(un, callback){
+exports.addUsertoGame = function(un, gameid, callback){
+  var gameident = String(gameid);
+  console.log(gameid);
+  Game.findOne({'_id': gameident}, function(err, game){
+    if(err){
+      console.log(err);
+    }
+    else{
+      game.players.push({playerid: un});
+      if(game.players.length == 4){
+        game.open = false;
+      }
+      game.save();
+      callback();
+    }
+  });
+
+
+};
+
+exports.saveGame = function(id, gamestate, callback)
+{
+    Game.findOne({'_id': id}, function(err, game){
+                 if (err){console.log(err);}
+                 if (game)
+                 {
+                 for (var x=0; x<game.players.length; x++)
+                 {
+                 game.players[x].money = gamestate.players[x].money;
+                 game.players[x].properties = gamestate.players[x].properties;
+                 game.players[x].position = gamestate.players[x].position;
+                 console.log(game.players[x].position);
+                 //game.players[x].save();
+                 }
+                 game.save();
+                 callback();
+                 }
+                 });
+}
+
+exports.getGameJSON = function(id, callback)
+{
+    Game.findOne({'_id': id}, function(err, games){
+                 if (err){console.log(err);}
+                 if (games)
+                 {
+                          var output   =   {
+                                "players": games.players,
+                                "gameID" : games._id,
+                                "activePlayer" : games.currentplayer,
+                                "id" : id
+                                }
+                     callback(output);
+                 }
+              });
+};
+
+exports.loadPlayerGames = function(un, callback){
   Game.find({'players.playerid': un}, function(err, games){
+    if(err){
+      console.log(err);
+    }
+    if(!games){
+      callback("No games found");
+    }
+    else{
+      var array = [];
+      for(var i = 0; i < games.length; i++){
+        array.push(  
+         { 
+          "game": {
+          "players": games[i].players,
+          "gameID" : games[i]._id, 
+          "currentPlayer" : games[i].currentplayer  
+        }});
+      }
+      console.log(array);
+      callback(array);
+    }
+
+  });
+
+};
+
+exports.loadServerGames = function(callback){
+
+Game.find({'open': true}, function(err, games){
     if(err){
       console.log(err);
     }

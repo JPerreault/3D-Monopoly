@@ -63,8 +63,6 @@ function move(piece, currentSpace, spaces)
 
 	offset = 70 * Math.floor(id/2);
 	xoffset = -20 + (45 * (id%2));
-	
-    
 
     if (destSquare === 0)
          geometry.applyMatrix(new THREE.Matrix4().makeTranslation((475 + (75*(id%2))) * invscale, objHeight, (420 + step/2 + 70 * (Math.floor((id)/2))) * invscale));
