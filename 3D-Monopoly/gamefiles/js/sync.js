@@ -26,12 +26,14 @@ function initalConnect()
 
               for (var x=0; x<data.game.players.length; x++)
               {
+              console.log("Players in game: "+data.game.players.length);
               var oldPosition = players[x].playerPosition;
               
                 players[x].username = data.game.players[x].playerid;
                 players[x].properties = data.game.players[x].properties;
                 players[x].money = parseInt(data.game.players[x].money);
               players[x].playerPosition = data.game.players[x].position;
+              activePlayer = data.game.active;
               
               if (data.game.players[x].playerid == username)
               {
@@ -53,7 +55,11 @@ function initalConnect()
               finalPlayerID = currentPlayer;
               updateStatus("Connected as Player "+currentPlayer);
               chatMessage("You have connected", null);
+              numberOfPlayers = data.game.players.length;
               
+              // remove other players
+              for (var x=numberOfPlayers; x<4; x++)
+                scene.remove(players[x].piece)
               }
               
               updateDisplay();
