@@ -1,7 +1,9 @@
 /*
 Scott Hoffman
 The server of the app, basically does some setup for the app for websockets
-and then redirects all the routing to the /routes folder
+and then redirects all the routing to the /routes folder. pass.ensureAuthenticated
+is a middleware function that ensures an authenticated session exists. If it doesn't
+it redirects the user to the login page rather than trigger the route function.
  */
 
 var express = require('express');
