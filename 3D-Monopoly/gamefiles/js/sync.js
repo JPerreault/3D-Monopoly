@@ -113,7 +113,12 @@ function updateStatus(string)
 
 }
 
-function postMessage(string)
+function postMessage(string, rollService)
 {
-    socket.emit('post-message', {message: string, sender: username, id: gameID});
+    if (typeof rollService !== 'undefined')
+        sendGuy = null;
+    else
+        sendGuy = username;
+        
+    socket.emit('post-message', {message: string, sender: sendGuy, id: gameID});
 }

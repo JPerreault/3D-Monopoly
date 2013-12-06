@@ -12,7 +12,11 @@ function rollDice(twodice)
     else
         secondDie = Math.floor((Math.random()*6)+1);
     var roll = firstDie + secondDie;
+    
+    postMessage(username+" rolled ("+firstDie+","+secondDie+") = "+roll, true);
+    chatMessage("You rolled ("+firstDie+","+secondDie+") = "+roll, null);
 
+ 
     document.getElementById('move').value = roll;
     
     if (firstDie === secondDie)
@@ -136,6 +140,9 @@ function move(piece, currentSpace, spaces)
                 players[currentPlayer].addPropertyIndex(currentProp.index);
                 players[currentPlayer].money -= currentProp.cost;
                 updateDisplay();
+                
+                postMessage(username+" purchased "+currentProp.title+" for $"+currentProp.cost, true);
+                chatMessage("You purchased "+currentProp.title+" for $"+currentProp.cost, null);
             }
         }
     }
