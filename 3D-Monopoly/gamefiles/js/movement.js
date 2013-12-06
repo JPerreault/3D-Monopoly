@@ -14,6 +14,8 @@ function rollDice(twodice)
     var roll = firstDie + secondDie;
     
     
+    
+    
     document.getElementById('move').value = roll;
     
     if (firstDie === secondDie)
