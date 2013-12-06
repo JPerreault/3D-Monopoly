@@ -139,8 +139,19 @@ function move(piece, currentSpace, spaces)
                 updateDisplay();
             }
         }
-        else
-            console.log('Current prop: ', currentProp);
+        else if(alreadyOwned(destSquare) && players[currentPlayer].properties.indexOf(lookUps[destSquare]) == -1)
+        {
+            var moneyDue = currentProp.rent;
+            
+            if(monopoly(currentProp.color))
+                moneyDue *= 2;
+            
+            players[currentPlayer].money -= moneyDue;
+            
+            players[findOwner(destSquare)].money += moneyDue;
+            
+            updateDisplay();
+        }
     }
     
     

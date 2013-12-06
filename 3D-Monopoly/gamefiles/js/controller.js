@@ -69,6 +69,34 @@ window.onload = function()
     initializeTileBoard();
     populateListing();
 }
+
+function monopoly(color)
+{
+    var monopoly = false;
+    var colorCounter = 0;
+    var tempCounter = 0;
+    
+    for(var x=0; x<deeds.length; x++)
+    {
+        if(deeds[x].color == color)
+            colorCounter++;
+    }
+    
+    for(var y = 0; y<players.length; y++)
+    {
+        tempCounter = colorCounter;
+        for(var x=0; x<players[x].properties.length; x++)
+        {
+            if(properties[x].color == color)
+                tempCounter--;
+        }
+        if(tempCounter == 0)
+            return true;
+    }
+    
+    return monopoly;
+}
+
 function initializeTileBoard()
 {
     for(var x=0; x<40; x++)
@@ -355,14 +383,26 @@ function alreadyOwned(destSquare)
     
     for(var x=0; x<players.length; x++)
     {
-        for(var y=0; y<players[x].properties.length; y++){
-            
+        for(var y=0; y<players[x].properties.length; y++)
+        {
             if(players[x].properties[y] == lookUps[destSquare])
                 alreadyOwned = true;
         }
     }
     
     return alreadyOwned;
+}
+
+function findOwner(destSquare)
+{
+    for(var x=0; x<players.length; x++)
+    {
+        for(var y=0; y<players[x].properties.length; y++){
+            
+            if(players[x].properties[y] == lookUps[destSquare])
+                return x;
+        }
+    }
 }
 
 function onWindowResize() 
