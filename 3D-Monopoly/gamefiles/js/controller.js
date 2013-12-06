@@ -406,6 +406,7 @@ function init()
 	}
     document.getElementById('trade').onclick = function()
     {
+        populateBuild();
         $('#trade_it').show();
     }
     
