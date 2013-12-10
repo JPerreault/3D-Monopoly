@@ -503,7 +503,11 @@ function hideLoading()
 {
     $("#blackout1").fadeOut(500);
 }
-
+/* This function takes in the square to build hotels on and creates the hotels. It does this by storing variables
+   about the current size of the board and how far to offset different values in order to center the pieces, and 
+   then adjusts the base geometry for the houses and hotels based on this information. In many cases, rotations are
+   necessary as well to ensure the correct orientation of the hotels.
+*/
 function drawHotels(square, hotelNumber)
 {
     var sidePush = 390;

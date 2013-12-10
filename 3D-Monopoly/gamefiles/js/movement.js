@@ -48,6 +48,12 @@ function getJailed()
     move(players[currentPlayer].piece, 0, 10);
 }
 
+/* This function is honestly too complex to detail. It takes in the piece to move, the current
+   square the that piece is on and the number of spaces to move, and moves the piece accordingly.
+   Built into this function is a lot of the jailing logic, the logic that ensures that multiple
+   pieces on the same square don't overlap, and the logic for activating the tile you landed on
+   (buying it, paying rent, etc).
+*/
 function move(piece, currentSpace, spaces)
 {
     var id = piece.id;
@@ -206,6 +212,11 @@ function slideRoll()
     animove(piece, pos, roll+pos);
 }
 
+/* This function, and the one above it, were attempts to get the pieces to slide when they move
+   rather than just jump to the next square. It got pretty close, but was fairly buggy and very
+   sensitive. I was unable to get this completed in time.
+
+*/
 function animove(piece, currentSpace, destSquare)
 {
 	if (currentSpace === destSquare)
@@ -273,6 +284,9 @@ function animove(piece, currentSpace, destSquare)
 	animove(piece, destSquare%40, endresult);
 }
 
+/* Used for the initial syncing, this moves pieces without updating anything about the
+   game itself.
+*/
 function justMove(piece)
 {
     var id = piece.id;
