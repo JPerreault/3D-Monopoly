@@ -1,3 +1,6 @@
+/* Author: Richard Ayoub
+ Responsible for syncing data using sockets. */
+
 var socket;
 var finalPlayerID;
 
@@ -6,6 +9,10 @@ function isItYourTurn()
     return (activePlayer == username);
 }
 
+/* 
+ Controls the upper left buttons to appear and fade when it is and isn't your turn
+ */
+
 function changeHands()
 {
     if (!isItYourTurn())
@@ -13,7 +20,6 @@ function changeHands()
         //not your turn
         $(".buttonsthatdie").fadeTo(0, .2);
         $(".buttonsthatdie").removeClass('clickable');
-
         $("#fadespan").fadeTo(0, .2);
     }
     else
@@ -26,6 +32,9 @@ function changeHands()
     }
 }
 
+/*
+ sets up the sockets and the listeners
+ */
 function initalConnect()
 {
     document.getElementById("status").innerHTML = "Connecting...";
@@ -131,6 +140,11 @@ function initalConnect()
     initChat();
 }
 
+/*
+    This is the actual sync funciton. When this is called, the information from
+    that player's local variables will be sent over the server, and then to everyone else in
+    the room, as well as being written to the database.
+ */
 function sync()
 {
     var players2 = [];
@@ -150,6 +164,10 @@ function sync()
 
 }
 
+/*
+ This function updates the little blurb to the right of the player controls in the
+ upper right.
+ */
 function updateStatus(string)
 {
     document.getElementById("status").innerHTML = string;
@@ -157,6 +175,10 @@ function updateStatus(string)
 
 }
 
+/*
+ This function posts a chat message over teh chat. If the second value is not defined,
+ then the message will be italicized and have no specific sender.
+ */
 function postMessage(string, rollService)
 {
     if (typeof rollService !== 'undefined')

@@ -76,6 +76,9 @@ window.onload = function()
    // populateBuild();
 }
 
+/*
+ This function checks to see if the player has a monopoly for a given color
+ */
 function monopoly(color)
 {
     var monopoly = false;
@@ -365,7 +368,7 @@ function init()
     
     document.getElementById('buildHere').onclick = function()
     {
-        buyHouse(parseInt(document.getElementById("deedValueThing").value), true);
+        buyHouse(parseInt(document.getElementById("deedValueThing").value));
         sync();
         $('#trade_it').hide()
         updateDisplay();

@@ -3,6 +3,9 @@
 
 var deeds = [["Mediterranean Avenue","#700000",60,30,2,10,30,90,160,250,50,50],["Baltic Avenue","#700000",60,30,4,20,60,180,320,450,50,50],["Oriental Avenue","#33CCFF",100,50,6,30,90,270,400,550,50,50],["Vermont Avenue","#33CCFF",100,50,6,30,90,270,400,550,50,50],["Connecticut Avenue","#33CCFF",120,60,8,40,100,300,450,600,50,50],["St. Charles Place","Pink",140,70,10,50,150,450,625,750,100,100],["States Avenue","Pink",140,70,10,50,150,450,625,750,100,100],["Virginia Avenue","Pink",160,80,12,60,180,500,700,900,100,100],["St. James Place","Orange",180,90,14,70,200,550,750,950,100,100],["Tennessee Avenue","Orange",180,90,14,70,200,550,750,950,100,100],["New York Avenue","Orange",200,100,16,80,220,600,800,1000,100,100],["Kentucky Avenue","Red",220,110,18,90,250,700,875,1050,150,150],["Indiana Avenue","Red",220,110,18,90,250,700,875,1050,150,150],["Illinois Avenue","Red",240,120,20,100,300,750,925,1100,150,150],["Atlantic Avenue","Yellow",260,130,22,110,330,800,975,1150,150,150],["Ventnor Avenue","Yellow",260,130,22,110,330,800,975,1150,150,150],["Marvin Gardens","Yellow",280,140,24,120,360,850,1025,1200,150,150],["Pacific Avenue","Green",300,150,26,130,390,900,1100,1275,200,200],["North Carolina Avenue","Green",300,150,26,130,390,900,1100,1275,200,200],["Pennsylvania Avenue","Green",320,160,28,150,450,1000,1200,1400,200,200],["Park Place","#000099",350,175,35,175,500,1100,1300,1500,200,200],["Boardwalk","#000099",400,200,50,200,600,1400,1700,2000,200,200],["Reading Railroad","Railroad",200,100,25],["Pennsylvania Railroad","Railroad",200,100,25],["B. & O. Railroad","Railroad",200,100,25],["Short Line","Railroad",200,100,25],["Electric Company","Utility",150,75,0],["Water Works","Utility",150,75,0]]
 
+/*
+ This function is used as a sort of API to easily access the big ole jumbled mess up there.
+ */
 function createDeed(deed_value)
 {
     if (deed_value == -1)
@@ -32,6 +35,9 @@ function createDeed(deed_value)
     return deed;
 }
 
+/*
+ And this uses the above function to return a pretty string for debug purposes.
+ */
 function getInfo()
 {
     var output = "";
@@ -52,6 +58,10 @@ function getInfo()
     return output;
 }
 
+/*
+ This does a similar thing to getInfo(), but this time formats the HTML for displaying
+ in the bottom right hand corner in the card stack.
+ */
 function getPrettyDeed()
 {
     var output = "<div class='deed'>";
@@ -120,6 +130,9 @@ function sortNumber(a,b) {
     return a - b;
 }
 
+/*
+    Updates the stack of title deed cards in the bottom right corner.
+ */
 function updateDeedCards(deed_list)
 {
     var output = "";
@@ -169,7 +182,9 @@ function populateBuild()
     select.innerHTML = output;
 }
 
-
+/*
+ These next two functions populate the property selecting dropdowns
+ */
 function populateListing()
 {
     var select = document.getElementById('deedValue');

@@ -27,6 +27,9 @@ function getBills(moneys)
     return cash_array;
 }
 
+/*
+ This function updates the display of the cards
+ */
 function expandMoneys(moneys)
 {
     var cashbox = document.getElementById("cash");

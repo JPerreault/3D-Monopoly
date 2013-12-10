@@ -1,3 +1,6 @@
+/*
+ Sets up the chatbox to receive and send messages when enter (keycode 13) is pressed)
+ */
 function initChat()
 {
     $(document).on("keypress", "#message", function(e) {
@@ -9,6 +12,10 @@ function initChat()
                });
 }
 
+/*
+ Writes a message to the local chat. Is called either locally or from received
+ websocket calls. 
+ */
 function chatMessage(string, sender)
 {
     if (string == "/dance")
