@@ -136,19 +136,16 @@ function move(piece, currentSpace, spaces)
     if (id == currentPlayer)
     {
         currentProp = tileBoard[destSquare].activate();
-        
+
         if (currentProp.cost && !alreadyOwned(destSquare))
         {
             if (currentProp.cost <= players[id].money)
             {
                 //console.log(currentProp.getInfo());
-                
-                players[currentPlayer].addPropertyIndex(currentProp.index);
-                players[currentPlayer].money -= currentProp.cost;
-                updateDisplay();
-                
-                postMessage(username+" purchased "+currentProp.title+" for $"+currentProp.cost, true);
-                chatMessage("You purchased "+currentProp.title+" for $"+currentProp.cost, null);
+                if (players[currentPlayer].username == username)
+				{
+					askToBuy(currentProp);
+				}
             }
         }
         else if(alreadyOwned(destSquare) && players[currentPlayer].properties.indexOf(lookUps[destSquare]) == -1)

@@ -4,6 +4,7 @@
 var players = new Array();
 var tileBoard = new Array();
 var currentPlayer = 0;
+var intents = false;
 
 var houses = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
@@ -434,7 +435,10 @@ function nextPlayer()
     console.log(currentPlayer+1)
     console.log((currentPlayer+1)%numberOfPlayers);
 
-    activePlayer = players[(currentPlayer+1)%numberOfPlayers].username;
+	// change the active player if there are no intents waiting
+	if (!intents)
+    	activePlayer = players[(currentPlayer+1)%numberOfPlayers].username;
+	
     changeHands();
 }
 

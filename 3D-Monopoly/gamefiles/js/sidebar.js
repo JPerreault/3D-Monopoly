@@ -1,4 +1,4 @@
-/* Author: Richard Ayoub
+/* Author: Ricky Ayoub
    Controls the money sidebar. */
 
 var moneys = 703; // placeholder, will be dynamically loaded from current player's money value.
@@ -59,6 +59,5 @@ function expandMoneys(moneys)
     }
     
     money_output = money_output.substring(0, money_output.length - linebreaks.length)
-    
     cashbox.innerHTML = money_output;
 }
