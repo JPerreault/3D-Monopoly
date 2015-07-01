@@ -245,12 +245,15 @@ function askToBuy(property)
 	
 	$.prompt("Would you like to buy "+property.title+" for $"+property.cost+"?<br><br>"+relativeDiv+"<br>", {
 		title: property.title,
-		buttons: { "Yes!": true, "No Thanks": false }
+		buttons: { "Yes!": true, "No Thanks": false },
+		submit: function(e,v,m,f) {
+			doBuyLogic(property, v);
+		}
 	});
 	monopolyDialog();
 }
 
-function doBuyLogic(property, answer)
+function doBuyLogic(currentProp, answer)
 {		
 	if (answer)
 	{
