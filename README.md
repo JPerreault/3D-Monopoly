@@ -3,7 +3,7 @@
 
 Live Demo
 -----------
-A live demo of 3D-Monopoly is available [here](http://octo.vgmoose.com:3000), and is fully functional! You are able to chat with and challenge friends after registering for a (free) account.
+A live demo of 3D-Monopoly is available [here](http://monopoly.rickyayoub.com), and is fully functional! You are able to chat with and challenge friends after registering for a (free) account.
 
 How to run
 -----------
